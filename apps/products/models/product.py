@@ -35,11 +35,6 @@ class Product(SlugModel):
         blank=True,
     )
 
-    video = models.FileField(
-        upload_to=upload_to,
-        blank=True,
-        null=True,
-    )
 
     is_featured = models.BooleanField(
         default=False,

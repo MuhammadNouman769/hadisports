@@ -37,6 +37,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+     # Third-party apps
+    "nested_admin",
+    # Local apps
+
     "apps.utils",
     "apps.main",
     "apps.products",
