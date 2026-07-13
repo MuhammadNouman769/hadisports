@@ -1,11 +1,264 @@
-
 {% load static %}
 <style>
 .logo-img{
     height: 80px!important;
     width: auto;
 }
+
+/* ========================================
+   MEGA MENU - COMPACT & CLEAN
+======================================== */
+.mega-dropdown {
+    position: static !important;
+}
+
+.mega-menu {
+    width: 100%;
+    left: 0;
+    right: 0;
+    padding: 20px 25px !important;
+    background: #ffffff !important;
+    border: none !important;
+    border-radius: 0 0 12px 12px !important;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.10) !important;
+    margin-top: 8px !important;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: block !important;
+    max-height: 75vh;
+    overflow-y: auto;
+}
+
+.mega-dropdown:hover .mega-menu,
+.mega-dropdown.show .mega-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+/* Category Column */
+.mega-category {
+    margin-bottom: 12px !important;
+}
+
+.mega-category-title {
+    color: #81c408 !important;
+    font-weight: 700 !important;
+    font-size: 12px !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.8px !important;
+    margin-bottom: 6px !important;
+    padding-bottom: 4px !important;
+    border-bottom: 1.5px solid rgba(229, 62, 62, 0.10) !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+}
+
+.mega-category-title i {
+    font-size: 13px !important;
+    opacity: 0.8 !important;
+    width: 18px !important;
+}
+
+.mega-link {
+    color: #2d3748 !important;
+    font-weight: 500 !important;
+    font-size: 12.5px !important;
+    line-height: 1.4 !important;
+    padding: 3px 0 !important;
+    display: block !important;
+    text-decoration: none !important;
+    transition: all 0.2s ease !important;
+    position: relative !important;
+    padding-left: 0 !important;
+}
+
+.mega-link:hover {
+    color: #81c408 !important;
+    padding-left: 10px !important;
+    background: none !important;
+}
+
+.mega-link::before {
+    content: '›';
+    position: absolute;
+    left: -4px;
+    opacity: 0;
+    transition: all 0.2s ease;
+    color: #81c408;
+    font-weight: 700;
+}
+
+.mega-link:hover::before {
+    opacity: 1;
+    left: 0;
+}
+
+.mega-link.view-more {
+    color: #81c408 !important;
+    font-weight: 600 !important;
+    font-size: 12px !important;
+    margin-top: 3px !important;
+    border-top: 1px solid #f0f2f5 !important;
+    padding-top: 5px !important;
+}
+
+.mega-link.view-more:hover {
+    padding-left: 10px !important;
+}
+
+/* Sub-category indentation */
+.mega-link.sub-link {
+    padding-left: 14px !important;
+    font-size: 12px !important;
+    color: #4a5568 !important;
+}
+
+.mega-link.sub-link::before {
+    content: '•';
+    left: 2px;
+    font-size: 14px;
+    opacity: 0.6;
+}
+
+.mega-link.sub-link:hover {
+    padding-left: 22px !important;
+    color: #81c408 !important;
+}
+
+.mega-link.sub-link:hover::before {
+    opacity: 1;
+    left: 8px;
+}
+
+/* Scrollbar */
+.mega-menu::-webkit-scrollbar {
+    width: 5px;
+}
+.mega-menu::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+.mega-menu::-webkit-scrollbar-thumb {
+    background: #81c408;
+    border-radius: 10px;
+}
+
+/* Simple Dropdown - Footwear & Others */
+.dropdown-simple {
+    position: relative;
+}
+
+.dropdown-simple .dropdown-menu {
+    background: #ffffff !important;
+    border: none !important;
+    border-radius: 12px !important;
+    box-shadow: 0 15px 50px rgba(0,0,0,0.10) !important;
+    padding: 8px 0 !important;
+    min-width: 220px !important;
+    margin-top: 8px !important;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(8px);
+    transition: all 0.3s ease;
+    display: block !important;
+}
+
+.dropdown-simple:hover .dropdown-menu,
+.dropdown-simple.show .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.dropdown-simple .dropdown-item {
+    color: #2d3748 !important;
+    font-weight: 500 !important;
+    padding: 6px 20px !important;
+    transition: all 0.2s ease !important;
+    font-size: 13px !important;
+    line-height: 1.4 !important;
+}
+
+.dropdown-simple .dropdown-item:hover {
+    color: #81c408 !important;
+    background: rgba(229, 62, 62, 0.06) !important;
+    padding-left: 28px !important;
+}
+
+/* Mobile Responsive */
+@media (max-width: 991.98px) {
+    .mega-menu {
+        position: static !important;
+        padding: 15px !important;
+        box-shadow: none !important;
+        border-radius: 0 !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        transform: none !important;
+        background: #f8fafc !important;
+        margin-top: 0 !important;
+        display: none !important;
+        max-height: none !important;
+        overflow-y: visible !important;
+    }
+    
+    .mega-dropdown.show .mega-menu {
+        display: block !important;
+    }
+    
+    .mega-category {
+        margin-bottom: 10px !important;
+    }
+    
+    .mega-category-title {
+        font-size: 11px !important;
+    }
+    
+    .mega-link {
+        font-size: 12px !important;
+        padding: 2px 0 !important;
+    }
+
+    .dropdown-simple .dropdown-menu {
+        position: static !important;
+        box-shadow: none !important;
+        padding: 5px 0 5px 15px !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        transform: none !important;
+        background: #f8fafc !important;
+        border-radius: 0 !important;
+        display: none !important;
+    }
+
+    .dropdown-simple.show .dropdown-menu {
+        display: block !important;
+    }
+
+    .dropdown-simple .dropdown-item {
+        padding: 4px 16px !important;
+        font-size: 12px !important;
+    }
+}
+
+/* Topbar styles */
+.topbar {
+    background: #81c408 !important;
+}
+.topbar a {
+    color: #fff !important;
+    text-decoration: none;
+}
+.topbar .top-info small,
+.topbar .top-link small {
+    font-size: 12px;
+}
 </style>
+
 <header>
     <!-- Spinner Start -->
     <div id="spinner" class="show w-100 vh-100 bg-white position-fixed translate-middle top-50 start-50 d-flex align-items-center justify-content-center">
@@ -29,8 +282,7 @@
                 </div>
                 <div class="top-link pe-2">
                     <a href="#" class="text-white"><small class="text-white mx-2">Privacy Policy</small>/</a>
-                    <a href="#" class="text-white"><small class="text-white mx-2">Terms of Use</small>/</a>
-                    <a href="#" class="text-white"><small class="text-white ms-2">Sales and Refunds</small></a>
+                    <a href="#" class="text-white"><small class="text-white mx-2">Terms of Use</small></a>
                 </div>
             </div>
         </div>
@@ -50,20 +302,436 @@
 
                 <div class="collapse navbar-collapse bg-white" id="navbarCollapse">
                     <div class="navbar-nav mx-auto">
-                        <a href="index.html" class="nav-item nav-link active">Home</a>
-                        <a href="{% url 'product-list' %}" class="nav-item nav-link">Products</a>
+                        <a href="{% url 'home' %}" class="nav-item nav-link active">Home</a>
+                        
+                        <!-- ======================================== -->
+                        <!-- PRODUCTS - MEGA MENU (18 SPORTS)        -->
+                        <!-- ======================================== -->
+                        <div class="nav-item mega-dropdown">
+                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                                Products
+                            </a>
+                            <div class="dropdown-menu mega-menu">
+                                <div class="row g-2">
+
+                                    <!-- BADMINTON -->
+                                    <div class="col-xl-2 col-lg-3 col-md-4 col-6">
+                                        <div class="mega-category">
+                                            <div class="mega-category-title"><i class="fas fa-shuttlecock"></i> Badminton</div>
+                                            <a href="#" class="mega-link">Badminton Accessories</a>
+                                            <a href="#" class="mega-link">Badminton Clothing</a>
+                                            <a href="#" class="mega-link">Badminton Footwear</a>
+                                            <a href="#" class="mega-link">Badminton Racket Bags</a>
+                                            <a href="#" class="mega-link">Badminton Racket Strings</a>
+                                            <a href="#" class="mega-link view-more">View More →</a>
+                                        </div>
+                                    </div>
+
+                                    <!-- TENNIS -->
+                                    <div class="col-xl-2 col-lg-3 col-md-4 col-6">
+                                        <div class="mega-category">
+                                            <div class="mega-category-title"><i class="fas fa-table-tennis"></i> Tennis</div>
+                                            <a href="#" class="mega-link">Tennis Accessories</a>
+                                            <a href="#" class="mega-link">Tennis Balls</a>
+                                            <a href="#" class="mega-link">Tennis Clothing</a>
+                                            <a href="#" class="mega-link">Tennis Footwear</a>
+                                            <a href="#" class="mega-link">Tennis Racket Bags</a>
+                                            <a href="#" class="mega-link view-more">View More →</a>
+                                        </div>
+                                    </div>
+
+                                    <!-- BOXING & MMA -->
+                                    <div class="col-xl-2 col-lg-3 col-md-4 col-6">
+                                        <div class="mega-category">
+                                            <div class="mega-category-title"><i class="fas fa-fist-raised"></i> Boxing & MMA</div>
+                                            <a href="#" class="mega-link">Boxing & MMA Accessories</a>
+                                            <a href="#" class="mega-link">Boxing & MMA Clothing</a>
+                                            <a href="#" class="mega-link">Boxing Gloves</a>
+                                            <a href="#" class="mega-link">Boxing Sets</a>
+                                            <a href="#" class="mega-link">MMA Gloves</a>
+                                            <a href="#" class="mega-link view-more">View More →</a>
+                                        </div>
+                                    </div>
+
+                                    <!-- CAMPING & HIKING -->
+                                    <div class="col-xl-2 col-lg-3 col-md-4 col-6">
+                                        <div class="mega-category">
+                                            <div class="mega-category-title"><i class="fas fa-campground"></i> Camping & Hiking</div>
+                                            <a href="#" class="mega-link">Accessories</a>
+                                            <a href="#" class="mega-link">Bags & Backpacks</a>
+                                            <a href="#" class="mega-link">Camping & Hiking Clothing</a>
+                                            <a href="#" class="mega-link">Coolers</a>
+                                            <a href="#" class="mega-link">Sleeping Bags & Bedding</a>
+                                            <a href="#" class="mega-link view-more">View More →</a>
+                                        </div>
+                                    </div>
+
+                                    <!-- CRICKET -->
+                                    <div class="col-xl-2 col-lg-3 col-md-4 col-6">
+                                        <div class="mega-category">
+                                            <div class="mega-category-title"><i class="fas fa-baseball-ball"></i> Cricket</div>
+                                            <a href="#" class="mega-link">Batting Equipment</a>
+                                            <a href="#" class="mega-link">Cricket Accessories</a>
+                                            <a href="#" class="mega-link">Cricket Bags</a>
+                                            <a href="#" class="mega-link">Cricket Balls</a>
+                                            <a href="#" class="mega-link">Cricket Bats</a>
+                                            <a href="#" class="mega-link view-more">View More →</a>
+                                        </div>
+                                    </div>
+
+                                    <!-- CYCLING -->
+                                    <div class="col-xl-2 col-lg-3 col-md-4 col-6">
+                                        <div class="mega-category">
+                                            <div class="mega-category-title"><i class="fas fa-bicycle"></i> Cycling</div>
+                                            <a href="#" class="mega-link">Bike Computers</a>
+                                            <a href="#" class="mega-link">Bike Racks</a>
+                                            <a href="#" class="mega-link">Bikes</a>
+                                            <a href="#" class="mega-link">Cycling Accessories</a>
+                                            <a href="#" class="mega-link">Cycling Clothing</a>
+                                            <a href="#" class="mega-link view-more">View More →</a>
+                                        </div>
+                                    </div>
+
+                                    <!-- FITNESS & EXERCISE -->
+                                    <div class="col-xl-2 col-lg-3 col-md-4 col-6">
+                                        <div class="mega-category">
+                                            <div class="mega-category-title"><i class="fas fa-dumbbell"></i> Fitness & Exercise</div>
+                                            <a href="#" class="mega-link">Cardio Equipment</a>
+                                            <a href="#" class="mega-link">Commercial Fitness Equipment</a>
+                                            <a href="#" class="mega-link">Fitness Gear & Supports</a>
+                                            <a href="#" class="mega-link">Gym & Weight Balls</a>
+                                            <a href="#" class="mega-link">Gym & Yoga Wear</a>
+                                            <a href="#" class="mega-link view-more">View More →</a>
+                                        </div>
+                                    </div>
+
+                                    <!-- GOLF -->
+                                    <div class="col-xl-2 col-lg-3 col-md-4 col-6">
+                                        <div class="mega-category">
+                                            <div class="mega-category-title"><i class="fas fa-golf-ball"></i> Golf</div>
+                                            <a href="#" class="mega-link">Golf Accessories</a>
+                                            <a href="#" class="mega-link">Golf Bags</a>
+                                            <a href="#" class="mega-link">Golf Balls</a>
+                                            <a href="#" class="mega-link">Golf Clothing</a>
+                                            <a href="#" class="mega-link">Golf Drivers</a>
+                                            <a href="#" class="mega-link view-more">View More →</a>
+                                        </div>
+                                    </div>
+
+                                    <!-- SWIMMING -->
+                                    <div class="col-xl-2 col-lg-3 col-md-4 col-6">
+                                        <div class="mega-category">
+                                            <div class="mega-category-title"><i class="fas fa-swimmer"></i> Swimming</div>
+                                            <a href="#" class="mega-link">Boy's Swimwear</a>
+                                            <a href="#" class="mega-link">Girl's Swimwear</a>
+                                            <a href="#" class="mega-link">Men's Swimwear</a>
+                                            <a href="#" class="mega-link">Swimming Accessories</a>
+                                            <a href="#" class="mega-link">Swimming and Beach Footwear</a>
+                                            <a href="#" class="mega-link view-more">View More →</a>
+                                        </div>
+                                    </div>
+
+                                    <!-- YOGA -->
+                                    <div class="col-xl-2 col-lg-3 col-md-4 col-6">
+                                        <div class="mega-category">
+                                            <div class="mega-category-title"><i class="fas fa-pray"></i> Yoga</div>
+                                            <a href="#" class="mega-link">Gym and Yoga Wear</a>
+                                            <a href="#" class="mega-link">Water Bottles</a>
+                                            <a href="#" class="mega-link">Yoga Accessories</a>
+                                            <a href="#" class="mega-link">Yoga Blankets</a>
+                                            <a href="#" class="mega-link">Yoga Blocks</a>
+                                            <a href="#" class="mega-link view-more">View More →</a>
+                                        </div>
+                                    </div>
+
+                                    <!-- SQUASH -->
+                                    <div class="col-xl-2 col-lg-3 col-md-4 col-6">
+                                        <div class="mega-category">
+                                            <div class="mega-category-title"><i class="fas fa-racquet"></i> Squash</div>
+                                            <a href="#" class="mega-link">Squash Accessories</a>
+                                            <a href="#" class="mega-link">Squash Balls</a>
+                                            <a href="#" class="mega-link">Squash Clothing</a>
+                                            <a href="#" class="mega-link">Squash Footwear</a>
+                                            <a href="#" class="mega-link">Squash Racket Bags</a>
+                                            <a href="#" class="mega-link view-more">View More →</a>
+                                        </div>
+                                    </div>
+
+                                    <!-- TABLE TENNIS -->
+                                    <div class="col-xl-2 col-lg-3 col-md-4 col-6">
+                                        <div class="mega-category">
+                                            <div class="mega-category-title"><i class="fas fa-table-tennis"></i> Table Tennis</div>
+                                            <a href="#" class="mega-link">Table Tennis Accessories</a>
+                                            <a href="#" class="mega-link">Table Tennis Balls</a>
+                                            <a href="#" class="mega-link">Table Tennis Blades</a>
+                                            <a href="#" class="mega-link">Table Tennis Footwear</a>
+                                            <a href="#" class="mega-link">Table Tennis Rackets</a>
+                                            <a href="#" class="mega-link view-more">View More →</a>
+                                        </div>
+                                    </div>
+
+                                    <!-- BASKETBALL -->
+                                    <div class="col-xl-2 col-lg-3 col-md-4 col-6">
+                                        <div class="mega-category">
+                                            <div class="mega-category-title"><i class="fas fa-basketball-ball"></i> Basketball</div>
+                                            <a href="#" class="mega-link">Basketball Accessories</a>
+                                            <a href="#" class="mega-link">Basketball Hoops</a>
+                                            <a href="#" class="mega-link">Basketballs</a>
+                                            <a href="#" class="mega-link view-more">View More →</a>
+                                        </div>
+                                    </div>
+
+                                    <!-- PADEL TENNIS -->
+                                    <div class="col-xl-2 col-lg-3 col-md-4 col-6">
+                                        <div class="mega-category">
+                                            <div class="mega-category-title"><i class="fas fa-table-tennis"></i> Padel Tennis</div>
+                                            <a href="#" class="mega-link">Padel Accessories</a>
+                                            <a href="#" class="mega-link">Padel Balls</a>
+                                            <a href="#" class="mega-link">Padel Footwear</a>
+                                            <a href="#" class="mega-link">Padel Overgrips</a>
+                                            <a href="#" class="mega-link">Padel Racket Bags</a>
+                                            <a href="#" class="mega-link view-more">View More →</a>
+                                        </div>
+                                    </div>
+
+                                    <!-- FOOTBALL -->
+                                    <div class="col-xl-2 col-lg-3 col-md-4 col-6">
+                                        <div class="mega-category">
+                                            <div class="mega-category-title"><i class="fas fa-futbol"></i> Football</div>
+                                            <a href="#" class="mega-link">Football Accessories</a>
+                                            <a href="#" class="mega-link">Football Footwear</a>
+                                            <a href="#" class="mega-link">Football Training</a>
+                                            <a href="#" class="mega-link">Footballs</a>
+                                            <a href="#" class="mega-link">Futsal Balls</a>
+                                            <a href="#" class="mega-link view-more">View More →</a>
+                                        </div>
+                                    </div>
+
+                                    <!-- RUNNING -->
+                                    <div class="col-xl-2 col-lg-3 col-md-4 col-6">
+                                        <div class="mega-category">
+                                            <div class="mega-category-title"><i class="fas fa-running"></i> Running</div>
+                                            <a href="#" class="mega-link">Activity Trackers</a>
+                                            <a href="#" class="mega-link">Running Clothing</a>
+                                            <a href="#" class="mega-link">Running Footwear</a>
+                                            <a href="#" class="mega-link view-more">View More →</a>
+                                        </div>
+                                    </div>
+
+                                    <!-- SNOOKER & POOL -->
+                                    <div class="col-xl-2 col-lg-3 col-md-4 col-6">
+                                        <div class="mega-category">
+                                            <div class="mega-category-title"><i class="fas fa-billiard-ball"></i> Snooker & Pool</div>
+                                            <a href="#" class="mega-link">Accessories</a>
+                                            <a href="#" class="mega-link">Cue Cases</a>
+                                            <a href="#" class="mega-link">Pool Tables</a>
+                                            <a href="#" class="mega-link view-more">View More →</a>
+                                        </div>
+                                    </div>
+
+                                    <!-- HOCKEY -->
+                                    <div class="col-xl-2 col-lg-3 col-md-4 col-6">
+                                        <div class="mega-category">
+                                            <div class="mega-category-title"><i class="fas fa-hockey-stick"></i> Hockey</div>
+                                            <a href="#" class="mega-link">Hockey Bags</a>
+                                            <a href="#" class="mega-link">Hockey Gloves</a>
+                                            <a href="#" class="mega-link">Hockey Grips</a>
+                                            <a href="#" class="mega-link">Hockey Sticks</a>
+                                            <a href="#" class="mega-link view-more">View More →</a>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <!-- ======================================== -->
+                        <!-- END PRODUCTS MEGA MENU                   -->
+                        <!-- ======================================== -->
+
+                        <!-- ======================================== -->
+                        <!-- FOOTWEAR - SIMPLE DROPDOWN              -->
+                        <!-- ======================================== -->
+                        <div class="nav-item dropdown-simple">
+                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                                Footwear
+                            </a>
+                            <div class="dropdown-menu">
+                                <a href="#" class="dropdown-item">Badminton Footwear</a>
+                                <a href="#" class="dropdown-item">Cricket Footwear</a>
+                                <a href="#" class="dropdown-item">Golf Footwear</a>
+                                <a href="#" class="dropdown-item">Football Footwear</a>
+                                <a href="#" class="dropdown-item">Running Footwear</a>
+                                <a href="#" class="dropdown-item">Squash Footwear</a>
+                                <a href="#" class="dropdown-item">Tennis Footwear</a>
+                                <a href="#" class="dropdown-item">Trekking Footwear</a>
+                                <a href="#" class="dropdown-item">Basketball Footwear</a>
+                                <a href="#" class="dropdown-item">Padel Footwear</a>
+                                <a href="#" class="dropdown-item">Table Tennis Footwear</a>
+                                <a href="#" class="dropdown-item">Swimming Beach Footwear</a>
+                            </div>
+                        </div>
+                        <!-- ======================================== -->
+                        <!-- END FOOTWEAR                            -->
+                        <!-- ======================================== -->
+
+                        <!-- ======================================== -->
+                        <!-- ACCESSORIES - MEGA MENU                 -->
+                        <!-- ======================================== -->
+                        <div class="nav-item mega-dropdown">
+                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                                Accessories
+                            </a>
+                            <div class="dropdown-menu mega-menu">
+                                <div class="row g-2">
+
+                                    <!-- BAGS & BACKPACKS -->
+                                    <div class="col-xl-2 col-lg-3 col-md-4 col-6">
+                                        <div class="mega-category">
+                                            <div class="mega-category-title"><i class="fas fa-bag"></i> Bags & Backpacks</div>
+                                            <a href="#" class="mega-link">Sports Bags</a>
+                                            <a href="#" class="mega-link">Gym Bags</a>
+                                            <a href="#" class="mega-link">Backpacks</a>
+                                            <a href="#" class="mega-link">Duffel Bags</a>
+                                            <a href="#" class="mega-link">Tennis Racket Bags</a>
+                                            <a href="#" class="mega-link">Badminton Racket Bags</a>
+                                            <a href="#" class="mega-link view-more">View More →</a>
+                                        </div>
+                                    </div>
+
+                                    <!-- SPORTS EYEWEAR -->
+                                    <div class="col-xl-2 col-lg-3 col-md-4 col-6">
+                                        <div class="mega-category">
+                                            <div class="mega-category-title"><i class="fas fa-eye"></i> Sports Eyewear</div>
+                                            <a href="#" class="mega-link">Goggles</a>
+                                            <a href="#" class="mega-link">Prescription Goggles</a>
+                                            <a href="#" class="mega-link">Protective Eyewear</a>
+                                            <a href="#" class="mega-link">Sunglasses</a>
+                                            <a href="#" class="mega-link view-more">View More →</a>
+                                        </div>
+                                    </div>
+
+                                    <!-- SPORTS WATCHES -->
+                                    <div class="col-xl-2 col-lg-3 col-md-4 col-6">
+                                        <div class="mega-category">
+                                            <div class="mega-category-title"><i class="fas fa-clock"></i> Sports Watches</div>
+                                            <a href="#" class="mega-link">Activity Trackers</a>
+                                            <a href="#" class="mega-link">Sport Watches For Men</a>
+                                            <a href="#" class="mega-link">Sport Watches For Women</a>
+                                            <a href="#" class="mega-link view-more">View More →</a>
+                                        </div>
+                                    </div>
+
+                                    <!-- CAPS -->
+                                    <div class="col-xl-2 col-lg-3 col-md-4 col-6">
+                                        <div class="mega-category">
+                                            <div class="mega-category-title"><i class="fas fa-hat-cowboy"></i> Caps</div>
+                                            <a href="#" class="mega-link">Baseball Caps</a>
+                                            <a href="#" class="mega-link">Running Caps</a>
+                                            <a href="#" class="mega-link">Golf Caps</a>
+                                            <a href="#" class="mega-link">Sports Caps</a>
+                                            <a href="#" class="mega-link view-more">View More →</a>
+                                        </div>
+                                    </div>
+
+                                    <!-- SHAKERS -->
+                                    <div class="col-xl-2 col-lg-3 col-md-4 col-6">
+                                        <div class="mega-category">
+                                            <div class="mega-category-title"><i class="fas fa-shaker"></i> Shakers</div>
+                                            <a href="#" class="mega-link">Shakers (upto 500 ml)</a>
+                                            <a href="#" class="mega-link">Shakers (501-750 ml)</a>
+                                            <a href="#" class="mega-link">Shakers (751-1000 ml)</a>
+                                            <a href="#" class="mega-link">Shakers (1001-1250 ml)</a>
+                                            <a href="#" class="mega-link">Shakers (1251-1500 ml)</a>
+                                            <a href="#" class="mega-link view-more">View More →</a>
+                                        </div>
+                                    </div>
+
+                                    <!-- WATER BOTTLES -->
+                                    <div class="col-xl-2 col-lg-3 col-md-4 col-6">
+                                        <div class="mega-category">
+                                            <div class="mega-category-title"><i class="fas fa-tint"></i> Water Bottles</div>
+                                            <a href="#" class="mega-link">500 ml and Below</a>
+                                            <a href="#" class="mega-link">501 to 1000 ml</a>
+                                            <a href="#" class="mega-link">1001 to 1500 ml</a>
+                                            <a href="#" class="mega-link">1501 to 2000 ml</a>
+                                            <a href="#" class="mega-link view-more">View More →</a>
+                                        </div>
+                                    </div>
+
+                                    <!-- HEADBANDS & HAIRBANDS -->
+                                    <div class="col-xl-2 col-lg-3 col-md-4 col-6">
+                                        <div class="mega-category">
+                                            <div class="mega-category-title"><i class="fas fa-headband"></i> Headbands</div>
+                                            <a href="#" class="mega-link">Cotton Headbands</a>
+                                            <a href="#" class="mega-link">Elastic Headbands</a>
+                                            <a href="#" class="mega-link">Sports Hairbands</a>
+                                            <a href="#" class="mega-link">Sweat Bands</a>
+                                            <a href="#" class="mega-link view-more">View More →</a>
+                                        </div>
+                                    </div>
+
+                                    <!-- SOCKS -->
+                                    <div class="col-xl-2 col-lg-3 col-md-4 col-6">
+                                        <div class="mega-category">
+                                            <div class="mega-category-title"><i class="fas fa-socks"></i> Socks</div>
+                                            <a href="#" class="mega-link">Football Socks</a>
+                                            <a href="#" class="mega-link">Running Socks</a>
+                                            <a href="#" class="mega-link">Tennis Socks</a>
+                                            <a href="#" class="mega-link">Gym Socks</a>
+                                            <a href="#" class="mega-link view-more">View More →</a>
+                                        </div>
+                                    </div>
+
+                                    <!-- TOWELS -->
+                                    <div class="col-xl-2 col-lg-3 col-md-4 col-6">
+                                        <div class="mega-category">
+                                            <div class="mega-category-title"><i class="fas fa-towel"></i> Towels</div>
+                                            <a href="#" class="mega-link">Gym Towels</a>
+                                            <a href="#" class="mega-link">Swimming Towels</a>
+                                            <a href="#" class="mega-link">Sports Towels</a>
+                                            <a href="#" class="mega-link view-more">View More →</a>
+                                        </div>
+                                    </div>
+
+                                    <!-- POCKET TOOLS -->
+                                    <div class="col-xl-2 col-lg-3 col-md-4 col-6">
+                                        <div class="mega-category">
+                                            <div class="mega-category-title"><i class="fas fa-tools"></i> Pocket Tools</div>
+                                            <a href="#" class="mega-link">Multi-tools</a>
+                                            <a href="#" class="mega-link">Keychain Tools</a>
+                                            <a href="#" class="mega-link">Sports Tools</a>
+                                            <a href="#" class="mega-link view-more">View More →</a>
+                                        </div>
+                                    </div>
+
+                                    <!-- STORAGE -->
+                                    <div class="col-xl-2 col-lg-3 col-md-4 col-6">
+                                        <div class="mega-category">
+                                            <div class="mega-category-title"><i class="fas fa-box"></i> Storage</div>
+                                            <a href="#" class="mega-link">Equipment Storage</a>
+                                            <a href="#" class="mega-link">Gear Organizers</a>
+                                            <a href="#" class="mega-link">Sports Containers</a>
+                                            <a href="#" class="mega-link view-more">View More →</a>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <!-- ======================================== -->
+                        <!-- END ACCESSORIES MEGA MENU                -->
+                        <!-- ======================================== -->
+
                         <a href="{% url 'product-detail' %}" class="nav-item nav-link">Product Detail</a>
                         <a href="{% url 'cart' %}" class="nav-item nav-link">Cart</a>
 
-                        <div class="nav-item dropdown">
+                        <div class="nav-item dropdown-simple">
                             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
-                            <div class="dropdown-menu m-0 bg-secondary rounded-0">
-
+                            <div class="dropdown-menu">
                                 <a href="{% url 'checkout' %}" class="dropdown-item">Checkout</a>
                                 <a href="{% url 'testimonial' %}" class="dropdown-item">Testimonial</a>
                                 <a href="{% url 'error' %}" class="dropdown-item">404 Page</a>
                                 <a href="{% url 'errors' %}" class="dropdown-item">500 Page</a>
-                                
                             </div>
                         </div>
 
@@ -85,15 +753,11 @@
                             </span>
                         </a>
 
-                        <a href="#" class="my-auto">
-                            <i class="fas fa-user fa-2x"></i>
-                        </a>
                     </div>
                 </div>
             </nav>
         </div>
     </div>
     <!-- Navbar End -->
-
 
 </header>

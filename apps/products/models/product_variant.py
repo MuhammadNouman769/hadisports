@@ -1,22 +1,41 @@
 from django.db import models
-
-from apps.utils.models import SlugModel
-from apps.utils.helpers import upload_to
-from apps.products.models.product_category import Category
+from apps.utils.models import BaseModel
 from apps.products.models.product import Product
+from apps.products.models.product_option import ProductOptionValue
+from apps.utils.helpers import upload_to
 
-""" ======================== Product Variant ==================== """
 
-class ProductVariant(models.Model):
+""" ==================== Product Variant ========================== """
+
+class ProductVariant(BaseModel):
     product = models.ForeignKey(
         Product,
         on_delete=models.CASCADE,
         related_name="variants",
     )
 
-    sku = models.CharField(
-        max_length=80,
-        unique=True,
+    option_1_value = models.ForeignKey(
+        ProductOptionValue,
+        on_delete=models.PROTECT,
+        related_name="primary_variants",
+        blank=True,
+        null=True,
+    )
+
+    option_2_value = models.ForeignKey(
+        ProductOptionValue,
+        on_delete=models.PROTECT,
+        related_name="secondary_variants",
+        blank=True,
+        null=True,
+    )
+
+    option_3_value = models.ForeignKey(
+        ProductOptionValue,
+        on_delete=models.PROTECT,
+        related_name="tertiary_variants",
+        blank=True,
+        null=True,
     )
 
     price = models.DecimalField(
@@ -31,7 +50,7 @@ class ProductVariant(models.Model):
         null=True,
     )
 
-    quantity = models.PositiveIntegerField(
+    stock = models.PositiveIntegerField(
         default=0,
     )
 
@@ -46,64 +65,50 @@ class ProductVariant(models.Model):
         default=False,
     )
 
-    is_active = models.BooleanField(
-        default=True,
-    )
-
-    created_at = models.DateTimeField(
-        auto_now_add=True,
-    )
-
-    updated_at = models.DateTimeField(
-        auto_now=True,
-    )
-
     class Meta:
-        db_table = "catalog_product_variants"
-        ordering = ["id"]
+        db_table = "product_variants"
+
+        verbose_name = "Product Variant"
+        verbose_name_plural = "Product Variants"
+
+        ordering = [
+            "id",
+        ]
 
         indexes = [
             models.Index(fields=["product"]),
-            models.Index(fields=["sku"]),
+            models.Index(fields=["price"]),
+            models.Index(fields=["stock"]),
             models.Index(fields=["is_active"]),
         ]
 
-    def __str__(self):
-        return f"{self.product.name} ({self.sku})"
+    @property
+    def in_stock(self):
+        return self.stock > 0
 
+    @property
+    def discount_amount(self):
+        if self.compare_price:
+            return self.compare_price - self.price
+        return 0
 
-# ==========================================================
-# Variant Attribute
-# ==========================================================
-
-class VariantAttribute(models.Model):
-    variant = models.ForeignKey(
-        ProductVariant,
-        on_delete=models.CASCADE,
-        related_name="attributes",
-    )
-
-    name = models.CharField(
-        max_length=100,
-    )
-
-    value = models.CharField(
-        max_length=150,
-    )
-
-    class Meta:
-        db_table = "catalog_variant_attributes"
-        ordering = ["id"]
+    @property
+    def discount_percentage(self):
+        if self.compare_price:
+            return round(
+                ((self.compare_price - self.price) / self.compare_price) * 100
+            )
+        return 0
 
     def __str__(self):
-        return f"{self.name}: {self.value}"
+        return f"{self.product.name} Variant"
 
 
-# ==========================================================
-# Variant Image
-# ==========================================================
 
-class VariantImage(models.Model):
+
+""" ======================= Variant Image ========================== """
+
+class VariantImage(BaseModel):
     variant = models.ForeignKey(
         ProductVariant,
         on_delete=models.CASCADE,
@@ -123,13 +128,89 @@ class VariantImage(models.Model):
         default=False,
     )
 
-    sort_order = models.PositiveIntegerField(
+    sort_order = models.PositiveSmallIntegerField(
         default=0,
     )
 
     class Meta:
-        db_table = "catalog_variant_images"
-        ordering = ["sort_order", "id"]
+        db_table = "variant_images"
+
+        verbose_name = "Variant Image"
+        verbose_name_plural = "Variant Images"
+
+        ordering = (
+            "sort_order",
+            "id",
+        )
+
+        indexes = [
+            models.Index(fields=["variant"]),
+            models.Index(fields=["is_primary"]),
+            models.Index(fields=["sort_order"]),
+            models.Index(fields=["is_active"]),
+        ]
+
+    def save(self, *args, **kwargs):
+        """
+        Ensure only one primary image per variant.
+        """
+
+        if self.is_primary:
+            VariantImage.objects.filter(
+                variant=self.variant,
+                is_primary=True,
+            ).exclude(
+                pk=self.pk,
+            ).update(
+                is_primary=False,
+            )
+
+        super().save(*args, **kwargs)
 
     def __str__(self):
-        return self.variant.product.name
+        return f"{self.variant.product.name} Image"
+
+
+
+""" ======================== Variant Option Value ======================= """
+
+class VariantOptionValue(BaseModel):
+    variant = models.ForeignKey(
+        ProductVariant,
+        on_delete=models.CASCADE,
+        related_name="extra_options",
+    )
+
+    option_value = models.ForeignKey(
+        ProductOptionValue,
+        on_delete=models.PROTECT,
+        related_name="variant_options",
+    )
+
+    class Meta:
+        db_table = "variant_option_values"
+
+        verbose_name = "Variant Option Value"
+        verbose_name_plural = "Variant Option Values"
+
+        ordering = (
+            "id",
+        )
+
+        constraints = [
+            models.UniqueConstraint(
+                fields=["variant", "option_value"],
+                name="unique_variant_option_value",
+            )
+        ]
+
+        indexes = [
+            models.Index(fields=["variant"]),
+            models.Index(fields=["option_value"]),
+            models.Index(fields=["is_active"]),
+        ]
+
+    def __str__(self):
+        return f"{self.variant.product.name} - {self.option_value}"
+
+
