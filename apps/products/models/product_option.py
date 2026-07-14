@@ -1,10 +1,27 @@
 from django.db import models
+
 from apps.utils.models import BaseModel
 from apps.products.models.product import Product
 
 
+"""
+===============================================================================
+                                PRODUCT OPTION
+===============================================================================
 
-""" ====================== Product Option ============================= """
+Example
+
+Product: Nike Air Max
+
+Options
+
+• Color
+• Size
+• Material
+
+===============================================================================
+"""
+
 
 class ProductOption(BaseModel):
     product = models.ForeignKey(
@@ -17,17 +34,18 @@ class ProductOption(BaseModel):
         max_length=100,
     )
 
-    sort_order = models.PositiveIntegerField(
+    position = models.PositiveSmallIntegerField(
         default=0,
     )
 
     class Meta:
         db_table = "product_options"
+
         verbose_name = "Product Option"
         verbose_name_plural = "Product Options"
 
         ordering = (
-            "sort_order",
+            "position",
             "id",
         )
 
@@ -40,17 +58,52 @@ class ProductOption(BaseModel):
 
         indexes = [
             models.Index(fields=["product"]),
-            models.Index(fields=["name"]),
-            models.Index(fields=["sort_order"]),
+            models.Index(fields=["position"]),
             models.Index(fields=["is_active"]),
         ]
 
+    def clean(self):
+        """
+        Limit product to maximum 3 options.
+
+        Shopify also limits variants to 3 options.
+        """
+
+        from django.core.exceptions import ValidationError
+
+        if not self.pk:
+            count = ProductOption.objects.filter(
+                product=self.product,
+                is_active=True,
+            ).count()
+
+            if count >= 3:
+                raise ValidationError(
+                    "A product can have a maximum of 3 options."
+                )
+
     def __str__(self):
-        return f"{self.product.name} - {self.name}"
+        return f"{self.product.name} • {self.name}"
 
 
+"""
+===============================================================================
+                            PRODUCT OPTION VALUE
+===============================================================================
 
-""" ================================ Product Option Value ================================= """
+Example
+
+Option : Color
+
+Values
+
+Red
+Blue
+Black
+
+===============================================================================
+"""
+
 
 class ProductOptionValue(BaseModel):
     option = models.ForeignKey(
@@ -63,17 +116,18 @@ class ProductOptionValue(BaseModel):
         max_length=100,
     )
 
-    sort_order = models.PositiveIntegerField(
+    position = models.PositiveSmallIntegerField(
         default=0,
     )
 
     class Meta:
         db_table = "product_option_values"
+
         verbose_name = "Product Option Value"
         verbose_name_plural = "Product Option Values"
 
         ordering = (
-            "sort_order",
+            "position",
             "id",
         )
 
@@ -86,10 +140,13 @@ class ProductOptionValue(BaseModel):
 
         indexes = [
             models.Index(fields=["option"]),
-            models.Index(fields=["value"]),
-            models.Index(fields=["sort_order"]),
+            models.Index(fields=["position"]),
             models.Index(fields=["is_active"]),
         ]
 
+    @property
+    def product(self):
+        return self.option.product
+
     def __str__(self):
-        return f"{self.option.name}: {self.value}"        
+        return f"{self.option.name}: {self.value}"

@@ -1,0 +1,574 @@
+# scripts/load_categories.py
+import os
+import sys
+import django
+from django.utils.text import slugify
+from django.utils import timezone
+
+# ==========================================================
+# DJANGO SETTINGS LOAD KAREIN
+# ==========================================================
+
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.append(BASE_DIR)
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'core.settings')
+django.setup()
+
+# ==========================================================
+# IMPORTS
+# ==========================================================
+from apps.products.models.product_category import ProductCategory
+
+
+# ==========================================================
+# HELPER FUNCTION - Generate Unique Slug
+# ==========================================================
+def generate_unique_slug(title, parent=None):
+    """Generate a unique slug for category"""
+    base_slug = slugify(title)
+    slug = base_slug
+    counter = 1
+    
+    # Check if slug exists
+    while ProductCategory.objects.filter(slug=slug).exists():
+        slug = f"{base_slug}-{counter}"
+        counter += 1
+    
+    return slug
+
+
+# ==========================================================
+# CATEGORIES DATA
+# ==========================================================
+
+# 1. MAIN SPORTS CATEGORIES
+MAIN_CATEGORIES = {
+    "Badminton": {
+        "icon": "shuttlecock",
+        "sub_categories": [
+            "Badminton Accessories",
+            "Badminton Clothing",
+            "Badminton Footwear",
+            "Badminton Racket Bags",
+            "Badminton Racket Strings"
+        ]
+    },
+    "Tennis": {
+        "icon": "table-tennis",
+        "sub_categories": [
+            "Tennis Accessories",
+            "Tennis Balls",
+            "Tennis Clothing",
+            "Tennis Footwear",
+            "Tennis Racket Bags"
+        ]
+    },
+    "Boxing & MMA": {
+        "icon": "fist-raised",
+        "sub_categories": [
+            "Boxing & MMA Accessories",
+            "Boxing & MMA Clothing",
+            "Boxing Gloves",
+            "Boxing Sets",
+            "MMA Gloves"
+        ]
+    },
+    "Camping & Hiking": {
+        "icon": "campground",
+        "sub_categories": [
+            "Accessories",
+            "Bags & Backpacks",
+            "Camping & Hiking Clothing",
+            "Coolers",
+            "Sleeping Bags & Bedding"
+        ]
+    },
+    "Cricket": {
+        "icon": "baseball-ball",
+        "sub_categories": [
+            "Batting Equipment",
+            "Cricket Accessories",
+            "Cricket Bags",
+            "Cricket Balls",
+            "Cricket Bats"
+        ]
+    },
+    "Cycling": {
+        "icon": "bicycle",
+        "sub_categories": [
+            "Bike Computers",
+            "Bike Racks",
+            "Bikes",
+            "Cycling Accessories",
+            "Cycling Clothing"
+        ]
+    },
+    "Fitness & Exercise": {
+        "icon": "dumbbell",
+        "sub_categories": [
+            "Cardio Equipment",
+            "Commercial Fitness Equipment",
+            "Fitness Gear & Supports",
+            "Gym & Weight Balls",
+            "Gym & Yoga Wear"
+        ]
+    },
+    "Golf": {
+        "icon": "golf-ball",
+        "sub_categories": [
+            "Golf Accessories",
+            "Golf Bags",
+            "Golf Balls",
+            "Golf Clothing",
+            "Golf Drivers"
+        ]
+    },
+    "Swimming": {
+        "icon": "swimmer",
+        "sub_categories": [
+            "Boy's Swimwear",
+            "Girl's Swimwear",
+            "Men's Swimwear",
+            "Swimming Accessories",
+            "Swimming and Beach Footwear"
+        ]
+    },
+    "Yoga": {
+        "icon": "pray",
+        "sub_categories": [
+            "Gym and Yoga Wear",
+            "Water Bottles",
+            "Yoga Accessories",
+            "Yoga Blankets",
+            "Yoga Blocks"
+        ]
+    },
+    "Squash": {
+        "icon": "racquet",
+        "sub_categories": [
+            "Squash Accessories",
+            "Squash Balls",
+            "Squash Clothing",
+            "Squash Footwear",
+            "Squash Racket Bags"
+        ]
+    },
+    "Table Tennis": {
+        "icon": "table-tennis",
+        "sub_categories": [
+            "Table Tennis Accessories",
+            "Table Tennis Balls",
+            "Table Tennis Blades",
+            "Table Tennis Footwear",
+            "Table Tennis Rackets"
+        ]
+    },
+    "Basketball": {
+        "icon": "basketball-ball",
+        "sub_categories": [
+            "Basketball Accessories",
+            "Basketball Hoops",
+            "Basketballs"
+        ]
+    },
+    "Padel Tennis": {
+        "icon": "table-tennis",
+        "sub_categories": [
+            "Padel Accessories",
+            "Padel Balls",
+            "Padel Footwear",
+            "Padel Overgrips",
+            "Padel Racket Bags"
+        ]
+    },
+    "Football": {
+        "icon": "futbol",
+        "sub_categories": [
+            "Football Accessories",
+            "Football Footwear",
+            "Football Training",
+            "Footballs",
+            "Futsal Balls"
+        ]
+    },
+    "Running": {
+        "icon": "running",
+        "sub_categories": [
+            "Activity Trackers",
+            "Running Clothing",
+            "Running Footwear"
+        ]
+    },
+    "Snooker & Pool": {
+        "icon": "billiard-ball",
+        "sub_categories": [
+            "Accessories",
+            "Cue Cases",
+            "Pool Tables"
+        ]
+    },
+    "Hockey": {
+        "icon": "hockey-stick",
+        "sub_categories": [
+            "Hockey Bags",
+            "Hockey Gloves",
+            "Hockey Grips",
+            "Hockey Sticks"
+        ]
+    }
+}
+
+# 2. ACCESSORIES CATEGORIES
+ACCESSORIES_CATEGORIES = {
+    "Bags & Backpacks": {
+        "icon": "bag",
+        "sub_categories": [
+            "Sports Bags",
+            "Gym Bags",
+            "Backpacks",
+            "Duffel Bags",
+            "Tennis Racket Bags",
+            "Badminton Racket Bags"
+        ]
+    },
+    "Sports Eyewear": {
+        "icon": "eye",
+        "sub_categories": [
+            "Goggles",
+            "Prescription Goggles",
+            "Protective Eyewear",
+            "Sunglasses"
+        ]
+    },
+    "Sports Watches": {
+        "icon": "clock",
+        "sub_categories": [
+            "Activity Trackers",
+            "Sport Watches For Men",
+            "Sport Watches For Women"
+        ]
+    },
+    "Caps": {
+        "icon": "hat-cowboy",
+        "sub_categories": [
+            "Baseball Caps",
+            "Running Caps",
+            "Golf Caps",
+            "Sports Caps"
+        ]
+    },
+    "Shakers": {
+        "icon": "shaker",
+        "sub_categories": [
+            "Shakers (upto 500 ml)",
+            "Shakers (501-750 ml)",
+            "Shakers (751-1000 ml)",
+            "Shakers (1001-1250 ml)",
+            "Shakers (1251-1500 ml)"
+        ]
+    },
+    "Water Bottles": {
+        "icon": "tint",
+        "sub_categories": [
+            "500 ml and Below",
+            "501 to 1000 ml",
+            "1001 to 1500 ml",
+            "1501 to 2000 ml"
+        ]
+    },
+    "Headbands": {
+        "icon": "headband",
+        "sub_categories": [
+            "Cotton Headbands",
+            "Elastic Headbands",
+            "Sports Hairbands",
+            "Sweat Bands"
+        ]
+    },
+    "Socks": {
+        "icon": "socks",
+        "sub_categories": [
+            "Football Socks",
+            "Running Socks",
+            "Tennis Socks",
+            "Gym Socks"
+        ]
+    },
+    "Towels": {
+        "icon": "towel",
+        "sub_categories": [
+            "Gym Towels",
+            "Swimming Towels",
+            "Sports Towels"
+        ]
+    },
+    "Pocket Tools": {
+        "icon": "tools",
+        "sub_categories": [
+            "Multi-tools",
+            "Keychain Tools",
+            "Sports Tools"
+        ]
+    },
+    "Storage": {
+        "icon": "box",
+        "sub_categories": [
+            "Equipment Storage",
+            "Gear Organizers",
+            "Sports Containers"
+        ]
+    }
+}
+
+# 3. FOOTWEAR CATEGORIES
+FOOTWEAR_CATEGORIES = [
+    "Badminton Footwear",
+    "Cricket Footwear",
+    "Golf Footwear",
+    "Football Footwear",
+    "Running Footwear",
+    "Squash Footwear",
+    "Tennis Footwear",
+    "Trekking Footwear",
+    "Basketball Footwear",
+    "Padel Footwear",
+    "Table Tennis Footwear",
+    "Swimming Beach Footwear"
+]
+
+
+# ==========================================================
+# MAIN FUNCTION
+# ==========================================================
+def load_categories():
+    """Load all categories into database"""
+    
+    print("=" * 70)
+    print("🚀 LOADING CATEGORIES INTO DATABASE")
+    print("=" * 70)
+    
+    created_count = 0
+    updated_count = 0
+    skipped_count = 0
+    error_count = 0
+    
+    # ==========================================================
+    # 1. MAIN SPORTS CATEGORIES
+    # ==========================================================
+    print("\n📂 1. Creating Main Sports Categories...")
+    print("-" * 50)
+    
+    for parent_name, data in MAIN_CATEGORIES.items():
+        try:
+            # Generate unique slug
+            slug = generate_unique_slug(parent_name)
+            
+            # Create parent category
+            parent, created = ProductCategory.objects.get_or_create(
+                title=parent_name,
+                parent=None,
+                defaults={
+                    'slug': slug,
+                    'short_description': f'{parent_name} collection',
+                    'display_order': list(MAIN_CATEGORIES.keys()).index(parent_name) + 1,
+                    'is_active': True,
+                    'is_featured': False,
+                }
+            )
+            
+            if created:
+                created_count += 1
+                print(f"  ✅ Created: {parent_name}")
+            else:
+                updated_count += 1
+                print(f"  ⏭️ Already exists: {parent_name}")
+            
+            # Create sub-categories
+            for sub_name in data['sub_categories']:
+                try:
+                    # Generate unique slug for sub-category
+                    sub_slug = generate_unique_slug(sub_name)
+                    
+                    sub, created = ProductCategory.objects.get_or_create(
+                        title=sub_name,
+                        parent=parent,
+                        defaults={
+                            'slug': sub_slug,
+                            'short_description': f'{sub_name} for {parent_name}',
+                            'display_order': data['sub_categories'].index(sub_name) + 1,
+                            'is_active': True,
+                            'is_featured': False,
+                        }
+                    )
+                    
+                    if created:
+                        created_count += 1
+                        print(f"      ✅ Created: {sub_name}")
+                    else:
+                        print(f"      ⏭️ Already exists: {sub_name}")
+                        
+                except Exception as e:
+                    error_count += 1
+                    print(f"      ❌ Error creating {sub_name}: {e}")
+                    
+        except Exception as e:
+            error_count += 1
+            print(f"  ❌ Error creating {parent_name}: {e}")
+    
+    # ==========================================================
+    # 2. ACCESSORIES CATEGORIES
+    # ==========================================================
+    print("\n🛍️  2. Creating Accessories Categories...")
+    print("-" * 50)
+    
+    for parent_name, data in ACCESSORIES_CATEGORIES.items():
+        try:
+            # Generate unique slug
+            slug = generate_unique_slug(parent_name)
+            
+            # Create parent category
+            parent, created = ProductCategory.objects.get_or_create(
+                title=parent_name,
+                parent=None,
+                defaults={
+                    'slug': slug,
+                    'short_description': f'{parent_name} collection',
+                    'display_order': list(ACCESSORIES_CATEGORIES.keys()).index(parent_name) + 100,
+                    'is_active': True,
+                    'is_featured': False,
+                }
+            )
+            
+            if created:
+                created_count += 1
+                print(f"  ✅ Created: {parent_name}")
+            else:
+                updated_count += 1
+                print(f"  ⏭️ Already exists: {parent_name}")
+            
+            # Create sub-categories
+            for sub_name in data['sub_categories']:
+                try:
+                    # Generate unique slug for sub-category
+                    sub_slug = generate_unique_slug(sub_name)
+                    
+                    sub, created = ProductCategory.objects.get_or_create(
+                        title=sub_name,
+                        parent=parent,
+                        defaults={
+                            'slug': sub_slug,
+                            'short_description': f'{sub_name} for {parent_name}',
+                            'display_order': data['sub_categories'].index(sub_name) + 1,
+                            'is_active': True,
+                            'is_featured': False,
+                        }
+                    )
+                    
+                    if created:
+                        created_count += 1
+                        print(f"      ✅ Created: {sub_name}")
+                    else:
+                        print(f"      ⏭️ Already exists: {sub_name}")
+                        
+                except Exception as e:
+                    error_count += 1
+                    print(f"      ❌ Error creating {sub_name}: {e}")
+                    
+        except Exception as e:
+            error_count += 1
+            print(f"  ❌ Error creating {parent_name}: {e}")
+    
+    # ==========================================================
+    # 3. FOOTWEAR CATEGORIES
+    # ==========================================================
+    print("\n👟 3. Creating Footwear Categories...")
+    print("-" * 50)
+    
+    for footwear in FOOTWEAR_CATEGORIES:
+        try:
+            # Check if already exists
+            if ProductCategory.objects.filter(title=footwear).exists():
+                print(f"  ⏭️ Already exists: {footwear}")
+                skipped_count += 1
+                continue
+            
+            # Try to find parent category
+            parent_name = footwear.replace(' Footwear', '')
+            parent = ProductCategory.objects.filter(
+                title__icontains=parent_name,
+                parent__isnull=True
+            ).first()
+            
+            # Generate unique slug
+            slug = generate_unique_slug(footwear)
+            
+            if parent:
+                # Create as sub-category
+                sub, created = ProductCategory.objects.get_or_create(
+                    title=footwear,
+                    parent=parent,
+                    defaults={
+                        'slug': slug,
+                        'short_description': f'{footwear} for {parent_name}',
+                        'display_order': 50,
+                        'is_active': True,
+                        'is_featured': False,
+                    }
+                )
+                
+                if created:
+                    created_count += 1
+                    print(f"  ✅ Created: {footwear} (under {parent_name})")
+            else:
+                # Create as standalone category
+                cat, created = ProductCategory.objects.get_or_create(
+                    title=footwear,
+                    parent=None,
+                    defaults={
+                        'slug': slug,
+                        'short_description': f'{footwear} collection',
+                        'display_order': 200,
+                        'is_active': True,
+                        'is_featured': False,
+                    }
+                )
+                
+                if created:
+                    created_count += 1
+                    print(f"  ✅ Created: {footwear} (standalone)")
+                    
+        except Exception as e:
+            error_count += 1
+            print(f"  ❌ Error creating {footwear}: {e}")
+    
+    # ==========================================================
+    # SUMMARY
+    # ==========================================================
+    total_categories = ProductCategory.objects.count()
+    total_parents = ProductCategory.objects.filter(parent__isnull=True).count()
+    total_children = ProductCategory.objects.filter(parent__isnull=False).count()
+    
+    print("\n" + "=" * 70)
+    print("📊 SUMMARY")
+    print("=" * 70)
+    print(f"  ✅ Created:   {created_count} categories")
+    print(f"  ⏭️ Updated:   {updated_count} categories")
+    print(f"  ⏭️ Skipped:   {skipped_count} categories")
+    print(f"  ❌ Errors:    {error_count} categories")
+    print(f"  📁 Total:     {total_categories} categories")
+    print(f"  📂 Parents:   {total_parents}")
+    print(f"  📄 Children:  {total_children}")
+    print("=" * 70)
+    print("\n✨ All categories loaded successfully!")
+    print("🔗 Check admin panel: http://127.0.0.1:8000/admin/products/productcategory/")
+
+
+# ==========================================================
+# RUN SCRIPT
+# ==========================================================
+if __name__ == "__main__":
+    try:
+        load_categories()
+    except Exception as e:
+        print(f"\n❌ Error: {e}")
+        print("Please check your Django settings and database connection.")

@@ -3,4 +3,4 @@ from .product import Product
 from .product_variant import ProductVariant
 from .product_option import ProductOption
 from .product_option import ProductOptionValue
-from .product_variant import VariantImage
+from .variant_image import VariantImage

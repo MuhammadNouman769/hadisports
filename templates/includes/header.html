@@ -1,4 +1,5 @@
 {% load static %}
+
 <style>
 .logo-img{
     height: 80px!important;
@@ -31,8 +32,9 @@
     overflow-y: auto;
 }
 
-.mega-dropdown:hover .mega-menu,
-.mega-dropdown.show .mega-menu {
+/* Mega menu hover effect */
+.mega-dropdown:hover .mega-menu {
+    display: block !important;
     opacity: 1;
     visibility: visible;
     transform: translateY(0);
@@ -51,7 +53,7 @@
     letter-spacing: 0.8px !important;
     margin-bottom: 6px !important;
     padding-bottom: 4px !important;
-    border-bottom: 1.5px solid rgba(229, 62, 62, 0.10) !important;
+    border-bottom: 1.5px solid rgba(129, 196, 8, 0.15) !important;
     display: flex !important;
     align-items: center !important;
     gap: 6px !important;
@@ -185,7 +187,7 @@
 
 .dropdown-simple .dropdown-item:hover {
     color: #81c408 !important;
-    background: rgba(229, 62, 62, 0.06) !important;
+    background: rgba(129, 196, 8, 0.06) !important;
     padding-left: 28px !important;
 }
 
@@ -289,9 +291,10 @@
 
         <div class="container px-0">
             <nav class="navbar navbar-light bg-white navbar-expand-xl">
-                <a href="index.html" class="navbar-brand">
+                <a href="{% url 'products:home-view' %}" class="navbar-brand">
                     <h1 class="text-primary display-6">
-                    <img src="{% static 'logos/logo-.png' %}" class="logo-img" alt="Logo"></h1>
+                        <img src="{% static 'logos/logo-.png' %}" class="logo-img" alt="Logo">
+                    </h1>
                 </a>
 
                 <button class="navbar-toggler py-2 px-3" type="button"
@@ -302,28 +305,28 @@
 
                 <div class="collapse navbar-collapse bg-white" id="navbarCollapse">
                     <div class="navbar-nav mx-auto">
-                        <a href="{% url 'home' %}" class="nav-item nav-link active">Home</a>
+                        <a href="{% url 'products:home-view' %}" class="nav-item nav-link {% if request.resolver_match.url_name == 'home-view' %}active{% endif %}">Home</a>
                         
                         <!-- ======================================== -->
-                        <!-- PRODUCTS - MEGA MENU (18 SPORTS)        -->
+                        <!-- PRODUCTS - STATIC MEGA MENU (Script wali) -->
                         <!-- ======================================== -->
-                        <div class="nav-item mega-dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                                Products
-                            </a>
-                            <div class="dropdown-menu mega-menu">
-                                <div class="row g-2">
+                      <div class="nav-item mega-dropdown">
+    <a href="{% url 'products:product-list' %}" class="nav-link">
+        Products
+    </a>
+    <div class="dropdown-menu mega-menu">
+        <div class="row g-2">
 
                                     <!-- BADMINTON -->
                                     <div class="col-xl-2 col-lg-3 col-md-4 col-6">
                                         <div class="mega-category">
                                             <div class="mega-category-title"><i class="fas fa-shuttlecock"></i> Badminton</div>
-                                            <a href="#" class="mega-link">Badminton Accessories</a>
-                                            <a href="#" class="mega-link">Badminton Clothing</a>
-                                            <a href="#" class="mega-link">Badminton Footwear</a>
-                                            <a href="#" class="mega-link">Badminton Racket Bags</a>
-                                            <a href="#" class="mega-link">Badminton Racket Strings</a>
-                                            <a href="#" class="mega-link view-more">View More →</a>
+                                            <a href="{% url 'products:product-list' %}?category=badminton-accessories" class="mega-link">Badminton Accessories</a>
+                                            <a href="{% url 'products:product-list' %}?category=badminton-clothing" class="mega-link">Badminton Clothing</a>
+                                            <a href="{% url 'products:product-list' %}?category=badminton-footwear" class="mega-link">Badminton Footwear</a>
+                                            <a href="{% url 'products:product-list' %}?category=badminton-racket-bags" class="mega-link">Badminton Racket Bags</a>
+                                            <a href="{% url 'products:product-list' %}?category=badminton-racket-strings" class="mega-link">Badminton Racket Strings</a>
+                                            <a href="{% url 'products:product-list' %}?category=badminton" class="mega-link view-more">View More →</a>
                                         </div>
                                     </div>
 
@@ -331,12 +334,12 @@
                                     <div class="col-xl-2 col-lg-3 col-md-4 col-6">
                                         <div class="mega-category">
                                             <div class="mega-category-title"><i class="fas fa-table-tennis"></i> Tennis</div>
-                                            <a href="#" class="mega-link">Tennis Accessories</a>
-                                            <a href="#" class="mega-link">Tennis Balls</a>
-                                            <a href="#" class="mega-link">Tennis Clothing</a>
-                                            <a href="#" class="mega-link">Tennis Footwear</a>
-                                            <a href="#" class="mega-link">Tennis Racket Bags</a>
-                                            <a href="#" class="mega-link view-more">View More →</a>
+                                            <a href="{% url 'products:product-list' %}?category=tennis-accessories" class="mega-link">Tennis Accessories</a>
+                                            <a href="{% url 'products:product-list' %}?category=tennis-balls" class="mega-link">Tennis Balls</a>
+                                            <a href="{% url 'products:product-list' %}?category=tennis-clothing" class="mega-link">Tennis Clothing</a>
+                                            <a href="{% url 'products:product-list' %}?category=tennis-footwear" class="mega-link">Tennis Footwear</a>
+                                            <a href="{% url 'products:product-list' %}?category=tennis-racket-bags" class="mega-link">Tennis Racket Bags</a>
+                                            <a href="{% url 'products:product-list' %}?category=tennis" class="mega-link view-more">View More →</a>
                                         </div>
                                     </div>
 
@@ -344,12 +347,12 @@
                                     <div class="col-xl-2 col-lg-3 col-md-4 col-6">
                                         <div class="mega-category">
                                             <div class="mega-category-title"><i class="fas fa-fist-raised"></i> Boxing & MMA</div>
-                                            <a href="#" class="mega-link">Boxing & MMA Accessories</a>
-                                            <a href="#" class="mega-link">Boxing & MMA Clothing</a>
-                                            <a href="#" class="mega-link">Boxing Gloves</a>
-                                            <a href="#" class="mega-link">Boxing Sets</a>
-                                            <a href="#" class="mega-link">MMA Gloves</a>
-                                            <a href="#" class="mega-link view-more">View More →</a>
+                                            <a href="{% url 'products:product-list' %}?category=boxing-mma-accessories" class="mega-link">Boxing & MMA Accessories</a>
+                                            <a href="{% url 'products:product-list' %}?category=boxing-mma-clothing" class="mega-link">Boxing & MMA Clothing</a>
+                                            <a href="{% url 'products:product-list' %}?category=boxing-gloves" class="mega-link">Boxing Gloves</a>
+                                            <a href="{% url 'products:product-list' %}?category=boxing-sets" class="mega-link">Boxing Sets</a>
+                                            <a href="{% url 'products:product-list' %}?category=mma-gloves" class="mega-link">MMA Gloves</a>
+                                            <a href="{% url 'products:product-list' %}?category=boxing-mma" class="mega-link view-more">View More →</a>
                                         </div>
                                     </div>
 
@@ -357,12 +360,12 @@
                                     <div class="col-xl-2 col-lg-3 col-md-4 col-6">
                                         <div class="mega-category">
                                             <div class="mega-category-title"><i class="fas fa-campground"></i> Camping & Hiking</div>
-                                            <a href="#" class="mega-link">Accessories</a>
-                                            <a href="#" class="mega-link">Bags & Backpacks</a>
-                                            <a href="#" class="mega-link">Camping & Hiking Clothing</a>
-                                            <a href="#" class="mega-link">Coolers</a>
-                                            <a href="#" class="mega-link">Sleeping Bags & Bedding</a>
-                                            <a href="#" class="mega-link view-more">View More →</a>
+                                            <a href="{% url 'products:product-list' %}?category=camping-accessories" class="mega-link">Accessories</a>
+                                            <a href="{% url 'products:product-list' %}?category=camping-bags-backpacks" class="mega-link">Bags & Backpacks</a>
+                                            <a href="{% url 'products:product-list' %}?category=camping-hiking-clothing" class="mega-link">Camping & Hiking Clothing</a>
+                                            <a href="{% url 'products:product-list' %}?category=camping-coolers" class="mega-link">Coolers</a>
+                                            <a href="{% url 'products:product-list' %}?category=sleeping-bags-bedding" class="mega-link">Sleeping Bags & Bedding</a>
+                                            <a href="{% url 'products:product-list' %}?category=camping-hiking" class="mega-link view-more">View More →</a>
                                         </div>
                                     </div>
 
@@ -370,12 +373,12 @@
                                     <div class="col-xl-2 col-lg-3 col-md-4 col-6">
                                         <div class="mega-category">
                                             <div class="mega-category-title"><i class="fas fa-baseball-ball"></i> Cricket</div>
-                                            <a href="#" class="mega-link">Batting Equipment</a>
-                                            <a href="#" class="mega-link">Cricket Accessories</a>
-                                            <a href="#" class="mega-link">Cricket Bags</a>
-                                            <a href="#" class="mega-link">Cricket Balls</a>
-                                            <a href="#" class="mega-link">Cricket Bats</a>
-                                            <a href="#" class="mega-link view-more">View More →</a>
+                                            <a href="{% url 'products:product-list' %}?category=batting-equipment" class="mega-link">Batting Equipment</a>
+                                            <a href="{% url 'products:product-list' %}?category=cricket-accessories" class="mega-link">Cricket Accessories</a>
+                                            <a href="{% url 'products:product-list' %}?category=cricket-bags" class="mega-link">Cricket Bags</a>
+                                            <a href="{% url 'products:product-list' %}?category=cricket-balls" class="mega-link">Cricket Balls</a>
+                                            <a href="{% url 'products:product-list' %}?category=cricket-bats" class="mega-link">Cricket Bats</a>
+                                            <a href="{% url 'products:product-list' %}?category=cricket" class="mega-link view-more">View More →</a>
                                         </div>
                                     </div>
 
@@ -383,12 +386,12 @@
                                     <div class="col-xl-2 col-lg-3 col-md-4 col-6">
                                         <div class="mega-category">
                                             <div class="mega-category-title"><i class="fas fa-bicycle"></i> Cycling</div>
-                                            <a href="#" class="mega-link">Bike Computers</a>
-                                            <a href="#" class="mega-link">Bike Racks</a>
-                                            <a href="#" class="mega-link">Bikes</a>
-                                            <a href="#" class="mega-link">Cycling Accessories</a>
-                                            <a href="#" class="mega-link">Cycling Clothing</a>
-                                            <a href="#" class="mega-link view-more">View More →</a>
+                                            <a href="{% url 'products:product-list' %}?category=bike-computers" class="mega-link">Bike Computers</a>
+                                            <a href="{% url 'products:product-list' %}?category=bike-racks" class="mega-link">Bike Racks</a>
+                                            <a href="{% url 'products:product-list' %}?category=bikes" class="mega-link">Bikes</a>
+                                            <a href="{% url 'products:product-list' %}?category=cycling-accessories" class="mega-link">Cycling Accessories</a>
+                                            <a href="{% url 'products:product-list' %}?category=cycling-clothing" class="mega-link">Cycling Clothing</a>
+                                            <a href="{% url 'products:product-list' %}?category=cycling" class="mega-link view-more">View More →</a>
                                         </div>
                                     </div>
 
@@ -396,12 +399,12 @@
                                     <div class="col-xl-2 col-lg-3 col-md-4 col-6">
                                         <div class="mega-category">
                                             <div class="mega-category-title"><i class="fas fa-dumbbell"></i> Fitness & Exercise</div>
-                                            <a href="#" class="mega-link">Cardio Equipment</a>
-                                            <a href="#" class="mega-link">Commercial Fitness Equipment</a>
-                                            <a href="#" class="mega-link">Fitness Gear & Supports</a>
-                                            <a href="#" class="mega-link">Gym & Weight Balls</a>
-                                            <a href="#" class="mega-link">Gym & Yoga Wear</a>
-                                            <a href="#" class="mega-link view-more">View More →</a>
+                                            <a href="{% url 'products:product-list' %}?category=cardio-equipment" class="mega-link">Cardio Equipment</a>
+                                            <a href="{% url 'products:product-list' %}?category=commercial-fitness-equipment" class="mega-link">Commercial Fitness Equipment</a>
+                                            <a href="{% url 'products:product-list' %}?category=fitness-gear-supports" class="mega-link">Fitness Gear & Supports</a>
+                                            <a href="{% url 'products:product-list' %}?category=gym-weight-balls" class="mega-link">Gym & Weight Balls</a>
+                                            <a href="{% url 'products:product-list' %}?category=gym-yoga-wear" class="mega-link">Gym & Yoga Wear</a>
+                                            <a href="{% url 'products:product-list' %}?category=fitness-exercise" class="mega-link view-more">View More →</a>
                                         </div>
                                     </div>
 
@@ -409,12 +412,12 @@
                                     <div class="col-xl-2 col-lg-3 col-md-4 col-6">
                                         <div class="mega-category">
                                             <div class="mega-category-title"><i class="fas fa-golf-ball"></i> Golf</div>
-                                            <a href="#" class="mega-link">Golf Accessories</a>
-                                            <a href="#" class="mega-link">Golf Bags</a>
-                                            <a href="#" class="mega-link">Golf Balls</a>
-                                            <a href="#" class="mega-link">Golf Clothing</a>
-                                            <a href="#" class="mega-link">Golf Drivers</a>
-                                            <a href="#" class="mega-link view-more">View More →</a>
+                                            <a href="{% url 'products:product-list' %}?category=golf-accessories" class="mega-link">Golf Accessories</a>
+                                            <a href="{% url 'products:product-list' %}?category=golf-bags" class="mega-link">Golf Bags</a>
+                                            <a href="{% url 'products:product-list' %}?category=golf-balls" class="mega-link">Golf Balls</a>
+                                            <a href="{% url 'products:product-list' %}?category=golf-clothing" class="mega-link">Golf Clothing</a>
+                                            <a href="{% url 'products:product-list' %}?category=golf-drivers" class="mega-link">Golf Drivers</a>
+                                            <a href="{% url 'products:product-list' %}?category=golf" class="mega-link view-more">View More →</a>
                                         </div>
                                     </div>
 
@@ -422,12 +425,12 @@
                                     <div class="col-xl-2 col-lg-3 col-md-4 col-6">
                                         <div class="mega-category">
                                             <div class="mega-category-title"><i class="fas fa-swimmer"></i> Swimming</div>
-                                            <a href="#" class="mega-link">Boy's Swimwear</a>
-                                            <a href="#" class="mega-link">Girl's Swimwear</a>
-                                            <a href="#" class="mega-link">Men's Swimwear</a>
-                                            <a href="#" class="mega-link">Swimming Accessories</a>
-                                            <a href="#" class="mega-link">Swimming and Beach Footwear</a>
-                                            <a href="#" class="mega-link view-more">View More →</a>
+                                            <a href="{% url 'products:product-list' %}?category=boys-swimwear" class="mega-link">Boy's Swimwear</a>
+                                            <a href="{% url 'products:product-list' %}?category=girls-swimwear" class="mega-link">Girl's Swimwear</a>
+                                            <a href="{% url 'products:product-list' %}?category=mens-swimwear" class="mega-link">Men's Swimwear</a>
+                                            <a href="{% url 'products:product-list' %}?category=swimming-accessories" class="mega-link">Swimming Accessories</a>
+                                            <a href="{% url 'products:product-list' %}?category=swimming-beach-footwear" class="mega-link">Swimming and Beach Footwear</a>
+                                            <a href="{% url 'products:product-list' %}?category=swimming" class="mega-link view-more">View More →</a>
                                         </div>
                                     </div>
 
@@ -435,12 +438,12 @@
                                     <div class="col-xl-2 col-lg-3 col-md-4 col-6">
                                         <div class="mega-category">
                                             <div class="mega-category-title"><i class="fas fa-pray"></i> Yoga</div>
-                                            <a href="#" class="mega-link">Gym and Yoga Wear</a>
-                                            <a href="#" class="mega-link">Water Bottles</a>
-                                            <a href="#" class="mega-link">Yoga Accessories</a>
-                                            <a href="#" class="mega-link">Yoga Blankets</a>
-                                            <a href="#" class="mega-link">Yoga Blocks</a>
-                                            <a href="#" class="mega-link view-more">View More →</a>
+                                            <a href="{% url 'products:product-list' %}?category=gym-yoga-wear" class="mega-link">Gym and Yoga Wear</a>
+                                            <a href="{% url 'products:product-list' %}?category=water-bottles" class="mega-link">Water Bottles</a>
+                                            <a href="{% url 'products:product-list' %}?category=yoga-accessories" class="mega-link">Yoga Accessories</a>
+                                            <a href="{% url 'products:product-list' %}?category=yoga-blankets" class="mega-link">Yoga Blankets</a>
+                                            <a href="{% url 'products:product-list' %}?category=yoga-blocks" class="mega-link">Yoga Blocks</a>
+                                            <a href="{% url 'products:product-list' %}?category=yoga" class="mega-link view-more">View More →</a>
                                         </div>
                                     </div>
 
@@ -448,12 +451,12 @@
                                     <div class="col-xl-2 col-lg-3 col-md-4 col-6">
                                         <div class="mega-category">
                                             <div class="mega-category-title"><i class="fas fa-racquet"></i> Squash</div>
-                                            <a href="#" class="mega-link">Squash Accessories</a>
-                                            <a href="#" class="mega-link">Squash Balls</a>
-                                            <a href="#" class="mega-link">Squash Clothing</a>
-                                            <a href="#" class="mega-link">Squash Footwear</a>
-                                            <a href="#" class="mega-link">Squash Racket Bags</a>
-                                            <a href="#" class="mega-link view-more">View More →</a>
+                                            <a href="{% url 'products:product-list' %}?category=squash-accessories" class="mega-link">Squash Accessories</a>
+                                            <a href="{% url 'products:product-list' %}?category=squash-balls" class="mega-link">Squash Balls</a>
+                                            <a href="{% url 'products:product-list' %}?category=squash-clothing" class="mega-link">Squash Clothing</a>
+                                            <a href="{% url 'products:product-list' %}?category=squash-footwear" class="mega-link">Squash Footwear</a>
+                                            <a href="{% url 'products:product-list' %}?category=squash-racket-bags" class="mega-link">Squash Racket Bags</a>
+                                            <a href="{% url 'products:product-list' %}?category=squash" class="mega-link view-more">View More →</a>
                                         </div>
                                     </div>
 
@@ -461,12 +464,12 @@
                                     <div class="col-xl-2 col-lg-3 col-md-4 col-6">
                                         <div class="mega-category">
                                             <div class="mega-category-title"><i class="fas fa-table-tennis"></i> Table Tennis</div>
-                                            <a href="#" class="mega-link">Table Tennis Accessories</a>
-                                            <a href="#" class="mega-link">Table Tennis Balls</a>
-                                            <a href="#" class="mega-link">Table Tennis Blades</a>
-                                            <a href="#" class="mega-link">Table Tennis Footwear</a>
-                                            <a href="#" class="mega-link">Table Tennis Rackets</a>
-                                            <a href="#" class="mega-link view-more">View More →</a>
+                                            <a href="{% url 'products:product-list' %}?category=table-tennis-accessories" class="mega-link">Table Tennis Accessories</a>
+                                            <a href="{% url 'products:product-list' %}?category=table-tennis-balls" class="mega-link">Table Tennis Balls</a>
+                                            <a href="{% url 'products:product-list' %}?category=table-tennis-blades" class="mega-link">Table Tennis Blades</a>
+                                            <a href="{% url 'products:product-list' %}?category=table-tennis-footwear" class="mega-link">Table Tennis Footwear</a>
+                                            <a href="{% url 'products:product-list' %}?category=table-tennis-rackets" class="mega-link">Table Tennis Rackets</a>
+                                            <a href="{% url 'products:product-list' %}?category=table-tennis" class="mega-link view-more">View More →</a>
                                         </div>
                                     </div>
 
@@ -474,10 +477,10 @@
                                     <div class="col-xl-2 col-lg-3 col-md-4 col-6">
                                         <div class="mega-category">
                                             <div class="mega-category-title"><i class="fas fa-basketball-ball"></i> Basketball</div>
-                                            <a href="#" class="mega-link">Basketball Accessories</a>
-                                            <a href="#" class="mega-link">Basketball Hoops</a>
-                                            <a href="#" class="mega-link">Basketballs</a>
-                                            <a href="#" class="mega-link view-more">View More →</a>
+                                            <a href="{% url 'products:product-list' %}?category=basketball-accessories" class="mega-link">Basketball Accessories</a>
+                                            <a href="{% url 'products:product-list' %}?category=basketball-hoops" class="mega-link">Basketball Hoops</a>
+                                            <a href="{% url 'products:product-list' %}?category=basketballs" class="mega-link">Basketballs</a>
+                                            <a href="{% url 'products:product-list' %}?category=basketball" class="mega-link view-more">View More →</a>
                                         </div>
                                     </div>
 
@@ -485,12 +488,12 @@
                                     <div class="col-xl-2 col-lg-3 col-md-4 col-6">
                                         <div class="mega-category">
                                             <div class="mega-category-title"><i class="fas fa-table-tennis"></i> Padel Tennis</div>
-                                            <a href="#" class="mega-link">Padel Accessories</a>
-                                            <a href="#" class="mega-link">Padel Balls</a>
-                                            <a href="#" class="mega-link">Padel Footwear</a>
-                                            <a href="#" class="mega-link">Padel Overgrips</a>
-                                            <a href="#" class="mega-link">Padel Racket Bags</a>
-                                            <a href="#" class="mega-link view-more">View More →</a>
+                                            <a href="{% url 'products:product-list' %}?category=padel-accessories" class="mega-link">Padel Accessories</a>
+                                            <a href="{% url 'products:product-list' %}?category=padel-balls" class="mega-link">Padel Balls</a>
+                                            <a href="{% url 'products:product-list' %}?category=padel-footwear" class="mega-link">Padel Footwear</a>
+                                            <a href="{% url 'products:product-list' %}?category=padel-overgrips" class="mega-link">Padel Overgrips</a>
+                                            <a href="{% url 'products:product-list' %}?category=padel-racket-bags" class="mega-link">Padel Racket Bags</a>
+                                            <a href="{% url 'products:product-list' %}?category=padel-tennis" class="mega-link view-more">View More →</a>
                                         </div>
                                     </div>
 
@@ -498,12 +501,12 @@
                                     <div class="col-xl-2 col-lg-3 col-md-4 col-6">
                                         <div class="mega-category">
                                             <div class="mega-category-title"><i class="fas fa-futbol"></i> Football</div>
-                                            <a href="#" class="mega-link">Football Accessories</a>
-                                            <a href="#" class="mega-link">Football Footwear</a>
-                                            <a href="#" class="mega-link">Football Training</a>
-                                            <a href="#" class="mega-link">Footballs</a>
-                                            <a href="#" class="mega-link">Futsal Balls</a>
-                                            <a href="#" class="mega-link view-more">View More →</a>
+                                            <a href="{% url 'products:product-list' %}?category=football-accessories" class="mega-link">Football Accessories</a>
+                                            <a href="{% url 'products:product-list' %}?category=football-footwear" class="mega-link">Football Footwear</a>
+                                            <a href="{% url 'products:product-list' %}?category=football-training" class="mega-link">Football Training</a>
+                                            <a href="{% url 'products:product-list' %}?category=footballs" class="mega-link">Footballs</a>
+                                            <a href="{% url 'products:product-list' %}?category=futsal-balls" class="mega-link">Futsal Balls</a>
+                                            <a href="{% url 'products:product-list' %}?category=football" class="mega-link view-more">View More →</a>
                                         </div>
                                     </div>
 
@@ -511,10 +514,10 @@
                                     <div class="col-xl-2 col-lg-3 col-md-4 col-6">
                                         <div class="mega-category">
                                             <div class="mega-category-title"><i class="fas fa-running"></i> Running</div>
-                                            <a href="#" class="mega-link">Activity Trackers</a>
-                                            <a href="#" class="mega-link">Running Clothing</a>
-                                            <a href="#" class="mega-link">Running Footwear</a>
-                                            <a href="#" class="mega-link view-more">View More →</a>
+                                            <a href="{% url 'products:product-list' %}?category=activity-trackers" class="mega-link">Activity Trackers</a>
+                                            <a href="{% url 'products:product-list' %}?category=running-clothing" class="mega-link">Running Clothing</a>
+                                            <a href="{% url 'products:product-list' %}?category=running-footwear" class="mega-link">Running Footwear</a>
+                                            <a href="{% url 'products:product-list' %}?category=running" class="mega-link view-more">View More →</a>
                                         </div>
                                     </div>
 
@@ -522,10 +525,10 @@
                                     <div class="col-xl-2 col-lg-3 col-md-4 col-6">
                                         <div class="mega-category">
                                             <div class="mega-category-title"><i class="fas fa-billiard-ball"></i> Snooker & Pool</div>
-                                            <a href="#" class="mega-link">Accessories</a>
-                                            <a href="#" class="mega-link">Cue Cases</a>
-                                            <a href="#" class="mega-link">Pool Tables</a>
-                                            <a href="#" class="mega-link view-more">View More →</a>
+                                            <a href="{% url 'products:product-list' %}?category=snooker-accessories" class="mega-link">Accessories</a>
+                                            <a href="{% url 'products:product-list' %}?category=cue-cases" class="mega-link">Cue Cases</a>
+                                            <a href="{% url 'products:product-list' %}?category=pool-tables" class="mega-link">Pool Tables</a>
+                                            <a href="{% url 'products:product-list' %}?category=snooker-pool" class="mega-link view-more">View More →</a>
                                         </div>
                                     </div>
 
@@ -533,11 +536,11 @@
                                     <div class="col-xl-2 col-lg-3 col-md-4 col-6">
                                         <div class="mega-category">
                                             <div class="mega-category-title"><i class="fas fa-hockey-stick"></i> Hockey</div>
-                                            <a href="#" class="mega-link">Hockey Bags</a>
-                                            <a href="#" class="mega-link">Hockey Gloves</a>
-                                            <a href="#" class="mega-link">Hockey Grips</a>
-                                            <a href="#" class="mega-link">Hockey Sticks</a>
-                                            <a href="#" class="mega-link view-more">View More →</a>
+                                            <a href="{% url 'products:product-list' %}?category=hockey-bags" class="mega-link">Hockey Bags</a>
+                                            <a href="{% url 'products:product-list' %}?category=hockey-gloves" class="mega-link">Hockey Gloves</a>
+                                            <a href="{% url 'products:product-list' %}?category=hockey-grips" class="mega-link">Hockey Grips</a>
+                                            <a href="{% url 'products:product-list' %}?category=hockey-sticks" class="mega-link">Hockey Sticks</a>
+                                            <a href="{% url 'products:product-list' %}?category=hockey" class="mega-link view-more">View More →</a>
                                         </div>
                                     </div>
 
@@ -549,25 +552,25 @@
                         <!-- ======================================== -->
 
                         <!-- ======================================== -->
-                        <!-- FOOTWEAR - SIMPLE DROPDOWN              -->
+                        <!-- FOOTWEAR - STATIC DROPDOWN              -->
                         <!-- ======================================== -->
                         <div class="nav-item dropdown-simple">
                             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                                 Footwear
                             </a>
                             <div class="dropdown-menu">
-                                <a href="#" class="dropdown-item">Badminton Footwear</a>
-                                <a href="#" class="dropdown-item">Cricket Footwear</a>
-                                <a href="#" class="dropdown-item">Golf Footwear</a>
-                                <a href="#" class="dropdown-item">Football Footwear</a>
-                                <a href="#" class="dropdown-item">Running Footwear</a>
-                                <a href="#" class="dropdown-item">Squash Footwear</a>
-                                <a href="#" class="dropdown-item">Tennis Footwear</a>
-                                <a href="#" class="dropdown-item">Trekking Footwear</a>
-                                <a href="#" class="dropdown-item">Basketball Footwear</a>
-                                <a href="#" class="dropdown-item">Padel Footwear</a>
-                                <a href="#" class="dropdown-item">Table Tennis Footwear</a>
-                                <a href="#" class="dropdown-item">Swimming Beach Footwear</a>
+                                <a href="{% url 'products:product-list' %}?category=badminton-footwear" class="dropdown-item">Badminton Footwear</a>
+                                <a href="{% url 'products:product-list' %}?category=cricket-footwear" class="dropdown-item">Cricket Footwear</a>
+                                <a href="{% url 'products:product-list' %}?category=golf-footwear" class="dropdown-item">Golf Footwear</a>
+                                <a href="{% url 'products:product-list' %}?category=football-footwear" class="dropdown-item">Football Footwear</a>
+                                <a href="{% url 'products:product-list' %}?category=running-footwear" class="dropdown-item">Running Footwear</a>
+                                <a href="{% url 'products:product-list' %}?category=squash-footwear" class="dropdown-item">Squash Footwear</a>
+                                <a href="{% url 'products:product-list' %}?category=tennis-footwear" class="dropdown-item">Tennis Footwear</a>
+                                <a href="{% url 'products:product-list' %}?category=trekking-footwear" class="dropdown-item">Trekking Footwear</a>
+                                <a href="{% url 'products:product-list' %}?category=basketball-footwear" class="dropdown-item">Basketball Footwear</a>
+                                <a href="{% url 'products:product-list' %}?category=padel-footwear" class="dropdown-item">Padel Footwear</a>
+                                <a href="{% url 'products:product-list' %}?category=table-tennis-footwear" class="dropdown-item">Table Tennis Footwear</a>
+                                <a href="{% url 'products:product-list' %}?category=swimming-beach-footwear" class="dropdown-item">Swimming Beach Footwear</a>
                             </div>
                         </div>
                         <!-- ======================================== -->
@@ -575,7 +578,7 @@
                         <!-- ======================================== -->
 
                         <!-- ======================================== -->
-                        <!-- ACCESSORIES - MEGA MENU                 -->
+                        <!-- ACCESSORIES - STATIC MEGA MENU          -->
                         <!-- ======================================== -->
                         <div class="nav-item mega-dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
@@ -588,13 +591,13 @@
                                     <div class="col-xl-2 col-lg-3 col-md-4 col-6">
                                         <div class="mega-category">
                                             <div class="mega-category-title"><i class="fas fa-bag"></i> Bags & Backpacks</div>
-                                            <a href="#" class="mega-link">Sports Bags</a>
-                                            <a href="#" class="mega-link">Gym Bags</a>
-                                            <a href="#" class="mega-link">Backpacks</a>
-                                            <a href="#" class="mega-link">Duffel Bags</a>
-                                            <a href="#" class="mega-link">Tennis Racket Bags</a>
-                                            <a href="#" class="mega-link">Badminton Racket Bags</a>
-                                            <a href="#" class="mega-link view-more">View More →</a>
+                                            <a href="{% url 'products:product-list' %}?category=sports-bags" class="mega-link">Sports Bags</a>
+                                            <a href="{% url 'products:product-list' %}?category=gym-bags" class="mega-link">Gym Bags</a>
+                                            <a href="{% url 'products:product-list' %}?category=backpacks" class="mega-link">Backpacks</a>
+                                            <a href="{% url 'products:product-list' %}?category=duffel-bags" class="mega-link">Duffel Bags</a>
+                                            <a href="{% url 'products:product-list' %}?category=tennis-racket-bags" class="mega-link">Tennis Racket Bags</a>
+                                            <a href="{% url 'products:product-list' %}?category=badminton-racket-bags" class="mega-link">Badminton Racket Bags</a>
+                                            <a href="{% url 'products:product-list' %}?category=bags-backpacks" class="mega-link view-more">View More →</a>
                                         </div>
                                     </div>
 
@@ -602,11 +605,11 @@
                                     <div class="col-xl-2 col-lg-3 col-md-4 col-6">
                                         <div class="mega-category">
                                             <div class="mega-category-title"><i class="fas fa-eye"></i> Sports Eyewear</div>
-                                            <a href="#" class="mega-link">Goggles</a>
-                                            <a href="#" class="mega-link">Prescription Goggles</a>
-                                            <a href="#" class="mega-link">Protective Eyewear</a>
-                                            <a href="#" class="mega-link">Sunglasses</a>
-                                            <a href="#" class="mega-link view-more">View More →</a>
+                                            <a href="{% url 'products:product-list' %}?category=goggles" class="mega-link">Goggles</a>
+                                            <a href="{% url 'products:product-list' %}?category=prescription-goggles" class="mega-link">Prescription Goggles</a>
+                                            <a href="{% url 'products:product-list' %}?category=protective-eyewear" class="mega-link">Protective Eyewear</a>
+                                            <a href="{% url 'products:product-list' %}?category=sunglasses" class="mega-link">Sunglasses</a>
+                                            <a href="{% url 'products:product-list' %}?category=sports-eyewear" class="mega-link view-more">View More →</a>
                                         </div>
                                     </div>
 
@@ -614,10 +617,10 @@
                                     <div class="col-xl-2 col-lg-3 col-md-4 col-6">
                                         <div class="mega-category">
                                             <div class="mega-category-title"><i class="fas fa-clock"></i> Sports Watches</div>
-                                            <a href="#" class="mega-link">Activity Trackers</a>
-                                            <a href="#" class="mega-link">Sport Watches For Men</a>
-                                            <a href="#" class="mega-link">Sport Watches For Women</a>
-                                            <a href="#" class="mega-link view-more">View More →</a>
+                                            <a href="{% url 'products:product-list' %}?category=activity-trackers" class="mega-link">Activity Trackers</a>
+                                            <a href="{% url 'products:product-list' %}?category=sport-watches-men" class="mega-link">Sport Watches For Men</a>
+                                            <a href="{% url 'products:product-list' %}?category=sport-watches-women" class="mega-link">Sport Watches For Women</a>
+                                            <a href="{% url 'products:product-list' %}?category=sports-watches" class="mega-link view-more">View More →</a>
                                         </div>
                                     </div>
 
@@ -625,11 +628,11 @@
                                     <div class="col-xl-2 col-lg-3 col-md-4 col-6">
                                         <div class="mega-category">
                                             <div class="mega-category-title"><i class="fas fa-hat-cowboy"></i> Caps</div>
-                                            <a href="#" class="mega-link">Baseball Caps</a>
-                                            <a href="#" class="mega-link">Running Caps</a>
-                                            <a href="#" class="mega-link">Golf Caps</a>
-                                            <a href="#" class="mega-link">Sports Caps</a>
-                                            <a href="#" class="mega-link view-more">View More →</a>
+                                            <a href="{% url 'products:product-list' %}?category=baseball-caps" class="mega-link">Baseball Caps</a>
+                                            <a href="{% url 'products:product-list' %}?category=running-caps" class="mega-link">Running Caps</a>
+                                            <a href="{% url 'products:product-list' %}?category=golf-caps" class="mega-link">Golf Caps</a>
+                                            <a href="{% url 'products:product-list' %}?category=sports-caps" class="mega-link">Sports Caps</a>
+                                            <a href="{% url 'products:product-list' %}?category=caps" class="mega-link view-more">View More →</a>
                                         </div>
                                     </div>
 
@@ -637,12 +640,12 @@
                                     <div class="col-xl-2 col-lg-3 col-md-4 col-6">
                                         <div class="mega-category">
                                             <div class="mega-category-title"><i class="fas fa-shaker"></i> Shakers</div>
-                                            <a href="#" class="mega-link">Shakers (upto 500 ml)</a>
-                                            <a href="#" class="mega-link">Shakers (501-750 ml)</a>
-                                            <a href="#" class="mega-link">Shakers (751-1000 ml)</a>
-                                            <a href="#" class="mega-link">Shakers (1001-1250 ml)</a>
-                                            <a href="#" class="mega-link">Shakers (1251-1500 ml)</a>
-                                            <a href="#" class="mega-link view-more">View More →</a>
+                                            <a href="{% url 'products:product-list' %}?category=shakers-500ml" class="mega-link">Shakers (upto 500 ml)</a>
+                                            <a href="{% url 'products:product-list' %}?category=shakers-750ml" class="mega-link">Shakers (501-750 ml)</a>
+                                            <a href="{% url 'products:product-list' %}?category=shakers-1000ml" class="mega-link">Shakers (751-1000 ml)</a>
+                                            <a href="{% url 'products:product-list' %}?category=shakers-1250ml" class="mega-link">Shakers (1001-1250 ml)</a>
+                                            <a href="{% url 'products:product-list' %}?category=shakers-1500ml" class="mega-link">Shakers (1251-1500 ml)</a>
+                                            <a href="{% url 'products:product-list' %}?category=shakers" class="mega-link view-more">View More →</a>
                                         </div>
                                     </div>
 
@@ -650,23 +653,23 @@
                                     <div class="col-xl-2 col-lg-3 col-md-4 col-6">
                                         <div class="mega-category">
                                             <div class="mega-category-title"><i class="fas fa-tint"></i> Water Bottles</div>
-                                            <a href="#" class="mega-link">500 ml and Below</a>
-                                            <a href="#" class="mega-link">501 to 1000 ml</a>
-                                            <a href="#" class="mega-link">1001 to 1500 ml</a>
-                                            <a href="#" class="mega-link">1501 to 2000 ml</a>
-                                            <a href="#" class="mega-link view-more">View More →</a>
+                                            <a href="{% url 'products:product-list' %}?category=water-bottles-500ml" class="mega-link">500 ml and Below</a>
+                                            <a href="{% url 'products:product-list' %}?category=water-bottles-1000ml" class="mega-link">501 to 1000 ml</a>
+                                            <a href="{% url 'products:product-list' %}?category=water-bottles-1500ml" class="mega-link">1001 to 1500 ml</a>
+                                            <a href="{% url 'products:product-list' %}?category=water-bottles-2000ml" class="mega-link">1501 to 2000 ml</a>
+                                            <a href="{% url 'products:product-list' %}?category=water-bottles" class="mega-link view-more">View More →</a>
                                         </div>
                                     </div>
 
-                                    <!-- HEADBANDS & HAIRBANDS -->
+                                    <!-- HEADBANDS -->
                                     <div class="col-xl-2 col-lg-3 col-md-4 col-6">
                                         <div class="mega-category">
                                             <div class="mega-category-title"><i class="fas fa-headband"></i> Headbands</div>
-                                            <a href="#" class="mega-link">Cotton Headbands</a>
-                                            <a href="#" class="mega-link">Elastic Headbands</a>
-                                            <a href="#" class="mega-link">Sports Hairbands</a>
-                                            <a href="#" class="mega-link">Sweat Bands</a>
-                                            <a href="#" class="mega-link view-more">View More →</a>
+                                            <a href="{% url 'products:product-list' %}?category=cotton-headbands" class="mega-link">Cotton Headbands</a>
+                                            <a href="{% url 'products:product-list' %}?category=elastic-headbands" class="mega-link">Elastic Headbands</a>
+                                            <a href="{% url 'products:product-list' %}?category=sports-hairbands" class="mega-link">Sports Hairbands</a>
+                                            <a href="{% url 'products:product-list' %}?category=sweat-bands" class="mega-link">Sweat Bands</a>
+                                            <a href="{% url 'products:product-list' %}?category=headbands" class="mega-link view-more">View More →</a>
                                         </div>
                                     </div>
 
@@ -674,11 +677,11 @@
                                     <div class="col-xl-2 col-lg-3 col-md-4 col-6">
                                         <div class="mega-category">
                                             <div class="mega-category-title"><i class="fas fa-socks"></i> Socks</div>
-                                            <a href="#" class="mega-link">Football Socks</a>
-                                            <a href="#" class="mega-link">Running Socks</a>
-                                            <a href="#" class="mega-link">Tennis Socks</a>
-                                            <a href="#" class="mega-link">Gym Socks</a>
-                                            <a href="#" class="mega-link view-more">View More →</a>
+                                            <a href="{% url 'products:product-list' %}?category=football-socks" class="mega-link">Football Socks</a>
+                                            <a href="{% url 'products:product-list' %}?category=running-socks" class="mega-link">Running Socks</a>
+                                            <a href="{% url 'products:product-list' %}?category=tennis-socks" class="mega-link">Tennis Socks</a>
+                                            <a href="{% url 'products:product-list' %}?category=gym-socks" class="mega-link">Gym Socks</a>
+                                            <a href="{% url 'products:product-list' %}?category=socks" class="mega-link view-more">View More →</a>
                                         </div>
                                     </div>
 
@@ -686,10 +689,10 @@
                                     <div class="col-xl-2 col-lg-3 col-md-4 col-6">
                                         <div class="mega-category">
                                             <div class="mega-category-title"><i class="fas fa-towel"></i> Towels</div>
-                                            <a href="#" class="mega-link">Gym Towels</a>
-                                            <a href="#" class="mega-link">Swimming Towels</a>
-                                            <a href="#" class="mega-link">Sports Towels</a>
-                                            <a href="#" class="mega-link view-more">View More →</a>
+                                            <a href="{% url 'products:product-list' %}?category=gym-towels" class="mega-link">Gym Towels</a>
+                                            <a href="{% url 'products:product-list' %}?category=swimming-towels" class="mega-link">Swimming Towels</a>
+                                            <a href="{% url 'products:product-list' %}?category=sports-towels" class="mega-link">Sports Towels</a>
+                                            <a href="{% url 'products:product-list' %}?category=towels" class="mega-link view-more">View More →</a>
                                         </div>
                                     </div>
 
@@ -697,10 +700,10 @@
                                     <div class="col-xl-2 col-lg-3 col-md-4 col-6">
                                         <div class="mega-category">
                                             <div class="mega-category-title"><i class="fas fa-tools"></i> Pocket Tools</div>
-                                            <a href="#" class="mega-link">Multi-tools</a>
-                                            <a href="#" class="mega-link">Keychain Tools</a>
-                                            <a href="#" class="mega-link">Sports Tools</a>
-                                            <a href="#" class="mega-link view-more">View More →</a>
+                                            <a href="{% url 'products:product-list' %}?category=multi-tools" class="mega-link">Multi-tools</a>
+                                            <a href="{% url 'products:product-list' %}?category=keychain-tools" class="mega-link">Keychain Tools</a>
+                                            <a href="{% url 'products:product-list' %}?category=sports-tools" class="mega-link">Sports Tools</a>
+                                            <a href="{% url 'products:product-list' %}?category=pocket-tools" class="mega-link view-more">View More →</a>
                                         </div>
                                     </div>
 
@@ -708,10 +711,10 @@
                                     <div class="col-xl-2 col-lg-3 col-md-4 col-6">
                                         <div class="mega-category">
                                             <div class="mega-category-title"><i class="fas fa-box"></i> Storage</div>
-                                            <a href="#" class="mega-link">Equipment Storage</a>
-                                            <a href="#" class="mega-link">Gear Organizers</a>
-                                            <a href="#" class="mega-link">Sports Containers</a>
-                                            <a href="#" class="mega-link view-more">View More →</a>
+                                            <a href="{% url 'products:product-list' %}?category=equipment-storage" class="mega-link">Equipment Storage</a>
+                                            <a href="{% url 'products:product-list' %}?category=gear-organizers" class="mega-link">Gear Organizers</a>
+                                            <a href="{% url 'products:product-list' %}?category=sports-containers" class="mega-link">Sports Containers</a>
+                                            <a href="{% url 'products:product-list' %}?category=storage" class="mega-link view-more">View More →</a>
                                         </div>
                                     </div>
 
@@ -722,20 +725,19 @@
                         <!-- END ACCESSORIES MEGA MENU                -->
                         <!-- ======================================== -->
 
-                        <a href="{% url 'product-detail' %}" class="nav-item nav-link">Product Detail</a>
-                        <a href="{% url 'cart' %}" class="nav-item nav-link">Cart</a>
+                        <a href="{% url 'products:product-list' %}" class="nav-item nav-link">Products</a>
+                        <a href="#" class="nav-item nav-link">Cart</a>
 
                         <div class="nav-item dropdown-simple">
                             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
                             <div class="dropdown-menu">
-                                <a href="{% url 'checkout' %}" class="dropdown-item">Checkout</a>
-                                <a href="{% url 'testimonial' %}" class="dropdown-item">Testimonial</a>
-                                <a href="{% url 'error' %}" class="dropdown-item">404 Page</a>
-                                <a href="{% url 'errors' %}" class="dropdown-item">500 Page</a>
+                                <a href="#" class="dropdown-item">Checkout</a>
+                                <a href="#" class="dropdown-item">Testimonial</a>
+                                <a href="#" class="dropdown-item">404 Page</a>
                             </div>
                         </div>
 
-                        <a href="contact.html" class="nav-item nav-link">Contact</a>
+                        <a href="#" class="nav-item nav-link">Contact</a>
                     </div>
 
                     <div class="d-flex m-3 me-0">
@@ -749,10 +751,9 @@
                             <i class="fa fa-shopping-bag fa-2x"></i>
                             <span class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1"
                                   style="top: -5px; left: 15px; height: 20px; min-width: 20px;">
-                                3
+                                {{ cart_count|default:0 }}
                             </span>
                         </a>
-
                     </div>
                 </div>
             </nav>

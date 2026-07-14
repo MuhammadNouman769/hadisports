@@ -74,7 +74,18 @@ hadi_sports/
 ├── apps/
 │   ├── core/
 │   ├── pages/
-│   ├── catalog/
+│   ├── products/
+|    |            │
+|    |            ├── product_category.py
+|    |            │
+|   |            ├── product.py
+    |            │
+    |            ├── product_option.py
+    |
+    |           │
+    |            ├── product_variant.py
+    |            │
+    |            └── variant_image.py
 │   ├── cart/
 │   ├── orders/
 │   └── contact/
@@ -90,7 +101,19 @@ hadi_sports/
 ├── README.md
 └── manage.py
 ```
-
+ProductCategory
+      │
+      │
+      ▼
+Product
+      │
+      ├──────────────┐
+      │              │
+      ▼              ▼
+ProductOption    ProductVariant
+      │              │
+      ▼              ▼
+ProductOptionValue  VariantImage
 ---
 
 # ⚙️ Installation
