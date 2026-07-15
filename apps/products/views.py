@@ -317,3 +317,86 @@ class ProductDetailView(DetailView):
         context["variants_json"] = json.dumps(variants_json, cls=DjangoJSONEncoder)
 
         return context
+
+
+
+
+from django.http import JsonResponse
+from django.db.models import Q
+from apps.products.models.product import Product
+from apps.products.models.product_category import ProductCategory
+from apps.products.models.product_variant import ProductVariant
+
+
+def search_suggestions(request):
+    """
+    AJAX endpoint for live search suggestions.
+    """
+    query = request.GET.get('q', '').strip()
+    
+    if len(query) < 2:
+        return JsonResponse({'suggestions': []})
+    
+    suggestions = []
+    seen = set()  # To avoid duplicates
+    
+    # ==========================================
+    # 1. Search Products
+    # ==========================================
+    products = Product.objects.filter(
+        Q(name__icontains=query) |
+        Q(brand__icontains=query) |
+        Q(short_description__icontains=query),
+        is_active=True
+    ).select_related('category')[:8]
+    
+    for product in products:
+        if product.name not in seen:
+            seen.add(product.name)
+            suggestions.append({
+                'name': product.name,
+                'category': product.category.title if product.category else 'Product',
+                'type': 'Product',
+                'icon': 'fas fa-box',
+                'url': f"/product/{product.slug}/" if hasattr(product, 'slug') else None
+            })
+    
+    # ==========================================
+    # 2. Search Categories
+    # ==========================================
+    categories = ProductCategory.objects.filter(
+        Q(title__icontains=query),
+        is_active=True
+    )[:5]
+    
+    for category in categories:
+        if category.title not in seen:
+            seen.add(category.title)
+            suggestions.append({
+                'name': category.title,
+                'category': 'Category',
+                'type': 'Category',
+                'icon': 'fas fa-tag',
+                'url': f"/products/?category={category.slug}"
+            })
+    
+    # ==========================================
+    # 3. Search Brands (from products)
+    # ==========================================
+    brands = Product.objects.filter(
+        brand__icontains=query,
+        is_active=True
+    ).values_list('brand', flat=True).distinct()[:3]
+    
+    for brand in brands:
+        if brand and brand not in seen:
+            seen.add(brand)
+            suggestions.append({
+                'name': brand,
+                'category': 'Brand',
+                'type': 'Brand',
+                'icon': 'fas fa-building',
+                'url': f"/products/?q={brand}"
+            })
+    
+    return JsonResponse({'suggestions': suggestions})        
