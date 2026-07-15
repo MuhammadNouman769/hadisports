@@ -4,6 +4,10 @@ from django.utils.html import format_html
 from apps.products.models import VariantImage
 
 
+# ============================================================
+# Variant Image Inline
+# ============================================================
+
 class VariantImageInline(admin.TabularInline):
 
     model = VariantImage
@@ -12,7 +16,6 @@ class VariantImageInline(admin.TabularInline):
 
     fields = (
         "image",
-        "alt_text",
         "is_primary",
         "position",
         "preview",
@@ -24,6 +27,7 @@ class VariantImageInline(admin.TabularInline):
 
     ordering = (
         "position",
+        "id",
     )
 
     def preview(self, obj):
@@ -31,7 +35,8 @@ class VariantImageInline(admin.TabularInline):
         if obj.pk and obj.image:
 
             return format_html(
-                '<img src="{}" width="70" style="border-radius:6px;">',
+                '<img src="{}" width="70" height="70" '
+                'style="object-fit:cover;border-radius:6px;">',
                 obj.image.url,
             )
 
@@ -39,6 +44,10 @@ class VariantImageInline(admin.TabularInline):
 
     preview.short_description = "Preview"
 
+
+# ============================================================
+# Variant Image Admin
+# ============================================================
 
 @admin.register(VariantImage)
 class VariantImageAdmin(admin.ModelAdmin):
@@ -52,25 +61,44 @@ class VariantImageAdmin(admin.ModelAdmin):
         "is_active",
     )
 
-    list_editable = (
-        "position",
+    list_filter = (
         "is_primary",
         "is_active",
+        "variant__product",
+    )
+
+    search_fields = (
+        "variant__product__name",
     )
 
     autocomplete_fields = (
         "variant",
     )
 
+    list_editable = (
+        "position",
+        "is_primary",
+        "is_active",
+    )
+
+    ordering = (
+        "variant",
+        "position",
+    )
+
+    save_on_top = True
+
+    list_per_page = 30
+
+    @admin.display(description="Image")
     def preview(self, obj):
 
         if obj.image:
 
             return format_html(
-                '<img src="{}" width="80" style="border-radius:6px;">',
+                '<img src="{}" width="80" height="80" '
+                'style="object-fit:cover;border-radius:6px;">',
                 obj.image.url,
             )
 
         return "-"
-
-    preview.short_description = "Image"

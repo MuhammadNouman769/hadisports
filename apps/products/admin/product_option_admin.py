@@ -8,6 +8,10 @@ from apps.products.models import (
 )
 
 
+# ============================================================
+# Product Option
+# ============================================================
+
 @admin.register(ProductOption)
 class ProductOptionAdmin(admin.ModelAdmin):
 
@@ -19,9 +23,17 @@ class ProductOptionAdmin(admin.ModelAdmin):
         "is_active",
     )
 
+    list_filter = (
+        "is_active",
+    )
+
     search_fields = (
         "name",
         "product__name",
+    )
+
+    autocomplete_fields = (
+        "product",
     )
 
     list_editable = (
@@ -29,16 +41,19 @@ class ProductOptionAdmin(admin.ModelAdmin):
         "is_active",
     )
 
-    autocomplete_fields = (
+    ordering = (
         "product",
+        "position",
     )
+
+    save_on_top = True
 
     @admin.display(description="Product")
     def product_link(self, obj):
 
         url = reverse(
             "admin:products_product_change",
-            args=[obj.product.id],
+            args=[obj.product.pk],
         )
 
         return format_html(
@@ -48,6 +63,10 @@ class ProductOptionAdmin(admin.ModelAdmin):
         )
 
 
+# ============================================================
+# Product Option Value
+# ============================================================
+
 @admin.register(ProductOptionValue)
 class ProductOptionValueAdmin(admin.ModelAdmin):
 
@@ -55,13 +74,20 @@ class ProductOptionValueAdmin(admin.ModelAdmin):
         "id",
         "value",
         "option",
+        "product",
         "position",
+        "is_active",
+    )
+
+    list_filter = (
+        "option",
         "is_active",
     )
 
     search_fields = (
         "value",
         "option__name",
+        "option__product__name",
     )
 
     autocomplete_fields = (
@@ -72,3 +98,14 @@ class ProductOptionValueAdmin(admin.ModelAdmin):
         "position",
         "is_active",
     )
+
+    ordering = (
+        "option",
+        "position",
+    )
+
+    save_on_top = True
+
+    @admin.display(description="Product")
+    def product(self, obj):
+        return obj.option.product

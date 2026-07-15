@@ -50,23 +50,35 @@
     .product-image-wrapper:hover .product-img-hover {
         opacity: 1;
     }
-    
-    /* ---- Cart Button - No Hover Effect ---- */
-    .btn-add-cart {
-        background: transparent !important;
-        border: 1px solid #dee2e6 !important;
-        margin-top: 5px !important;
-        color: #81c408 !important;
-        margin-left: 45px!important;
+    .font-s{
+    font-size:18px;
+    font-weight:700;
+    color:#070707 !important;
+    line-height:1.5;
+
+    min-height:54px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    text-align:center;
+
+    margin:0;
+    padding:8px 12px;
+
+    transition:0.3s;
+}
+
+
+.hs-product-card:hover .font-s{
+    color:#81c408 !important;
+}
+    .br-radius {
+        border-radius: 20px!important;
     }
     
-    .btn-add-cart:hover {
-        background: #ffb524 !important;
-        border-color: #dee2e6 !important;
-        color: #ffffff !important;
-        transform: none !important;
-        box-shadow: none !important;
-    }
+    
     
     .btn-add-cart i {
         color: #6c757d !important;
@@ -230,7 +242,7 @@
                             <a class="d-flex m-2 py-2 bg-light rounded-pill"
                                data-bs-toggle="pill"
                                href="#tab-{{ category_data.category.id }}">
-                                <span class="text-dark" style="width:130px;">
+                                <span class="text-dark" style="width:160px;">
                                     {{ category_data.category.title }}
                                 </span>
                             </a>
@@ -290,40 +302,34 @@
                                         </div>
                                         
                                         <!-- Category Badge -->
-                                        <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" 
-                                             style="top: 10px; left: 10px; z-index: 3;">
+                                        <div class="text-white bg-secondary px-3 py-1 br-radius position-absolute" 
+                                             style="top: 10px; left: 10px; z-index: 3; font-size:10px;">
                                             {{ product.category.title }}
                                         </div>
                                         
                                         <!-- Product Info -->
                                         <div class="p-4 border  border-top-0 rounded-bottom">
-                                            <h4>{{ product.name|truncatechars:20 }}</h4>
-                                            <p>{{ product.short_description|truncatechars:20 }}</p>
+                                            <h4 style="font-size: 18px; color: #070707; hover-color: #81c408!important;">{{ product.name|truncatechars:30 }}</h4>
+                                            <p style="font-size: 14px; color: #0b0b0b;">{{ product.short_description|truncatechars:30 }}</p>
                                             
                                             <div class="d-flex justify-content-between flex-lg-wrap">
-                                                {% with product.default_variant as variant %}
-                                                    {% if variant %}
-                                                        <p class="text-dark fs-5 fw-bold mb-0">
-                                                            Rs. {{ variant.price }}
-                                                            {% if variant.compare_price %}
-                                                                <span class="text-danger text-decoration-line-through fs-6">
-                                                                    Rs. {{ variant.compare_price }}
-                                                                </span>
-                                                            {% endif %}
-                                                        </p>
-                                                        
-                                                        <!-- Add to Cart Button (No Hover Effect) -->
-                                                        <a href="#" class="btn border rounded-pill px-3 btn-add-cart">
-                                                            <i class="fa fa-shopping-bag me-2"></i> 
-                                                            Add to cart
-                                                        </a>
-                                                    {% else %}
-                                                        <p class="text-dark fs-5 fw-bold mb-0">
-                                                            No variant available
-                                                        </p>
-                                                    {% endif %}
-                                                {% endwith %}
-                                            </div>
+                            {% with product.variants.all|first as variant %}
+                                {% if variant %}
+                                    <p class="text-dark fs-5 fw-bold mb-0">
+                                        Rs. {{ variant.price }}
+                                        {% if variant.compare_price %}
+                                            <span class="text-danger text-decoration-line-through fs-6">
+                                                Rs. {{ variant.compare_price }}
+                                            </span>
+                                        {% endif %}
+                                    </p>
+                                    <a href="{% url 'products:product-detail' slug=product.slug %}" 
+                                       class="btn border border-secondary rounded-pill px-3 text-primary">
+                                        <i class="fa fa-eye me-2 text-primary"></i> View
+                                    </a>
+                                {% endif %}
+                            {% endwith %}
+                        </div>
                                         </div>
                                     </div>
                                 </div>
@@ -401,18 +407,10 @@
                                                         <p class="text-dark fs-5 fw-bold mb-0">
                                                             Rs. {{ variant.price }}
                                                             {% if variant.compare_price %}
-                                                                <span class="text-danger text-decoration-line-through fs-6">
-                                                                    Rs. {{ variant.compare_price }}
-                                                                </span>
-                                                            {% endif %}
+                                                                                                                           {% endif %}
                                                         </p>
                                                         
-                                                        <!-- Add to Cart Button (No Hover Effect) -->
-                                                        <a href="#" class="btn border rounded-pill px-3 btn-add-cart">
-                                                            <i class="fa fa-shopping-bag me-2"></i> 
-                                                            Add to cart
-                                                        </a>
-                                                    {% else %}
+                                                                                                          {% else %}
                                                         <p class="text-dark fs-5 fw-bold mb-0">
                                                             No variant available
                                                         </p>

@@ -7,21 +7,6 @@ from apps.utils.models import SlugModel
 ===============================================================================
                             PRODUCT CATEGORY
 ===============================================================================
-
-Hierarchy Example
-
-Sports
-│
-├── Cricket
-│   ├── Bats
-│   ├── Balls
-│   └── Gloves
-│
-├── Football
-│
-└── Gym Equipment
-
-===============================================================================
 """
 
 
@@ -44,23 +29,8 @@ class ProductCategory(SlugModel):
         null=True,
     )
 
-    short_description = models.CharField(
-        max_length=255,
-        blank=True,
-    )
-
-    image = models.ImageField(
-        upload_to="categories/",
-        blank=True,
-        null=True,
-    )
-
     display_order = models.PositiveSmallIntegerField(
         default=0,
-    )
-
-    is_featured = models.BooleanField(
-        default=False,
     )
 
     class Meta:
@@ -85,7 +55,6 @@ class ProductCategory(SlugModel):
             models.Index(fields=["parent"]),
             models.Index(fields=["title"]),
             models.Index(fields=["display_order"]),
-            models.Index(fields=["is_featured"]),
             models.Index(fields=["is_active"]),
             models.Index(fields=["created_at"]),
         ]
@@ -102,19 +71,11 @@ class ProductCategory(SlugModel):
     def has_children(self):
         return self.children.filter(is_active=True).exists()
 
-    @property
-    def active_products_count(self):
-        return self.products.filter(is_active=True).count()
-
     # ------------------------------------------------------------------
     # Validation
     # ------------------------------------------------------------------
 
     def clean(self):
-        """
-        Prevent assigning itself as parent.
-        """
-
         if self.parent == self:
             from django.core.exceptions import ValidationError
 
@@ -123,7 +84,7 @@ class ProductCategory(SlugModel):
             )
 
     # ------------------------------------------------------------------
-    # Slug Source
+    # Slug
     # ------------------------------------------------------------------
 
     def get_slug_source(self):

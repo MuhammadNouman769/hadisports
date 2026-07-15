@@ -1,303 +1,524 @@
 {% extends 'base.html' %}
 {% load static %}
-
-
-{% block title %}products | Hadi Sports{% endblock %}
+{% block title %}Home | Hadi Sports{% endblock %}
 {% block content %}
 
+<!-- ==========================================================
+     PRODUCT LIST PAGE - CLEAN VERSION
+     ========================================================== -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Products</title>
+    
+    <!-- Bootstrap CSS -->
+    
+    <style>
+        /* ==========================================================
+           PRODUCT LIST PAGE STYLES
+        ========================================================== */
+        
+        /* ---- Product Image Container ---- */
+        .product-image-wrapper {
+            position: relative;
+            overflow: hidden;
+            height: 250px;
+            background: #f8f9fa;
+        }
+        
+        /* ---- Default Image ---- */
+        .product-img-default {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: opacity 0.3s ease;
+            z-index: 1;
+        }
+        
+        /* ---- Hover Image ---- */
+        .product-img-hover {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 2;
+        }
+        
+        /* ---- On Hover: Show hover image, hide default ---- */
+        .product-image-wrapper:hover .product-img-default {
+            opacity: 0;
+        }
+        
+        .product-image-wrapper:hover .product-img-hover {
+            opacity: 1;
+        }
+        
+        /* ---- Product Name Styling (Centered, 30 chars) ---- */
+        .product-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #070707 !important;
+            line-height: 1.5;
+            min-height: 54px; /* 2 lines */
+            text-align: center;
+            margin: 0;
+            padding: 8px 12px;
+            transition: 0.3s;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-height: 54px;
+        }
+        
+        
+        
+        /* ---- Short Description (Centered, 30 chars) ---- */
+        .product-description {
+            font-size: 14px;
+            color: #0b0b0b;
+            text-align: center;
+            min-height: 40px;
+            margin-bottom: 10px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-height: 40px;
+        }
+        
+        /* ---- Category Badge Border Radius ---- */
+        .br-radius {
+            border-radius: 20px !important;
+        }
+        
+        /* ---- Price and View Button Container ---- */
+        .product-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 5px;
+        }
+        
+        /* ---- Price Styling ---- */
+        .product-price {
+            font-size: 18px;
+            font-weight: 700;
+            color: #070707;
+            margin: 0;
+        }
+        
+        .product-price .original-price {
+            font-size: 14px;
+            font-weight: 400;
+            color: #dc3545;
+            text-decoration: line-through;
+            margin-left: 5px;
+        }
+        
+        
+        
+        
+        /* ---- No extra hover effects on cards ---- */
+        .fruite-item {
+            transition: none;
+        }
+        
+        .fruite-item:hover {
+            transform: none;
+            box-shadow: none;
+        }
+        
+        /* ---- Sort dropdown styling ---- */
+        .form-select:focus {
+            border-color: #81c408;
+            box-shadow: 0 0 0 0.25rem rgba(129, 196, 8, 0.25);
+        }
+        
+        /* ---- Search button styling ---- */
+        .btn-primary {
+            background-color: #81c408;
+            border-color: #81c408;
+        }
+        
+        .btn-primary:hover {
+            background-color: #6a9e06;
+            border-color: #6a9e06;
+        }
+        
+        /* ---- Pagination active page ---- */
+        .page-item.active .page-link {
+            background-color: #81c408;
+            border-color: #81c408;
+            color: white;
+        }
+        
+        .page-link {
+            color: #81c408;
+        }
+        
+        .page-link:hover {
+            color: #6a9e06;
+        }
+        
+        /* ---- Product card border ---- */
+        .fruite-item .border {
+            border-color: #ffb524 !important;
+        }
+        
+        /* ---- Responsive adjustments ---- */
+        @media (max-width: 768px) {
+            .product-image-wrapper {
+                height: 200px;
+            }
+            
+            .product-title {
+                font-size: 16px;
+                min-height: 48px;
+                max-height: 48px;
+            }
+            
+            .col-lg-4, .col-lg-8 {
+                text-align: center !important;
+            }
+            
+            .col-lg-8 .row {
+                justify-content: center !important;
+            }
+            
+            .product-price {
+                font-size: 16px;
+            }
+            
+            
+        }
+        
+        @media (max-width: 576px) {
+            .product-image-wrapper {
+                height: 180px;
+            }
+            
+            .product-title {
+                font-size: 14px;
+                min-height: 42px;
+                max-height: 42px;
+            }
+            
+            .product-description {
+                font-size: 12px;
+                min-height: 32px;
+                max-height: 32px;
+            }
+            
+            .product-price {
+                font-size: 14px;
+            }
+            
+            .product-price .original-price {
+                font-size: 12px;
+            }
+            
+            .btn-view {
+                font-size: 11px;
+                padding: 4px 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ==========================================================
+         MAIN PRODUCT LIST SECTION
+    ========================================================== -->
 <!-- Single Page Header start -->
-<div class="container-fluid page-header py-5">
-    <h1 class="text-center text-white display-6">Shop</h1>
-    <ol class="breadcrumb justify-content-center mb-0">
-        <li class="breadcrumb-item"><a href="#">Home</a></li>
-        <li class="breadcrumb-item"><a href="#">Pages</a></li>
-        <li class="breadcrumb-item active text-white">Shop</li>
-    </ol>
-</div>
-<!-- Single Page Header End -->
-
-
-<!-- Fruits Shop Start-->
-<div class="container-fluid fruite py-5">
-    <div class="container py-5">
-        <h1 class="mb-4">Fresh fruits shop</h1>
-        <div class="row g-4">
-            <div class="col-lg-12">
-                <div class="row g-4">
-                    <div class="col-xl-3">
-                        <div class="input-group w-100 mx-auto d-flex">
-                            <input type="search" class="form-control p-3" placeholder="keywords" aria-describedby="search-icon-1">
-                            <span id="search-icon-1" class="input-group-text p-3"><i class="fa fa-search"></i></span>
-                        </div>
-                    </div>
-                    <div class="col-6"></div>
-                    <div class="col-xl-3">
-                        <div class="bg-light ps-3 py-3 rounded d-flex justify-content-between mb-4">
-                            <label for="fruits">Default Sorting:</label>
-                            <select id="fruits" name="fruitlist" class="border-0 form-select-sm bg-light me-3" form="fruitform">
-                                <option value="volvo">Nothing</option>
-                                <option value="saab">Popularity</option>
-                                <option value="opel">Organic</option>
-                                <option value="audi">Fantastic</option>
-                            </select>
-                        </div>
-                    </div>
+        <div class="container-fluid page-header py-5">
+            <h1 class="text-center text-white display-6">Shop</h1>
+            <ol class="breadcrumb justify-content-center mb-0">
+                <li class="breadcrumb-item"><a style="color: #ffb524;" href="#">Home</a></li>
+                <li class="breadcrumb-item"><a style="color: #ffb524;" href="#">Pages</a></li>
+                <li class="breadcrumb-item active text-white">Shop</li>
+            </ol>
+        </div>    
+        
+    <div class="container-fluid fruite">
+        <div class="container py-5">
+            
+            <!-- ==============================================
+            HEADER WITH SEARCH AND SORT
+            ============================================== -->
+            <div class="row g-4 mb-5">
+                <!-- Title -->
+                <div class="col-lg-4 text-start">
+                    <h1>Our Products</h1>
+                    <p class="text-muted" style="font-size: 14px;">
+                        Showing {{ page_obj.start_index }}-{{ page_obj.end_index }} of {{ paginator.count }} products
+                    </p>
                 </div>
-                <div class="row g-4">
-                    <div class="col-lg-3">
-                        <div class="row g-4">
-                            <div class="col-lg-12">
-                                <div class="mb-3">
-                                    <h4>Categories</h4>
-                                    <ul class="list-unstyled fruite-categorie">
-                                        <li>
-                                            <div class="d-flex justify-content-between fruite-name">
-                                                <a href="#"><i class="fas fa-apple-alt me-2"></i>Apples</a>
-                                                <span>(3)</span>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="d-flex justify-content-between fruite-name">
-                                                <a href="#"><i class="fas fa-apple-alt me-2"></i>Oranges</a>
-                                                <span>(5)</span>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="d-flex justify-content-between fruite-name">
-                                                <a href="#"><i class="fas fa-apple-alt me-2"></i>Strawbery</a>
-                                                <span>(2)</span>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="d-flex justify-content-between fruite-name">
-                                                <a href="#"><i class="fas fa-apple-alt me-2"></i>Banana</a>
-                                                <span>(8)</span>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="d-flex justify-content-between fruite-name">
-                                                <a href="#"><i class="fas fa-apple-alt me-2"></i>Pumpkin</a>
-                                                <span>(5)</span>
-                                            </div>
-                                        </li>
-                                    </ul>
+                
+                <!-- Search and Sort -->
+                <div class="col-lg-8">
+                    <div class="row g-3 align-items-center justify-content-end">
+                        <!-- Search Box -->
+                        <div class="col-md-5">
+                            <form method="GET" action="{% url 'products:product-list' %}" id="searchForm">
+                                <div class="input-group">
+                                    <input type="text" 
+                                           class="form-control" 
+                                           name="q" 
+                                           placeholder="Search products..." 
+                                           value="{{ search_query|default:'' }}"
+                                           aria-label="Search products">
+                                    <button class="btn btn-primary" type="submit">
+                                        <i class="fa fa-search"></i>
+                                    </button>
                                 </div>
-                            </div>
-                            <div class="col-lg-12">
-                                <div class="mb-3">
-                                    <h4 class="mb-2">Price</h4>
-                                    <input type="range" class="form-range w-100" id="rangeInput" name="rangeInput" min="0" max="500" value="0" oninput="amount.value=rangeInput.value">
-                                    <output id="amount" name="amount" min-velue="0" max-value="500" for="rangeInput">0</output>
-                                </div>
-                            </div>
-                            <div class="col-lg-12">
-                                <div class="mb-3">
-                                    <h4>Additional</h4>
-                                    <div class="mb-2">
-                                        <input type="radio" class="me-2" id="Categories-1" name="Categories-1" value="Beverages">
-                                        <label for="Categories-1"> Organic</label>
-                                    </div>
-                                    <div class="mb-2">
-                                        <input type="radio" class="me-2" id="Categories-2" name="Categories-1" value="Beverages">
-                                        <label for="Categories-2"> Fresh</label>
-                                    </div>
-                                    <div class="mb-2">
-                                        <input type="radio" class="me-2" id="Categories-3" name="Categories-1" value="Beverages">
-                                        <label for="Categories-3"> Sales</label>
-                                    </div>
-                                    <div class="mb-2">
-                                        <input type="radio" class="me-2" id="Categories-4" name="Categories-1" value="Beverages">
-                                        <label for="Categories-4"> Discount</label>
-                                    </div>
-                                    <div class="mb-2">
-                                        <input type="radio" class="me-2" id="Categories-5" name="Categories-1" value="Beverages">
-                                        <label for="Categories-5"> Expired</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-12">
-                                <h4 class="mb-3">Featured products</h4>
-                                <div class="d-flex align-items-center justify-content-start">
-                                    
-                                </div>
-                               
-                              
-                            </div>
-                            <div class="col-lg-12">
-                                <div class="position-relative">
-                                    <img src="{% static 'img/hs.jpeg' %}" class="img-fluid w-100 rounded" alt="">
-                                    <div class="position-absolute" style="top: 50%; right: 10px; transform: translateY(-50%);">
-
-                                    </div>
-                                </div>
-                            </div>
+                                <!-- Preserve sort parameter in search -->
+                                {% if sort_by %}
+                                    <input type="hidden" name="sort" value="{{ sort_by }}">
+                                {% endif %}
+                            </form>
                         </div>
-                    </div>
-                    <div class="col-lg-9">
-                        <div class="row g-4 justify-content-center">
-                            <div class="col-md-6 col-lg-6 col-xl-4">
-                                <div class="rounded position-relative fruite-item">
-                                    <div class="fruite-img">
-                                        <img src="{% static 'img/fruite-item-5.jpg' %}" class="img-fluid w-100 rounded-top" alt="">
-                                    </div>
-                                    <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">Fruits</div>
-                                    <div class="p-4 border border-secondary border-top-0 rounded-bottom">
-                                        <h4>Grapes</h4>
-                                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt</p>
-                                        <div class="d-flex justify-content-between flex-lg-wrap">
-                                            <p class="text-dark fs-5 fw-bold mb-0">$4.99 / kg</p>
-                                            <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-lg-6 col-xl-4">
-                                <div class="rounded position-relative fruite-item">
-                                    <div class="fruite-img">
-                                        <img src="{% static 'img/fruite-item-5.jpg' %}" class="img-fluid w-100 rounded-top" alt="">
-                                    </div>
-                                    <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">Fruits</div>
-                                    <div class="p-4 border border-secondary border-top-0 rounded-bottom">
-                                        <h4>Grapes</h4>
-                                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt</p>
-                                        <div class="d-flex justify-content-between flex-lg-wrap">
-                                            <p class="text-dark fs-5 fw-bold mb-0">$4.99 / kg</p>
-                                            <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-lg-6 col-xl-4">
-                                <div class="rounded position-relative fruite-item">
-                                    <div class="fruite-img">
-                                        <img src="{% static 'img/fruite-item-2.jpg' %}" class="img-fluid w-100 rounded-top" alt="">
-                                    </div>
-                                    <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">Fruits</div>
-                                    <div class="p-4 border border-secondary border-top-0 rounded-bottom">
-                                        <h4>Raspberries</h4>
-                                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt</p>
-                                        <div class="d-flex justify-content-between flex-lg-wrap">
-                                            <p class="text-dark fs-5 fw-bold mb-0">$4.99 / kg</p>
-                                            <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-lg-6 col-xl-4">
-                                <div class="rounded position-relative fruite-item">
-                                    <div class="fruite-img">
-                                        <img src="{% static 'img/fruite-item-4.jpg' %}" class="img-fluid w-100 rounded-top" alt="">
-                                    </div>
-                                    <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">Fruits</div>
-                                    <div class="p-4 border border-secondary border-top-0 rounded-bottom">
-                                        <h4>Apricots</h4>
-                                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt</p>
-                                        <div class="d-flex justify-content-between flex-lg-wrap">
-                                            <p class="text-dark fs-5 fw-bold mb-0">$4.99 / kg</p>
-                                            <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-lg-6 col-xl-4">
-                                <div class="rounded position-relative fruite-item">
-                                    <div class="fruite-img">
-                                        <img src="{% static 'img/fruite-item-3.jpg' %}" class="img-fluid w-100 rounded-top" alt="">
-                                    </div>
-                                    <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">Fruits</div>
-                                    <div class="p-4 border border-secondary border-top-0 rounded-bottom">
-                                        <h4>Banana</h4>
-                                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt</p>
-                                        <div class="d-flex justify-content-between flex-lg-wrap">
-                                            <p class="text-dark fs-5 fw-bold mb-0">$4.99 / kg</p>
-                                            <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-lg-6 col-xl-4">
-                                <div class="rounded position-relative fruite-item">
-                                    <div class="fruite-img">
-                                        <img src="{% static 'img/fruite-item-1.jpg' %}" class="img-fluid w-100 rounded-top" alt="">
-                                    </div>
-                                    <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">Fruits</div>
-                                    <div class="p-4 border border-secondary border-top-0 rounded-bottom">
-                                        <h4>Oranges</h4>
-                                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt</p>
-                                        <div class="d-flex justify-content-between flex-lg-wrap">
-                                            <p class="text-dark fs-5 fw-bold mb-0">$4.99 / kg</p>
-                                            <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-lg-6 col-xl-4">
-                                <div class="rounded position-relative fruite-item">
-                                    <div class="fruite-img">
-                                        <img src="{% static 'img/fruite-item-2.jpg' %}" class="img-fluid w-100 rounded-top" alt="">
-                                    </div>
-                                    <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">Fruits</div>
-                                    <div class="p-4 border border-secondary border-top-0 rounded-bottom">
-                                        <h4>Raspberries</h4>
-                                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt</p>
-                                        <div class="d-flex justify-content-between flex-lg-wrap">
-                                            <p class="text-dark fs-5 fw-bold mb-0">$4.99 / kg</p>
-                                            <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-lg-6 col-xl-4">
-                                <div class="rounded position-relative fruite-item">
-                                    <div class="fruite-img">
-                                        <img src="{% static 'img/fruite-item-5.jpg' %}" class="img-fluid w-100 rounded-top" alt="">
-                                    </div>
-                                    <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">Fruits</div>
-                                    <div class="p-4 border border-secondary border-top-0 rounded-bottom">
-                                        <h4>Grapes</h4>
-                                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt</p>
-                                        <div class="d-flex justify-content-between flex-lg-wrap">
-                                            <p class="text-dark fs-5 fw-bold mb-0">$4.99 / kg</p>
-                                            <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-lg-6 col-xl-4">
-                                <div class="rounded position-relative fruite-item">
-                                    <div class="fruite-img">
-                                        <img src="{% static 'img/fruite-item-1.jpg' %}" class="img-fluid w-100 rounded-top" alt="">
-                                    </div>
-                                    <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">Fruits</div>
-                                    <div class="p-4 border border-secondary border-top-0 rounded-bottom">
-                                        <h4>Oranges</h4>
-                                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt</p>
-                                        <div class="d-flex justify-content-between flex-lg-wrap">
-                                            <p class="text-dark fs-5 fw-bold mb-0">$4.99 / kg</p>
-                                            <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="pagination d-flex justify-content-center mt-5">
-                                    <a href="#" class="rounded">&laquo;</a>
-                                    <a href="#" class="active rounded">1</a>
-                                    <a href="#" class="rounded">2</a>
-                                    <a href="#" class="rounded">3</a>
-                                    <a href="#" class="rounded">4</a>
-                                    <a href="#" class="rounded">5</a>
-                                    <a href="#" class="rounded">6</a>
-                                    <a href="#" class="rounded">&raquo;</a>
-                                </div>
-                            </div>
+                        
+                        <!-- Sort Dropdown -->
+                        <div class="col-md-4">
+                            <form method="GET" action="{% url 'products:product-list' %}" id="sortForm">
+                                <select class="form-select" name="sort" onchange="document.getElementById('sortForm').submit();">
+                                    <option value="newest" {% if sort_by == 'newest' %}selected{% endif %}>
+                                        <i class="fa fa-clock"></i> Newest First
+                                    </option>
+                                    <option value="price_low" {% if sort_by == 'price_low' %}selected{% endif %}>
+                                        <i class="fa fa-arrow-up"></i> Price: Low to High
+                                    </option>
+                                    <option value="price_high" {% if sort_by == 'price_high' %}selected{% endif %}>
+                                        <i class="fa fa-arrow-down"></i> Price: High to Low
+                                    </option>
+                                    <option value="popular" {% if sort_by == 'popular' %}selected{% endif %}>
+                                        <i class="fa fa-star"></i> Most Popular
+                                    </option>
+                                </select>
+                                <!-- Preserve search query in sort -->
+                                {% if search_query %}
+                                    <input type="hidden" name="q" value="{{ search_query }}">
+                                {% endif %}
+                            </form>
                         </div>
+                        
+                        <!-- Clear Filters Button -->
+                        {% if search_query or sort_by %}
+                        <div class="col-md-2">
+                            <a href="{% url 'products:product-list' %}" class="btn btn-outline-secondary btn-sm w-100">
+                                <i class="fa fa-times"></i> Clear
+                            </a>
+                        </div>
+                        {% endif %}
                     </div>
                 </div>
             </div>
+
+            <!-- ==============================================
+            PRODUCTS GRID
+            ============================================== -->
+            <div class="row g-4">
+                {% for product in products %}
+                <div class="col-md-6 col-lg-4 col-xl-3">
+                    <div class="rounded position-relative fruite-item">
+                        
+                        <!-- Product Image with Hover Effect -->
+                        <div class="product-image-wrapper">
+                            {% with product.default_variant as variant %}
+                                {% if variant %}
+                                    {% with variant.images.all as images %}
+                                        {% if images %}
+                                            <!-- Default Image -->
+                                            <img src="{{ images.0.image.url }}" 
+                                                 class="product-img-default" 
+                                                 alt="{{ product.name }}">
+                                            
+                                            <!-- Hover Image (only if more than 1 image) -->
+                                            {% if images|length > 1 %}
+                                                <img src="{{ images.1.image.url }}" 
+                                                     class="product-img-hover" 
+                                                     alt="{{ product.name }} - hover">
+                                            {% endif %}
+                                        {% else %}
+                                            <!-- No Image - Show Default -->
+                                            <img src="{% static 'img/default-product.jpg' %}" 
+                                                 class="product-img-default" 
+                                                 alt="{{ product.name }}">
+                                        {% endif %}
+                                    {% endwith %}
+                                {% else %}
+                                    <!-- No Variant - Show Default -->
+                                    <img src="{% static 'img/default-product.jpg' %}" 
+                                         class="product-img-default" 
+                                         alt="{{ product.name }}">
+                                {% endif %}
+                            {% endwith %}
+                        </div>
+                        
+                        <!-- Category Badge -->
+                        <div class="text-white bg-secondary px-3 py-1 br-radius position-absolute" 
+                             style="top: 10px; left: 10px; z-index: 3; font-size:10px;">
+                            {{ product.category.title }}
+                        </div>
+                        
+                        <!-- Discount Badge (if applicable) -->
+                        {% with product.variants.all|first as variant %}
+                            {% if variant and variant.compare_price %}
+                            <div class="text-white bg-danger px-3 py-1 br-radius position-absolute" 
+                                 style="top: 10px; right: 10px; z-index: 3; font-size:10px;">
+                                {% widthratio variant.compare_price|add:variant.price variant.compare_price 100 as discount %}
+                                -{% widthratio discount 1 100 %}%
+                            </div>
+                            {% endif %}
+                        {% endwith %}
+                        
+                        <!-- Product Info -->
+                        <div class="p-4 border border-top-0 rounded-bottom" style="border-color: #dee2e6 !important;">
+                            
+                            <!-- Product Name - Centered, 30 chars -->
+                            <h4 class="product-title">{{ product.name|truncatechars:30 }}</h4>
+                            
+                            <!-- Short Description - Centered, 30 chars -->
+                            <p class="product-description">{{ product.short_description|truncatechars:30 }}</p>
+                            
+                            <!-- Price and View Button -->
+                            <div class="product-actions">
+                                {% with product.variants.all|first as variant %}
+                                    {% if variant %}
+                                        <!-- Price - Left -->
+                                        <div>
+                                            <p class="product-price">
+                                                Rs. {{ variant.price }}
+                                                {% if variant.compare_price %}
+                                                    <span class="original-price">Rs. {{ variant.compare_price }}</span>
+                                                {% endif %}
+                                            </p>
+                                        </div>
+                                        
+                                        <!-- View Button - Right -->
+                                        <a href="{% url 'products:product-detail' slug=product.slug %}" 
+                                       class="btn border border-secondary rounded-pill px-3 text-primary">
+                                        <i class="fa fa-eye me-2 text-primary"></i> View
+                                    </a>
+                                    {% else %}
+                                        <p class="product-price">No variant</p>
+                                    {% endif %}
+                                {% endwith %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <div class="col-12 text-center py-5">
+                    <i class="fa fa-box-open" style="font-size: 48px; color: #dee2e6;"></i>
+                    <p class="text-muted mt-3" style="font-size: 18px;">No products found matching your criteria.</p>
+                    <a href="{% url 'products:product-list' %}" class="btn btn-primary mt-2">
+                        <i class="fa fa-arrow-left me-2"></i> View All Products
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+
+            <!-- ==============================================
+            PAGINATION
+            ============================================== -->
+            {% if is_paginated %}
+            <div class="row mt-5">
+                <div class="col-12">
+                    <nav aria-label="Page navigation">
+                        <ul class="pagination justify-content-center">
+                            {% if page_obj.has_previous %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ page_obj.previous_page_number }}{% if search_query %}&q={{ search_query }}{% endif %}{% if sort_by %}&sort={{ sort_by }}{% endif %}" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                    <span class="visually-hidden">Previous</span>
+                                </a>
+                            </li>
+                            {% else %}
+                            <li class="page-item disabled">
+                                <a class="page-link" href="#" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                            {% endif %}
+                            
+                            {% for num in page_obj.paginator.page_range %}
+                                {% if num == page_obj.number %}
+                                <li class="page-item active">
+                                    <a class="page-link" href="#">{{ num }}</a>
+                                </li>
+                                {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                                <li class="page-item">
+                                    <a class="page-link" href="?page={{ num }}{% if search_query %}&q={{ search_query }}{% endif %}{% if sort_by %}&sort={{ sort_by }}{% endif %}">
+                                        {{ num }}
+                                    </a>
+                                </li>
+                                {% endif %}
+                            {% endfor %}
+                            
+                            {% if page_obj.has_next %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ page_obj.next_page_number }}{% if search_query %}&q={{ search_query }}{% endif %}{% if sort_by %}&sort={{ sort_by }}{% endif %}" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                    <span class="visually-hidden">Next</span>
+                                </a>
+                            </li>
+                            {% else %}
+                            <li class="page-item disabled">
+                                <a class="page-link" href="#" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                            {% endif %}
+                        </ul>
+                    </nav>
+                    
+                    <!-- Page info -->
+                    <div class="text-center text-muted" style="font-size: 14px;">
+                        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }} | 
+                        Showing {{ page_obj.start_index }}-{{ page_obj.end_index }} of {{ paginator.count }} products
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            
         </div>
     </div>
-</div>
-<!-- Fruits Shop End-->
+
+    <!-- ==========================================================
+    JAVASCRIPT
+    ========================================================== -->
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // ==========================================================
+        // AUTO-SUBMIT FOR SORT DROPDOWN
+        // ==========================================================
+        document.addEventListener('DOMContentLoaded', function() {
+            const sortSelect = document.querySelector('select[name="sort"]');
+            if (sortSelect) {
+                sortSelect.addEventListener('change', function() {
+                    document.getElementById('sortForm').submit();
+                });
+            }
+        });
+    </script>
+    
+</body>
+</html>
 
 {% endblock %}

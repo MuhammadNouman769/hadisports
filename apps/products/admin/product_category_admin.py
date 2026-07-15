@@ -12,13 +12,11 @@ class ProductCategoryAdmin(admin.ModelAdmin):
         "title",
         "parent",
         "display_order",
-        "is_featured",
         "is_active",
         "products_count",
     )
 
     list_filter = (
-        "is_featured",
         "is_active",
     )
 
@@ -28,7 +26,6 @@ class ProductCategoryAdmin(admin.ModelAdmin):
 
     list_editable = (
         "display_order",
-        "is_featured",
         "is_active",
     )
 
@@ -40,15 +37,26 @@ class ProductCategoryAdmin(admin.ModelAdmin):
         "parent",
     )
 
+    ordering = (
+        "display_order",
+        "title",
+    )
+
+    save_on_top = True
+
+    # ============================================================
+    # Display Helpers
+    # ============================================================
+
     @admin.display(description="Products")
     def products_count(self, obj):
 
-        count = obj.products.count()
+        count = obj.products.filter(
+            is_active=True,
+        ).count()
 
         url = (
-            reverse(
-                "admin:products_product_changelist"
-            )
+            reverse("admin:products_product_changelist")
             + f"?category__id__exact={obj.id}"
         )
 

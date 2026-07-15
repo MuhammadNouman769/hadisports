@@ -369,11 +369,9 @@ def load_categories():
                 parent=None,
                 defaults={
                     'slug': slug,
-                    'short_description': f'{parent_name} collection',
                     'display_order': list(MAIN_CATEGORIES.keys()).index(parent_name) + 1,
                     'is_active': True,
-                    'is_featured': False,
-                }
+                                    }
             )
             
             if created:
@@ -394,11 +392,9 @@ def load_categories():
                         parent=parent,
                         defaults={
                             'slug': sub_slug,
-                            'short_description': f'{sub_name} for {parent_name}',
                             'display_order': data['sub_categories'].index(sub_name) + 1,
                             'is_active': True,
-                            'is_featured': False,
-                        }
+                                                    }
                     )
                     
                     if created:
@@ -432,11 +428,9 @@ def load_categories():
                 parent=None,
                 defaults={
                     'slug': slug,
-                    'short_description': f'{parent_name} collection',
                     'display_order': list(ACCESSORIES_CATEGORIES.keys()).index(parent_name) + 100,
                     'is_active': True,
-                    'is_featured': False,
-                }
+                                    }
             )
             
             if created:
@@ -457,11 +451,9 @@ def load_categories():
                         parent=parent,
                         defaults={
                             'slug': sub_slug,
-                            'short_description': f'{sub_name} for {parent_name}',
                             'display_order': data['sub_categories'].index(sub_name) + 1,
                             'is_active': True,
-                            'is_featured': False,
-                        }
+                                                    }
                     )
                     
                     if created:
@@ -509,11 +501,9 @@ def load_categories():
                     parent=parent,
                     defaults={
                         'slug': slug,
-                        'short_description': f'{footwear} for {parent_name}',
                         'display_order': 50,
                         'is_active': True,
-                        'is_featured': False,
-                    }
+                                            }
                 )
                 
                 if created:
@@ -526,11 +516,9 @@ def load_categories():
                     parent=None,
                     defaults={
                         'slug': slug,
-                        'short_description': f'{footwear} collection',
                         'display_order': 200,
                         'is_active': True,
-                        'is_featured': False,
-                    }
+                                            }
                 )
                 
                 if created:
@@ -539,7 +527,7 @@ def load_categories():
                     
         except Exception as e:
             error_count += 1
-            print(f"  ❌ Error creating {footwear}: {e}")
+            print(f"   Error creating {footwear}: {e}")
     
     # ==========================================================
     # SUMMARY
@@ -549,15 +537,15 @@ def load_categories():
     total_children = ProductCategory.objects.filter(parent__isnull=False).count()
     
     print("\n" + "=" * 70)
-    print("📊 SUMMARY")
+    print(" SUMMARY")
     print("=" * 70)
-    print(f"  ✅ Created:   {created_count} categories")
-    print(f"  ⏭️ Updated:   {updated_count} categories")
-    print(f"  ⏭️ Skipped:   {skipped_count} categories")
-    print(f"  ❌ Errors:    {error_count} categories")
-    print(f"  📁 Total:     {total_categories} categories")
-    print(f"  📂 Parents:   {total_parents}")
-    print(f"  📄 Children:  {total_children}")
+    print(f"   Created:   {created_count} categories")
+    print(f"   Updated:   {updated_count} categories")
+    print(f"   Skipped:   {skipped_count} categories")
+    print(f"   Errors:    {error_count} categories")
+    print(f"   Total:     {total_categories} categories")
+    print(f"   Parents:   {total_parents}")
+    print(f"   Children:  {total_children}")
     print("=" * 70)
     print("\n✨ All categories loaded successfully!")
     print("🔗 Check admin panel: http://127.0.0.1:8000/admin/products/productcategory/")
@@ -570,5 +558,5 @@ if __name__ == "__main__":
     try:
         load_categories()
     except Exception as e:
-        print(f"\n❌ Error: {e}")
+        print(f"\n Error: {e}")
         print("Please check your Django settings and database connection.")

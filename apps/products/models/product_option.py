@@ -6,18 +6,17 @@ from apps.products.models.product import Product
 
 """
 ===============================================================================
-                                PRODUCT OPTION
+                            PRODUCT OPTION
 ===============================================================================
 
-Example
+Examples
 
-Product: Nike Air Max
+Product : Nike Air Max
 
 Options
 
 • Color
 • Size
-• Material
 
 ===============================================================================
 """
@@ -62,11 +61,17 @@ class ProductOption(BaseModel):
             models.Index(fields=["is_active"]),
         ]
 
+    # ------------------------------------------------------------------
+    # Validation
+    # ------------------------------------------------------------------
+
     def clean(self):
         """
-        Limit product to maximum 3 options.
-
-        Shopify also limits variants to 3 options.
+        Maximum 3 options per product.
+        Example:
+            Color
+            Size
+            Material
         """
 
         from django.core.exceptions import ValidationError
@@ -82,24 +87,28 @@ class ProductOption(BaseModel):
                     "A product can have a maximum of 3 options."
                 )
 
+    # ------------------------------------------------------------------
+    # String
+    # ------------------------------------------------------------------
+
     def __str__(self):
         return f"{self.product.name} • {self.name}"
 
 
 """
 ===============================================================================
-                            PRODUCT OPTION VALUE
+                        PRODUCT OPTION VALUE
 ===============================================================================
 
-Example
+Examples
 
 Option : Color
 
 Values
 
-Red
-Blue
-Black
+• Black
+• White
+• Blue
 
 ===============================================================================
 """
@@ -149,4 +158,4 @@ class ProductOptionValue(BaseModel):
         return self.option.product
 
     def __str__(self):
-        return f"{self.option.name}: {self.value}"
+        return self.value

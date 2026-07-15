@@ -132,17 +132,10 @@
 .navbar .navbar-nav .nav-link.active,
 .fixed-top.bg-white .navbar .navbar-nav .nav-link:hover,
 .fixed-top.bg-white .navbar .navbar-nav .nav-link.active {
-    color: var(--bs-primary);
+    color: #81c408 !important;
 }
 
-.navbar .dropdown-toggle::after {
-    border: none;
-    content: "\f107";
-    font-family: "Font Awesome 5 Free";
-    font-weight: 700;
-    vertical-align: middle;
-    margin-left: 8px;
-}
+
 
 @media (min-width: 1200px) {
     .navbar .nav-item .dropdown-menu {
@@ -228,14 +221,15 @@
 @media (min-width: 992px) {
     .hero-header,
     .page-header {
-        margin-top: 0px !important;
+    margin-top: 125px !important;
+
     }
 }
 
 @media (max-width: 992px) {
     .hero-header,
     .page-header {
-        margin-top: 0px !important;
+        margin-top: 125px !important;
     }
 }
 /*** Hero Header end ***/
@@ -300,6 +294,8 @@
 .fruite .fruite-item {
     height: 100%;
     transition: 0.5s;
+    border-radius: 2px!important;
+    border: 1px solid #81c408;
 }
 .fruite .fruite-item:hover {
     box-shadow: 0 0 55px rgba(0, 0, 0, 0.4);

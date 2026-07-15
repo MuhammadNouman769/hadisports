@@ -1,5 +1,4 @@
 from django.db import models
-from django.db.models import Min, Max, Sum
 
 from apps.utils.models import SlugModel
 from apps.products.models.product_category import ProductCategory
@@ -10,20 +9,19 @@ from apps.products.models.product_category import ProductCategory
                                 PRODUCT
 ===============================================================================
 
-The Product model stores only product-level information.
+Stores only product-level information.
 
-Examples:
----------
+Examples
+--------
 Nike Air Max
-Samsung Galaxy S25
 Adidas Football
+Yonex Astrox 99
 
-Variant-specific information such as:
+Variant-specific data like:
 
     • Price
-    • Stock
-    • SKU
-    • Barcode
+    • Color
+    • Size
     • Images
 
 belongs to ProductVariant.
@@ -91,10 +89,6 @@ class Product(SlugModel):
 
     @property
     def default_variant(self):
-        """
-        Return the default variant.
-        If none is marked default, return the first active variant.
-        """
         return (
             self.variants.filter(
                 is_default=True,
@@ -106,70 +100,7 @@ class Product(SlugModel):
         )
 
     # ------------------------------------------------------------------
-    # Price Helpers
-    # ------------------------------------------------------------------
-
-    @property
-    def min_price(self):
-        return self.variants.filter(
-            is_active=True
-        ).aggregate(
-            value=Min("price")
-        )["value"]
-
-    @property
-    def max_price(self):
-        return self.variants.filter(
-            is_active=True
-        ).aggregate(
-            value=Max("price")
-        )["value"]
-
-    @property
-    def price_range(self):
-        """
-        Returns:
-
-            Rs.1000
-
-        or
-
-            Rs.1000 - Rs.1500
-        """
-
-        minimum = self.min_price
-        maximum = self.max_price
-
-        if minimum is None:
-            return None
-
-        if minimum == maximum:
-            return minimum
-
-        return (minimum, maximum)
-
-    # ------------------------------------------------------------------
-    # Inventory
-    # ------------------------------------------------------------------
-
-    @property
-    def total_stock(self):
-        return (
-            self.variants.filter(
-                is_active=True,
-                track_inventory=True,
-            ).aggregate(
-                total=Sum("stock_quantity")
-            )["total"]
-            or 0
-        )
-
-    @property
-    def is_in_stock(self):
-        return self.total_stock > 0
-
-    # ------------------------------------------------------------------
-    # Images
+    # Main Image
     # ------------------------------------------------------------------
 
     @property
@@ -179,27 +110,7 @@ class Product(SlugModel):
         if not variant:
             return None
 
-        images = list(variant.images.all())
-
-        for image in images:
-            if image.is_active and image.is_primary:
-                return image
-
-        for image in images:
-            if image.is_active:
-                return image
-
-        return None
-
-    # ------------------------------------------------------------------
-    # Statistics
-    # ------------------------------------------------------------------
-
-    @property
-    def variants_count(self):
-        return self.variants.filter(
-            is_active=True,
-        ).count()
+        return variant.primary_image
 
     # ------------------------------------------------------------------
     # String

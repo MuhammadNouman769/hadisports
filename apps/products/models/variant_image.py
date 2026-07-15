@@ -11,19 +11,19 @@ from apps.products.models.product_variant import ProductVariant
 
 """
 ===============================================================================
-                                VARIANT IMAGE
+                            VARIANT IMAGE
 ===============================================================================
 
-Example
+Examples
 
 Nike Air Max
 
 Variant
---------
-Red / 42
+-------
+Black / 42
 
 Images
--------
+------
 front.jpg
 back.jpg
 side.jpg
@@ -45,17 +45,8 @@ class VariantImage(BaseModel):
         upload_to=upload_to,
     )
 
-    alt_text = models.CharField(
-        max_length=255,
-        blank=True,
-    )
-
     is_primary = models.BooleanField(
         default=False,
-    )
-    sort_order = models.PositiveSmallIntegerField(
-        default=0,
-        help_text="Order of images (0 = first)"
     )
 
     position = models.PositiveSmallIntegerField(
@@ -67,7 +58,6 @@ class VariantImage(BaseModel):
 
         verbose_name = "Variant Image"
         verbose_name_plural = "Variant Images"
-        ordering = ("sort_order", "id") 
 
         ordering = (
             "position",
@@ -78,7 +68,6 @@ class VariantImage(BaseModel):
             models.Index(fields=["variant"]),
             models.Index(fields=["position"]),
             models.Index(fields=["is_primary"]),
-            models.Index(fields=["sort_order"]), 
             models.Index(fields=["is_active"]),
         ]
 
