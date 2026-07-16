@@ -20,6 +20,9 @@
         /* ==========================================================
            PRODUCT LIST PAGE STYLES
         ========================================================== */
+        .bg-secondary {
+            background-color: #6a9e06 !important;
+       }
         
         /* ---- Product Image Container ---- */
         .product-image-wrapper {
@@ -247,7 +250,7 @@
             <h1 class="text-center text-white display-6">Products</h1>
             <ol class="breadcrumb justify-content-center mb-0">
                 <li class="breadcrumb-item"><a style="color: #ffb524;" href="{% url 'products:home-view' %}">Home</a></li>
-                <li class="breadcrumb-item active"  style="color: #ffb524;">Shop</li>
+                <li class="breadcrumb-item"><a style="color: #ffb524;" href="{% url 'products:product-list' %}">Products</a></li>
             </ol>
         </div>    
         

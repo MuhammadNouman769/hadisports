@@ -45,7 +45,7 @@ INSTALLED_APPS = [
     "apps.main",
     "apps.products",
     "apps.cart",
-    "apps.orders",
+    "apps.whatspp",
     "apps.contact",
 ]
 
@@ -73,6 +73,8 @@ TEMPLATES = [
                 "django.contrib.messages.context_processors.messages",
                 #  Add this context processor
                 "apps.products.context_processors.menu_categories",
+                # Add this context processor
+                "apps.whatspp.context_processors.site_settings",
             ],
         },
     },
