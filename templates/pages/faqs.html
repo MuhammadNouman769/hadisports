@@ -1,0 +1,981 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Frequently Asked Questions | Hadi Sports{% endblock %}
+
+{% block content %}
+
+<style>
+    /* ========================================
+       PAGE BANNER / HERO
+    ======================================== */
+    .page-banner {
+        background: linear-gradient(135deg, #81c408 0%, #6a9e06 100%);
+        padding: 60px 0;
+        position: relative;
+        overflow: hidden;
+        margin-top: 120px;
+    }
+    
+    .page-banner::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        right: -20%;
+        width: 500px;
+        height: 500px;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 50%;
+    }
+    
+    .page-banner::after {
+        content: '';
+        position: absolute;
+        bottom: -30%;
+        left: -10%;
+        width: 300px;
+        height: 300px;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 50%;
+    }
+    
+    .page-banner .breadcrumb {
+        background: transparent;
+        padding: 0;
+        margin: 0;
+        justify-content: center;
+    }
+    
+    .page-banner .breadcrumb-item a {
+        color: #ffc107;
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+    
+    .page-banner .breadcrumb-item a:hover {
+        color: #ffc107;
+    }
+    
+    .page-banner .breadcrumb-item.active {
+        color: #ffc107;
+    }
+    
+    .page-banner .breadcrumb-item + .breadcrumb-item::before {
+        color: rgba(255, 255, 255, 0.5);
+    }
+    
+    .page-banner h1 {
+        font-size: 42px;
+        font-weight: 700;
+        color: #ffffff;
+        margin-bottom: 10px;
+        position: relative;
+        z-index: 1;
+    }
+    
+    .page-banner p {
+        color: rgba(255, 255, 255, 0.9);
+        font-size: 18px;
+        margin-bottom: 0;
+        position: relative;
+        z-index: 1;
+    }
+    
+    .page-banner .banner-icon {
+        font-size: 60px;
+        color: rgba(255, 255, 255, 0.2);
+        position: absolute;
+        right: 50px;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+    
+    /* ========================================
+       MAIN CONTENT
+    ======================================== */
+    .faq-container {
+        padding: 60px 0;
+        background: #f8fafc;
+    }
+    
+    .faq-card {
+        background: #ffffff;
+        border-radius: 20px;
+        padding: 50px;
+        box-shadow: 0 10px 40px rgba(0,0,0,0.05);
+    }
+    
+    .faq-header {
+        text-align: center;
+        margin-bottom: 40px;
+        padding-bottom: 30px;
+        border-bottom: 2px solid #f0f2f5;
+    }
+    
+    .faq-header h1 {
+        font-size: 36px;
+        font-weight: 700;
+        color: #1a202c;
+        margin-bottom: 10px;
+    }
+    
+    .faq-header .subtitle {
+        color: #6c757d;
+        font-size: 16px;
+    }
+    
+    .faq-header .last-updated {
+        color: #81c408;
+        font-size: 14px;
+        font-weight: 600;
+        margin-top: 10px;
+    }
+    
+    /* ========================================
+       FAQ CATEGORY
+    ======================================== */
+    .faq-category {
+        margin-bottom: 40px;
+        scroll-margin-top: 150px;
+    }
+    
+    .faq-category:last-child {
+        margin-bottom: 0;
+    }
+    
+    .faq-category-title {
+        font-size: 24px;
+        font-weight: 700;
+        color: #1a202c;
+        margin-bottom: 20px;
+        padding-bottom: 10px;
+        border-bottom: 2px solid #81c408;
+        display: inline-block;
+    }
+    
+    .faq-category-title i {
+        color: #81c408;
+        margin-right: 10px;
+    }
+    
+    /* ========================================
+       FAQ ITEM - ACCORDION STYLE
+    ======================================== */
+    .faq-item {
+        border: 1px solid #e9ecef;
+        border-radius: 12px;
+        margin-bottom: 12px;
+        overflow: hidden;
+        transition: all 0.3s ease;
+        background: #ffffff;
+    }
+    
+    .faq-item:hover {
+        border-color: #81c408;
+        box-shadow: 0 5px 20px rgba(129, 196, 8, 0.08);
+    }
+    
+    .faq-question {
+        padding: 18px 25px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 15px;
+        transition: all 0.3s ease;
+        background: #ffffff;
+        user-select: none;
+    }
+    
+    .faq-question:hover {
+        background: #f8fafc;
+    }
+    
+    .faq-question .q-icon {
+        width: 30px;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #f0fdf4;
+        border-radius: 50%;
+        color: #81c408;
+        font-weight: 700;
+        font-size: 14px;
+        flex-shrink: 0;
+    }
+    
+    .faq-question .q-text {
+        flex: 1;
+        font-size: 16px;
+        font-weight: 600;
+        color: #1a202c;
+        line-height: 1.5;
+    }
+    
+    .faq-question .q-toggle {
+        font-size: 18px;
+        color: #81c408;
+        transition: transform 0.3s ease;
+        flex-shrink: 0;
+        width: 24px;
+        text-align: center;
+    }
+    
+    .faq-item.active .faq-question .q-toggle {
+        transform: rotate(180deg);
+    }
+    
+    .faq-item.active .faq-question {
+        background: #f0fdf4;
+    }
+    
+    .faq-answer {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.4s ease, padding 0.3s ease;
+        padding: 0 25px;
+    }
+    
+    .faq-item.active .faq-answer {
+        max-height: 500px;
+        padding: 0 25px 20px 25px;
+    }
+    
+    .faq-answer p {
+        color: #4a5568;
+        line-height: 1.8;
+        font-size: 16px;
+        margin-bottom: 0;
+    }
+    
+    .faq-answer ul {
+        list-style: none;
+        padding-left: 0;
+        margin-top: 10px;
+    }
+    
+    .faq-answer ul li {
+        color: #4a5568;
+        padding: 5px 0 5px 30px;
+        position: relative;
+        line-height: 1.6;
+    }
+    
+    .faq-answer ul li::before {
+        content: '•';
+        position: absolute;
+        left: 0;
+        top: 5px;
+        color: #81c408;
+        font-weight: 700;
+        font-size: 20px;
+    }
+    
+    .faq-answer .highlight-box {
+        background: #f0fdf4;
+        border-left: 4px solid #81c408;
+        padding: 15px 20px;
+        border-radius: 8px;
+        margin-top: 10px;
+    }
+    
+    .faq-answer .highlight-box p {
+        margin-bottom: 0;
+        color: #1a202c;
+    }
+    
+    /* ========================================
+       SIDEBAR
+    ======================================== */
+    .faq-sidebar {
+        position: sticky;
+        top: 140px;
+    }
+    
+    .faq-sidebar .sidebar-card {
+        background: #ffffff;
+        border-radius: 15px;
+        padding: 25px;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+    }
+    
+    .faq-sidebar .sidebar-card h5 {
+        font-weight: 700;
+        color: #1a202c;
+        margin-bottom: 15px;
+        padding-bottom: 10px;
+        border-bottom: 2px solid #f0f2f5;
+    }
+    
+    .faq-sidebar .sidebar-card ul {
+        list-style: none;
+        padding-left: 0;
+        margin-bottom: 0;
+    }
+    
+    .faq-sidebar .sidebar-card ul li {
+        padding: 8px 0;
+        border-bottom: 1px solid #f8f9fa;
+    }
+    
+    .faq-sidebar .sidebar-card ul li:last-child {
+        border-bottom: none;
+    }
+    
+    .faq-sidebar .sidebar-card ul li a {
+        color: #4a5568;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        font-size: 14px;
+        display: block;
+        cursor: pointer;
+    }
+    
+    .faq-sidebar .sidebar-card ul li a:hover {
+        color: #81c408;
+        padding-left: 10px;
+    }
+    
+    .faq-sidebar .sidebar-card ul li a i {
+        color: #81c408;
+        margin-right: 8px;
+        width: 16px;
+    }
+    
+    .faq-sidebar .sidebar-card ul li a.active {
+        color: #81c408;
+        font-weight: 600;
+        padding-left: 10px;
+        border-left: 3px solid #81c408;
+        padding-left: 15px;
+    }
+    
+    /* ========================================
+       RESPONSIVE
+    ======================================== */
+    @media (max-width: 768px) {
+        .page-banner {
+            padding: 40px 0;
+            margin-top: 100px;
+        }
+        
+        .page-banner h1 {
+            font-size: 28px;
+        }
+        
+        .page-banner p {
+            font-size: 16px;
+        }
+        
+        .page-banner .banner-icon {
+            display: none;
+        }
+        
+        .faq-card {
+            padding: 25px;
+        }
+        
+        .faq-header h1 {
+            font-size: 28px;
+        }
+        
+        .faq-category-title {
+            font-size: 20px;
+        }
+        
+        .faq-question .q-text {
+            font-size: 15px;
+        }
+        
+        .faq-answer p {
+            font-size: 15px;
+        }
+        
+        .faq-sidebar {
+            position: relative;
+            top: 0;
+        }
+    }
+    
+    @media (max-width: 576px) {
+        .page-banner {
+            margin-top: 80px;
+            padding: 30px 0;
+        }
+        
+        .page-banner h1 {
+            font-size: 24px;
+        }
+        
+        .page-banner h1 i {
+            font-size: 24px !important;
+        }
+        
+        .page-banner p {
+            font-size: 14px;
+        }
+        
+        .faq-question {
+            padding: 15px 18px;
+        }
+        
+        .faq-question .q-text {
+            font-size: 14px;
+        }
+        
+        .faq-answer {
+            padding: 0 18px;
+        }
+        
+        .faq-item.active .faq-answer {
+            padding: 0 18px 15px 18px;
+        }
+    }
+</style>
+
+<!-- ======================================== -->
+<!-- PAGE BANNER -->
+<!-- ======================================== -->
+<div class="page-banner">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-8 text-center text-lg-start">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a href="{% url 'products:home-view' %}">
+                                <i class="fas fa-home me-1"></i> Home
+                            </a>
+                        </li>
+                        <li class="breadcrumb-item active" aria-current="page">
+                            FAQ
+                        </li>
+                    </ol>
+                </nav>
+                <h1>
+                    <i class="fas fa-question-circle me-3" style="font-size: 35px; color: rgba(255,255,255,0.8);"></i>
+                    Frequently Asked Questions
+                </h1>
+                <p>Find answers to the most common questions about our products and services.</p>
+            </div>
+            <div class="col-lg-4 text-center text-lg-end d-none d-lg-block">
+                <div class="banner-icon">
+                    <i class="fas fa-question-circle"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ======================================== -->
+<!-- MAIN CONTENT -->
+<!-- ======================================== -->
+<div class="faq-container">
+    <div class="container">
+        <div class="row g-4">
+            <!-- Main Content -->
+            <div class="col-lg-9">
+                <div class="faq-card">
+                    <!-- Header -->
+                    <div class="faq-header">
+                        <h1>Frequently Asked Questions</h1>
+                        <p class="subtitle">Find answers to the most common questions about our products and services.</p>
+                        <p class="last-updated"><i class="fas fa-clock me-2"></i>Last Updated: July 15, 2026</p>
+                    </div>
+                    
+                    <!-- ======================================== -->
+                    <!-- CATEGORY 1: General Questions -->
+                    <!-- ======================================== -->
+                    <div id="category-general" class="faq-category">
+                        <h3 class="faq-category-title">
+                            <i class="fas fa-info-circle"></i> General Questions
+                        </h3>
+                        
+                        <!-- FAQ 1 -->
+                        <div class="faq-item">
+                            <div class="faq-question" onclick="toggleFAQ(this)">
+                                <span class="q-icon">Q</span>
+                                <span class="q-text">What is Hadi Sports?</span>
+                                <span class="q-toggle"><i class="fas fa-chevron-down"></i></span>
+                            </div>
+                            <div class="faq-answer">
+                                <p>Hadi Sports is a leading sports retailer in Pakistan, offering a wide range of high-quality sports equipment, footwear, apparel, and accessories for various sports including badminton, tennis, cricket, football, and more.</p>
+                                <div class="highlight-box">
+                                    <p><strong>We are committed to providing the best sports products and services to our customers.</strong></p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- FAQ 2 -->
+                        <div class="faq-item">
+                            <div class="faq-question" onclick="toggleFAQ(this)">
+                                <span class="q-icon">Q</span>
+                                <span class="q-text">Where is Hadi Sports located?</span>
+                                <span class="q-toggle"><i class="fas fa-chevron-down"></i></span>
+                            </div>
+                            <div class="faq-answer">
+                                <p>Our main store is located at:</p>
+                                <ul>
+                                    <li><strong>Address:</strong> 297-C, P.I.A. Main Boulevard Road, Lahore, Pakistan</li>
+                                    <li><strong>Phone:</strong> +92 300 1234567</li>
+                                    <li><strong>Email:</strong> info@hadisports.com</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <!-- FAQ 3 -->
+                        <div class="faq-item">
+                            <div class="faq-question" onclick="toggleFAQ(this)">
+                                <span class="q-icon">Q</span>
+                                <span class="q-text">What are your business hours?</span>
+                                <span class="q-toggle"><i class="fas fa-chevron-down"></i></span>
+                            </div>
+                            <div class="faq-answer">
+                                <p>Our business hours are:</p>
+                                <ul>
+                                    <li><strong>Monday - Saturday:</strong> 9:00 AM - 9:00 PM</li>
+                                    <li><strong>Sunday:</strong> Closed</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- ======================================== -->
+                    <!-- CATEGORY 2: Orders & Payments -->
+                    <!-- ======================================== -->
+                    <div id="category-orders" class="faq-category">
+                        <h3 class="faq-category-title">
+                            <i class="fas fa-credit-card"></i> Orders & Payments
+                        </h3>
+                        
+                        <!-- FAQ 4 -->
+                        <div class="faq-item">
+                            <div class="faq-question" onclick="toggleFAQ(this)">
+                                <span class="q-icon">Q</span>
+                                <span class="q-text">How do I place an order?</span>
+                                <span class="q-toggle"><i class="fas fa-chevron-down"></i></span>
+                            </div>
+                            <div class="faq-answer">
+                                <p>Placing an order is easy:</p>
+                                <ul>
+                                    <li>Browse our products and add items to your cart</li>
+                                    <li>Go to the cart and proceed to checkout</li>
+                                    <li>Fill in your shipping and payment details</li>
+                                    <li>Confirm your order</li>
+                                </ul>
+                                <div class="highlight-box">
+                                    <p><strong>You will receive an order confirmation email after placing your order.</strong></p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- FAQ 5 -->
+                        <div class="faq-item">
+                            <div class="faq-question" onclick="toggleFAQ(this)">
+                                <span class="q-icon">Q</span>
+                                <span class="q-text">What payment methods do you accept?</span>
+                                <span class="q-toggle"><i class="fas fa-chevron-down"></i></span>
+                            </div>
+                            <div class="faq-answer">
+                                <p>We accept the following payment methods:</p>
+                                <ul>
+                                    <li>Credit Cards (Visa, Mastercard)</li>
+                                    <li>Debit Cards</li>
+                                    <li>Bank Transfers</li>
+                                    <li>Cash on Delivery (COD)</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <!-- FAQ 6 -->
+                        <div class="faq-item">
+                            <div class="faq-question" onclick="toggleFAQ(this)">
+                                <span class="q-icon">Q</span>
+                                <span class="q-text">Is my payment information secure?</span>
+                                <span class="q-toggle"><i class="fas fa-chevron-down"></i></span>
+                            </div>
+                            <div class="faq-answer">
+                                <p>Yes, your payment information is completely secure. We use:</p>
+                                <ul>
+                                    <li>SSL encryption for all transactions</li>
+                                    <li>PCI-compliant payment gateways</li>
+                                    <li>Secure data storage practices</li>
+                                </ul>
+                                <div class="highlight-box">
+                                    <p><strong>We do not store your credit card information on our servers.</strong></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- ======================================== -->
+                    <!-- CATEGORY 3: Shipping & Delivery -->
+                    <!-- ======================================== -->
+                    <div id="category-shipping" class="faq-category">
+                        <h3 class="faq-category-title">
+                            <i class="fas fa-truck"></i> Shipping & Delivery
+                        </h3>
+                        
+                        <!-- FAQ 7 -->
+                        <div class="faq-item">
+                            <div class="faq-question" onclick="toggleFAQ(this)">
+                                <span class="q-icon">Q</span>
+                                <span class="q-text">How long does delivery take?</span>
+                                <span class="q-toggle"><i class="fas fa-chevron-down"></i></span>
+                            </div>
+                            <div class="faq-answer">
+                                <p>Delivery times vary based on your location:</p>
+                                <ul>
+                                    <li><strong>Lahore:</strong> 1-2 business days</li>
+                                    <li><strong>Other Major Cities:</strong> 2-4 business days</li>
+                                    <li><strong>Remote Areas:</strong> 4-7 business days</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <!-- FAQ 8 -->
+                        <div class="faq-item">
+                            <div class="faq-question" onclick="toggleFAQ(this)">
+                                <span class="q-icon">Q</span>
+                                <span class="q-text">Do you offer free shipping?</span>
+                                <span class="q-toggle"><i class="fas fa-chevron-down"></i></span>
+                            </div>
+                            <div class="faq-answer">
+                                <p>Yes, we offer free shipping on orders above Rs. 2,500. For orders below this amount, a standard shipping fee of Rs. 150 applies.</p>
+                            </div>
+                        </div>
+                        
+                        <!-- FAQ 9 -->
+                        <div class="faq-item">
+                            <div class="faq-question" onclick="toggleFAQ(this)">
+                                <span class="q-icon">Q</span>
+                                <span class="q-text">Can I track my order?</span>
+                                <span class="q-toggle"><i class="fas fa-chevron-down"></i></span>
+                            </div>
+                            <div class="faq-answer">
+                                <p>Yes, once your order is shipped, you will receive a tracking number via email. You can use this number to track your order on our courier partner's website.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- ======================================== -->
+                    <!-- CATEGORY 4: Returns & Refunds -->
+                    <!-- ======================================== -->
+                    <div id="category-returns" class="faq-category">
+                        <h3 class="faq-category-title">
+                            <i class="fas fa-undo-alt"></i> Returns & Refunds
+                        </h3>
+                        
+                        <!-- FAQ 10 -->
+                        <div class="faq-item">
+                            <div class="faq-question" onclick="toggleFAQ(this)">
+                                <span class="q-icon">Q</span>
+                                <span class="q-text">What is your return policy?</span>
+                                <span class="q-toggle"><i class="fas fa-chevron-down"></i></span>
+                            </div>
+                            <div class="faq-answer">
+                                <p>Our return policy includes:</p>
+                                <ul>
+                                    <li>Items can be returned within 30 days of delivery</li>
+                                    <li>Products must be unused and in original packaging</li>
+                                    <li>Return shipping costs are borne by the customer</li>
+                                    <li>Refunds are processed within 7-10 business days</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <!-- FAQ 11 -->
+                        <div class="faq-item">
+                            <div class="faq-question" onclick="toggleFAQ(this)">
+                                <span class="q-icon">Q</span>
+                                <span class="q-text">How do I initiate a return?</span>
+                                <span class="q-toggle"><i class="fas fa-chevron-down"></i></span>
+                            </div>
+                            <div class="faq-answer">
+                                <p>To initiate a return:</p>
+                                <ul>
+                                    <li>Contact our customer support team</li>
+                                    <li>Provide your order number and reason for return</li>
+                                    <li>Follow the return instructions provided</li>
+                                    <li>Ship the item back to us</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <!-- FAQ 12 -->
+                        <div class="faq-item">
+                            <div class="faq-question" onclick="toggleFAQ(this)">
+                                <span class="q-icon">Q</span>
+                                <span class="q-text">What items are non-returnable?</span>
+                                <span class="q-toggle"><i class="fas fa-chevron-down"></i></span>
+                            </div>
+                            <div class="faq-answer">
+                                <p>The following items are non-returnable:</p>
+                                <ul>
+                                    <li>Final sale items</li>
+                                    <li>Personalized or customized products</li>
+                                    <li>Items damaged due to improper use</li>
+                                    <li>Items that have been used or washed</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- ======================================== -->
+                    <!-- CATEGORY 5: Products & Services -->
+                    <!-- ======================================== -->
+                    <div id="category-products" class="faq-category">
+                        <h3 class="faq-category-title">
+                            <i class="fas fa-shopping-bag"></i> Products & Services
+                        </h3>
+                        
+                        <!-- FAQ 13 -->
+                        <div class="faq-item">
+                            <div class="faq-question" onclick="toggleFAQ(this)">
+                                <span class="q-icon">Q</span>
+                                <span class="q-text">Do you offer product warranties?</span>
+                                <span class="q-toggle"><i class="fas fa-chevron-down"></i></span>
+                            </div>
+                            <div class="faq-answer">
+                                <p>Yes, most of our products come with manufacturer warranties. The warranty period varies by product and brand. Please check the product description for specific warranty details.</p>
+                            </div>
+                        </div>
+                        
+                        <!-- FAQ 14 -->
+                        <div class="faq-item">
+                            <div class="faq-question" onclick="toggleFAQ(this)">
+                                <span class="q-icon">Q</span>
+                                <span class="q-text">Do you have physical stores?</span>
+                                <span class="q-toggle"><i class="fas fa-chevron-down"></i></span>
+                            </div>
+                            <div class="faq-answer">
+                                <p>Yes, we have a physical store located at:</p>
+                                <ul>
+                                    <li><strong>Address:</strong> 297-C, P.I.A. Main Boulevard Road, Lahore, Pakistan</li>
+                                    <li><strong>Store Hours:</strong> Monday - Saturday, 9:00 AM - 9:00 PM</li>
+                                </ul>
+                                <p>You can visit our store to see products in person and get expert advice.</p>
+                            </div>
+                        </div>
+                        
+                        <!-- FAQ 15 -->
+                        <div class="faq-item">
+                            <div class="faq-question" onclick="toggleFAQ(this)">
+                                <span class="q-icon">Q</span>
+                                <span class="q-text">Do you offer discounts for bulk orders?</span>
+                                <span class="q-toggle"><i class="fas fa-chevron-down"></i></span>
+                            </div>
+                            <div class="faq-answer">
+                                <p>Yes, we offer special discounts for bulk orders. Please contact our sales team at <strong>sales@hadisports.com</strong> or call us at <strong>+92 300 1234567</strong> for more information.</p>
+                                <div class="highlight-box">
+                                    <p><strong>We offer competitive pricing for schools, clubs, and organizations.</strong></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- ======================================== -->
+                    <!-- CATEGORY 6: Account & Support -->
+                    <!-- ======================================== -->
+                    <div id="category-account" class="faq-category">
+                        <h3 class="faq-category-title">
+                            <i class="fas fa-user-cog"></i> Account & Support
+                        </h3>
+                        
+                        <!-- FAQ 16 -->
+                        <div class="faq-item">
+                            <div class="faq-question" onclick="toggleFAQ(this)">
+                                <span class="q-icon">Q</span>
+                                <span class="q-text">How do I create an account?</span>
+                                <span class="q-toggle"><i class="fas fa-chevron-down"></i></span>
+                            </div>
+                            <div class="faq-answer">
+                                <p>Creating an account is simple:</p>
+                                <ul>
+                                    <li>Click on the "Sign Up" or "Register" button</li>
+                                    <li>Fill in your name, email, and password</li>
+                                    <li>Agree to our terms and conditions</li>
+                                    <li>Click "Create Account"</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <!-- FAQ 17 -->
+                        <div class="faq-item">
+                            <div class="faq-question" onclick="toggleFAQ(this)">
+                                <span class="q-icon">Q</span>
+                                <span class="q-text">I forgot my password. What should I do?</span>
+                                <span class="q-toggle"><i class="fas fa-chevron-down"></i></span>
+                            </div>
+                            <div class="faq-answer">
+                                <p>If you forgot your password:</p>
+                                <ul>
+                                    <li>Click on the "Forgot Password" link on the login page</li>
+                                    <li>Enter your registered email address</li>
+                                    <li>You will receive a password reset link via email</li>
+                                    <li>Follow the link to create a new password</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <!-- FAQ 18 -->
+                        <div class="faq-item">
+                            <div class="faq-question" onclick="toggleFAQ(this)">
+                                <span class="q-icon">Q</span>
+                                <span class="q-text">How do I contact customer support?</span>
+                                <span class="q-toggle"><i class="fas fa-chevron-down"></i></span>
+                            </div>
+                            <div class="faq-answer">
+                                <p>You can contact us through:</p>
+                                <ul>
+                                    <li><strong>Email:</strong> support@hadisports.com</li>
+                                    <li><strong>Phone:</strong> +92 300 1234567</li>
+                                    <li><strong>Live Chat:</strong> Available on our website</li>
+                                    <li><strong>Visit Us:</strong> 297-C, P.I.A. Main Boulevard Road, Lahore</li>
+                                </ul>
+                                <div class="highlight-box">
+                                    <p><strong>Our support team is available Monday to Saturday, 9:00 AM - 9:00 PM.</strong></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Footer -->
+                    <div class="terms-footer">
+                        <p><i class="fas fa-check-circle text-primary me-2"></i> Still have questions?</p>
+                        <p class="text-muted">We're here to help you. Contact us anytime for assistance.</p>
+                        <div class="d-flex justify-content-center gap-3 flex-wrap">
+                            <a href="{% url 'products:home-view' %}" class="btn btn-primary">
+                                <i class="fas fa-arrow-left me-2"></i> Back to Home
+                            </a>
+                            <a href="#" class="btn btn-outline-primary">
+                                <i class="fas fa-envelope me-2"></i> Contact Us
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sidebar -->
+            <div class="col-lg-3">
+                <div class="faq-sidebar">
+                    <div class="sidebar-card">
+                        <h5><i class="fas fa-list me-2"></i>Categories</h5>
+                        <ul>
+                            <li><a href="#category-general" class="sidebar-link"><i class="fas fa-info-circle"></i> General Questions</a></li>
+                            <li><a href="#category-orders" class="sidebar-link"><i class="fas fa-credit-card"></i> Orders & Payments</a></li>
+                            <li><a href="#category-shipping" class="sidebar-link"><i class="fas fa-truck"></i> Shipping & Delivery</a></li>
+                            <li><a href="#category-returns" class="sidebar-link"><i class="fas fa-undo-alt"></i> Returns & Refunds</a></li>
+                            <li><a href="#category-products" class="sidebar-link"><i class="fas fa-shopping-bag"></i> Products & Services</a></li>
+                            <li><a href="#category-account" class="sidebar-link"><i class="fas fa-user-cog"></i> Account & Support</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="sidebar-card mt-3">
+                        <h5><i class="fas fa-link me-2"></i>Quick Links</h5>
+                        <ul>
+                            <li><a href="{% url 'products:home-view' %}"><i class="fas fa-home"></i> Home</a></li>
+                            <li><a href="{% url 'products:product-list' %}"><i class="fas fa-box"></i> Products</a></li>
+                            <li><a href="{% url 'main:terms-of-use' %}"><i class="fas fa-file-contract"></i> Terms of Use</a></li>
+                            <li><a href="{% url 'main:privacy-policy' %}"><i class="fas fa-shield-alt"></i> Privacy Policy</a></li>
+                            <li><a href="{% url 'main:faq' %}"><i class="fas fa-question-circle"></i> FAQ</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="sidebar-card mt-3">
+                        <h5><i class="fas fa-headset me-2"></i>Need Help?</h5>
+                        <ul>
+                            <li><a href="#"><i class="fas fa-envelope"></i> Email Us</a></li>
+                            <li><a href="#"><i class="fas fa-phone"></i> Call Us</a></li>
+                            <li><a href="#"><i class="fas fa-comment"></i> Live Chat</a></li>
+                            <li><a href="#"><i class="fas fa-map-marker-alt"></i> Visit Store</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ======================================== -->
+<!-- FAQ JAVASCRIPT -->
+<!-- ======================================== -->
+<script>
+// ========================================
+// TOGGLE FAQ ITEM
+// ========================================
+function toggleFAQ(element) {
+    const faqItem = element.closest('.faq-item');
+    const isActive = faqItem.classList.contains('active');
+    
+    // Close all FAQ items in the same category
+    const category = faqItem.closest('.faq-category');
+    const allItems = category.querySelectorAll('.faq-item');
+    allItems.forEach(item => {
+        item.classList.remove('active');
+    });
+    
+    // If it wasn't active, open it
+    if (!isActive) {
+        faqItem.classList.add('active');
+    }
+}
+
+// ========================================
+// SMOOTH SCROLL FOR SIDEBAR
+// ========================================
+document.addEventListener('DOMContentLoaded', function() {
+    const sidebarLinks = document.querySelectorAll('.sidebar-link');
+    const categories = document.querySelectorAll('.faq-category');
+    
+    // Smooth scroll on click
+    sidebarLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            const targetId = this.getAttribute('href');
+            const targetElement = document.querySelector(targetId);
+            
+            if (targetElement) {
+                sidebarLinks.forEach(l => l.classList.remove('active'));
+                this.classList.add('active');
+                
+                targetElement.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
+    
+    // Highlight active category on scroll
+    function highlightActiveCategory() {
+        let currentCategory = '';
+        const scrollPosition = window.scrollY + 160;
+        
+        categories.forEach(category => {
+            const categoryTop = category.offsetTop;
+            const categoryBottom = categoryTop + category.offsetHeight;
+            
+            if (scrollPosition >= categoryTop && scrollPosition < categoryBottom) {
+                currentCategory = category.id;
+            }
+        });
+        
+        sidebarLinks.forEach(link => {
+            const href = link.getAttribute('href').substring(1);
+            if (href === currentCategory) {
+                link.classList.add('active');
+            } else {
+                link.classList.remove('active');
+            }
+        });
+    }
+    
+    window.addEventListener('scroll', highlightActiveCategory);
+    highlightActiveCategory();
+});
+</script>
+
+{% endblock %}

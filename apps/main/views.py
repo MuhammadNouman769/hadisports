@@ -1,26 +1,29 @@
-from django.http import request
+from django.views.generic import TemplateView
+
 from django.shortcuts import render
 
 # Create your views here.
 
-def home(request):
-    return render(request, 'pages/index.html')
+class TermsOfUseView(TemplateView):
+    template_name = "pages/terms-of-use.html"
 
+class PrivacyPolicyView(TemplateView):
+    template_name = "pages/privacy-policy.html"
 
-def product_detail(request):
-    return render(request, 'products/product_detail.html')
+class FAQsView(TemplateView):
+    template_name = "pages/faqs.html"
 
-def cart(request):
-    return render(request, 'cart/cart.html')
+class CartView(TemplateView):
+    template_name = "cart/cart.html"    
 
-def checkout(request):
-    return render(request, 'orders/checkout.html')
+class CheckoutView(TemplateView):
+    template_name = "orders/checkout.html"
 
-def testimonial(request):
-    return render(request, 'testimonials/testimonial.html')
+class TestimonialView(TemplateView):
+    template_name = "testimonials/testimonial.html"
 
-def error(request):
-    return render(request, 'errors/404.html')
+class ErrorView(TemplateView):
+    template_name = "errors/404.html"   
 
-def error_500(request):
-    return render(request, 'errors/500.html')
+class Error500View(TemplateView):
+    template_name = "errors/500.html"

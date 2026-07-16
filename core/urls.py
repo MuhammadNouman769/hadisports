@@ -7,6 +7,7 @@ urlpatterns = [
     path("nested_admin/", include("nested_admin.urls")),
     path("admin/", admin.site.urls),
     path("", include("apps.products.urls")),
+    path("", include("apps.main.urls")),
 ]
 
 if settings.DEBUG:

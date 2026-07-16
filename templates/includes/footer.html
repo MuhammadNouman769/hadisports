@@ -5,107 +5,491 @@
     height: 80px!important;
     width: auto;
 }
+
+/* ========================================
+   FOOTER STYLES
+======================================== */
+.footer {
+    background: #1a202c;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.footer .border-bottom {
+    border-color: rgba(129, 196, 8, 0.3) !important;
+}
+
+.footer .footer-item h4 {
+    color: #ffffff;
+    font-weight: 600;
+    margin-bottom: 20px;
+    position: relative;
+    padding-bottom: 10px;
+}
+
+.footer .footer-item h4::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 40px;
+    height: 2px;
+    background: #81c408;
+}
+
+.footer .footer-item p {
+    color: rgba(255, 255, 255, 0.7);
+    line-height: 1.8;
+    font-size: 14px;
+}
+
+.footer .btn-link {
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+    padding: 5px 0;
+    display: inline-block;
+    transition: all 0.3s ease;
+    font-size: 14px;
+}
+
+.footer .btn-link:hover {
+    color: #81c408;
+    padding-left: 8px;
+}
+
+.footer .btn-link i {
+    margin-right: 8px;
+    color: #81c408;
+    font-size: 12px;
+}
+
+.footer .social-icons .btn {
+    width: 40px;
+    height: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.7);
+    transition: all 0.3s ease;
+    margin-right: 8px;
+}
+
+.footer .social-icons .btn:hover {
+    background: #81c408;
+    border-color: #81c408;
+    color: #ffffff;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(129, 196, 8, 0.3);
+}
+
+.footer .newsletter-input {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+    border-radius: 50px;
+    padding: 12px 20px;
+    width: 100%;
+}
+
+.footer .newsletter-input:focus {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: #81c408;
+    box-shadow: none;
+    color: #ffffff;
+}
+
+.footer .newsletter-input::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.footer .newsletter-btn {
+    background: #81c408;
+    border: none;
+    color: #ffffff;
+    padding: 12px 25px;
+    border-radius: 50px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.footer .newsletter-btn:hover {
+    background: #6a9e06;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 20px rgba(129, 196, 8, 0.3);
+}
+
+.footer .contact-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.footer .contact-item i {
+    color: #81c408;
+    font-size: 18px;
+    margin-top: 3px;
+    min-width: 20px;
+}
+
+.footer .contact-item .text {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.footer .payment-icons {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 10px;
+}
+
+.footer .payment-icons img {
+    height: 30px;
+    width: auto;
+    filter: brightness(0.8);
+    transition: all 0.3s ease;
+}
+
+.footer .payment-icons img:hover {
+    filter: brightness(1);
+    transform: translateY(-2px);
+}
+
+/* Copyright */
+.copyright {
+    background: #141a24;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 20px 0;
+}
+
+.copyright .text {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 14px;
+}
+
+.copyright .text a {
+    color: #81c408;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.copyright .text a:hover {
+    color: #6a9e06;
+}
+
+.copyright .text .heart {
+    color: #e74c3c;
+}
+
+/* Back to Top */
+.back-to-top {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: #81c408;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 999;
+    border: none;
+    box-shadow: 0 5px 20px rgba(129, 196, 8, 0.3);
+}
+
+.back-to-top.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.back-to-top:hover {
+    background: #6a9e06;
+    color: #ffffff;
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(129, 196, 8, 0.4);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .footer .newsletter-input {
+        border-radius: 50px 50px 50px 50px;
+        margin-bottom: 10px;
+    }
+    
+    .footer .newsletter-btn {
+        width: 100%;
+        border-radius: 50px;
+    }
+    
+    .footer .footer-item h4::after {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    
+    .footer .footer-item {
+        text-align: center;
+    }
+    
+    .footer .btn-link:hover {
+        padding-left: 0;
+    }
+    
+    .footer .social-icons {
+        justify-content: center !important;
+    }
+    
+    .back-to-top {
+        bottom: 20px;
+        right: 20px;
+        width: 45px;
+        height: 45px;
+    }
+}
 </style>
 
-<footer>
-
-
-        <!-- Footer Start -->
-        <div class="container-fluid bg-dark text-white-50 footer pt-5 mt-5">
-            <div class="container py-5">
-                <div class="pb-4 mb-4" style="border-bottom: 1px solid rgba(226, 175, 24, 0.5) ;">
-                    <div class="row g-4">
-                        <div class="col-lg-3">
-                            <a href="#">
-                                <h1 class="text-primary display-6">
-                                <img src="{% static 'logos/logo-.png' %}" class="logo-img" alt="Logo">
-                                </h1>
+<footer class="footer">
+    <!-- Footer Start -->
+    <div class="container-fluid footer pt-5">
+        <div class="container py-5">
+            <!-- Top Section -->
+            <div class="pb-4 mb-4" style="border-bottom: 1px solid rgba(129, 196, 8, 0.3);">
+                <div class="row g-4 align-items-center">
+                    <!-- Logo -->
+                    <div class="col-lg-3 col-md-12 text-center text-lg-start">
+                        <a href="{% url 'products:home-view' %}">
+                            <img src="{% static 'logos/logo-.png' %}" class="logo-img" alt="Hadi Sports">
+                        </a>
+                    </div>
+                    
+                    <!-- Newsletter -->
+                    <div class="col-lg-6 col-md-12">
+                        <form class="position-relative" action="#" method="POST">
+                            <div class="row g-2">
+                                <div class="col-md-8">
+                                    <input class="form-control newsletter-input" 
+                                           type="email" 
+                                           placeholder="Enter your email for updates..." 
+                                           required>
+                                </div>
+                                <div class="col-md-4">
+                                    <button class="btn newsletter-btn w-100" type="submit">
+                                        <i class="fas fa-paper-plane me-2"></i> Subscribe
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    
+                    <!-- Social Icons -->
+                    <div class="col-lg-3 col-md-12">
+                        <div class="social-icons d-flex justify-content-center justify-content-lg-end">
+                            <a class="btn" style="color: #ffc107; border: 1px solid #ffc107; border-radius: 50%;" href="#" aria-label="Facebook">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                            <a class="btn" style="color: #ffc107; border: 1px solid #ffc107;border-radius: 50%;" href="#" aria-label="Twitter">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                            <a class="btn" style="color: #ffc107; border: 1px solid #ffc107; border-radius: 50%;" href="#" aria-label="Instagram">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                            <a class="btn" style="color: #ffc107; border: 1px solid #ffc107; border-radius: 50%;" href="#" aria-label="YouTube">
+                                <i class="fab fa-youtube"></i>
+                            </a>
+                            <a class="btn" style="color: #ffc107; border: 1px solid #ffc107; border-radius: 50%;" href="#" aria-label="LinkedIn">
+                                <i class="fab fa-linkedin-in"></i>
                             </a>
                         </div>
-                        <div class="col-lg-6">
-                            <div class="position-relative mx-auto">
-                                <input class="form-control border-0 w-100 py-3 px-4 rounded-pill" type="number" placeholder="Your Email">
-                                <button type="submit" class="btn btn-primary border-0 border-secondary py-3 px-4 position-absolute rounded-pill text-white" style="top: 0; right: 0;">Subscribe Now</button>
-                            </div>
-                        </div>
-                        <div class="col-lg-3">
-                            <div class="d-flex justify-content-end pt-3">
-                                <a class="btn  btn-outline-secondary me-2 btn-md-square rounded-circle" href=""><i class="fab fa-twitter"></i></a>
-                                <a class="btn btn-outline-secondary me-2 btn-md-square rounded-circle" href=""><i class="fab fa-facebook-f"></i></a>
-                                <a class="btn btn-outline-secondary me-2 btn-md-square rounded-circle" href=""><i class="fab fa-youtube"></i></a>
-                                <a class="btn btn-outline-secondary btn-md-square rounded-circle" href=""><i class="fab fa-linkedin-in"></i></a>
-                            </div>
-                        </div>
                     </div>
                 </div>
-                <div class="row g-5">
-                    <div class="col-lg-3 col-md-6">
-                        <div class="footer-item">
-                            <h4 class="text-light mb-3">Why People Like us!</h4>
-                            <p class="mb-4">typesetting, remaining essentially unchanged. It was 
-                                popularised in the 1960s with the like Aldus PageMaker including of Lorem Ipsum.</p>
-                            <a href="" class="btn border-secondary py-2 px-4 rounded-pill text-primary">Read More</a>
-                        </div>
+            </div>
+            
+            <!-- Footer Links -->
+            <div class="row g-5">
+                <!-- About -->
+                <div class="col-lg-3 col-md-6">
+                    <div class="footer-item">
+                        <h4>About Hadi Sports</h4>
+                        <p>Hadi Sports is Pakistan's leading sports retailer, offering high-quality sports equipment, footwear, and accessories for athletes and sports enthusiasts.</p>
+                        <a href="#" class="btn-link">
+                            <i class="fas fa-arrow-right"></i> Read More
+                        </a>
                     </div>
-                    <div class="col-lg-3 col-md-6">
-                        <div class="d-flex flex-column text-start footer-item">
-                            <h4 class="text-light mb-3">Useful Links</h4>
-                            <a class="btn-link" href="">About Us</a>
-                            <a class="btn-link" href="">Contact Us</a>
-                            <a class="btn-link" href="">Privacy Policy</a>
-                            <a class="btn-link" href="">Terms & Condition</a>
-                            <a class="btn-link" href="">Return Policy</a>
-                            <a class="btn-link" href="">FAQs & Help</a>
-                        </div>
+                </div>
+                
+                <!-- Quick Links -->
+                <div class="col-lg-3 col-md-6">
+                    <div class="footer-item">
+                        <h4>Quick Links</h4>
+                        <a class="btn-link" href="{% url 'products:home-view' %}">
+                            <i class="fas fa-chevron-right"></i> Home
+                        </a> <br>
+                        <a class="btn-link" href="{% url 'products:product-list' %}">
+                            <i class="fas fa-chevron-right"></i> Products
+                        </a> <br>
+                        <a class="btn-link" href="#">
+                            <i class="fas fa-chevron-right"></i> About Us
+                        </a> <br>
+                        <a class="btn-link" href="{% url 'main:faqs' %}">
+                            <i class="fas fa-chevron-right"></i> FAQ
+                        </a> <br>
+                        <a class="btn-link" href="#">
+                            <i class="fas fa-chevron-right"></i> Contact Us
+                        </a>
                     </div>
-                    <div class="col-lg-3 col-md-6">
-                        <div class="d-flex flex-column text-start footer-item">
-                            <h4 class="text-light mb-3">Footer Menu</h4>
-                            <a class="btn-link" href="">My Account</a>
-                            <a class="btn-link" href="">Shop details</a>
-                            <a class="btn-link" href="">Shopping Cart</a>
-                            <a class="btn-link" href="">Wishlist</a>
-                            <a class="btn-link" href="">Order History</a>
-                            <a class="btn-link" href="">International Orders</a>
-                        </div>
+                </div>
+                
+                <!-- Policies -->
+                <div class="col-lg-3 col-md-6">
+                    <div class="footer-item">
+                        <h4>Policies</h4>
+                        <a class="btn-link" href="{% url 'main:privacy-policy' %}">
+                            <i class="fas fa-chevron-right"></i> Privacy Policy
+                        </a> <br>
+                        <a class="btn-link" href="{% url 'main:terms-of-use' %}">
+                            <i class="fas fa-chevron-right"></i> Terms & Conditions
+                        </a> <br>
+                        <a class="btn-link" href="#">
+                            <i class="fas fa-chevron-right"></i> Returns Policy
+                        </a> <br>
+                        <a class="btn-link" href="#">
+                            <i class="fas fa-chevron-right"></i> Shipping Policy
+                        </a> <br>
+                        <a class="btn-link" href="#">
+                            <i class="fas fa-chevron-right"></i> Cookie Policy
+                        </a>
                     </div>
-                    <div class="col-lg-3 col-md-6">
-                        <div class="footer-item">
-                            <h4 class="text-light mb-3">Contact</h4>
-                            <p>Address: 297-C, P.I.A. Main Boulevard Road, Lahore Pakistan.</p>
-                            <p>Email: Example@gmail.com</p>
-                            <p>Phone: +0123 4567 8910</p>
-                            <p>Payment Accepted</p>
-                            <img src="img/payment.png" class="img-fluid" alt="">
+                </div>
+                
+                <!-- Contact -->
+                <div class="col-lg-3 col-md-6">
+                    <div class="footer-item">
+                        <h4>Get In Touch</h4>
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <span class="text">info@hadisports.com</span>
                         </div>
+                        <div class="contact-item">
+                            <i class="fas fa-phone-alt"></i>
+                            <span class="text">+92 300 1234567</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-clock"></i>
+                            <span class="text">Mon - Sat: 9:00 AM - 9:00 PM</span>
+                        </div>
+                          <div class="contact-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span class="text">297-C, P.I.A. Main Boulevard Road, Lahore, Pakistan</span>
+                        </div>
+                        
+                      
                     </div>
                 </div>
             </div>
         </div>
-        <!-- Footer End -->
+    </div>
+    <!-- Footer End -->
 
-        <!-- Copyright Start -->
-        <div class="container-fluid copyright bg-dark py-4">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
-                        <span class="text-light">
-    <i class="fas fa-copyright me-2"></i>
-    2026 <a href="/" class="text-light text-decoration-none">Hadi Sports</a>. All Rights Reserved.
-</span>
-                    </div>
-                    <div class="col-md-6 my-auto text-center text-md-end text-white">
-                            Designed & Developed  <a class="border-bottom" href=""> BTR Solutions</a>
-                    </div>
+    <!-- Copyright Start -->
+    <div class="container-fluid copyright">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6 text-center text-md-start">
+                    <span class="text">
+                        <i class="fas fa-copyright me-1"></i>
+                        2026 <a href="{% url 'products:home-view' %}">Hadi Sports</a>. 
+                        All Rights Reserved.
+                    </span>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <span class="text">
+                        Designed with <span class="heart">❤</span> by 
+                        <a href="#" target="_blank">BTR Solutions</a>
+                    </span>
                 </div>
             </div>
         </div>
-        <!-- Copyright End -->
+    </div>
+    <!-- Copyright End -->
 
+    <!-- Back to Top Button -->
+    <a href="#" class="back-to-top" id="backToTop" aria-label="Back to top">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</footer>
 
-
-        <!-- Back to Top -->
-        <a href="#" class="btn btn-primary border-3 border-primary rounded-circle back-to-top"><i class="fa fa-arrow-up"></i></a>   
-
+<!-- ======================================== -->
+<!-- FOOTER JAVASCRIPT -->
+<!-- ======================================== -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // ========================================
+    // BACK TO TOP BUTTON
+    // ========================================
+    const backToTopBtn = document.getElementById('backToTop');
+    
+    if (backToTopBtn) {
+        // Show/hide button based on scroll position
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 300) {
+                backToTopBtn.classList.add('show');
+            } else {
+                backToTopBtn.classList.remove('show');
+            }
+        });
         
-    </footer>       
+        // Smooth scroll to top on click
+        backToTopBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    }
+    
+    // ========================================
+    // NEWSLETTER FORM VALIDATION
+    // ========================================
+    const newsletterForm = document.querySelector('.footer .newsletter-btn');
+    if (newsletterForm) {
+        newsletterForm.addEventListener('click', function(e) {
+            e.preventDefault();
+            const input = this.closest('form').querySelector('.newsletter-input');
+            const email = input.value.trim();
+            
+            if (email === '') {
+                input.style.borderColor = '#e74c3c';
+                input.placeholder = 'Please enter your email';
+                return;
+            }
+            
+            if (!isValidEmail(email)) {
+                input.style.borderColor = '#e74c3c';
+                input.value = '';
+                input.placeholder = 'Please enter a valid email';
+                return;
+            }
+            
+            input.style.borderColor = '#81c408';
+            alert('Thank you for subscribing! You will receive our latest updates.');
+            input.value = '';
+        });
+    }
+    
+    // Email validation helper
+    function isValidEmail(email) {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+    }
+});
+</script>

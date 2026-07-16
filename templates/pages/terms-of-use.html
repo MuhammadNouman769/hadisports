@@ -1,0 +1,688 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Terms of Use | Hadi Sports{% endblock %}
+
+{% block content %}
+
+<style>
+    /* ========================================
+       PAGE BANNER / HERO
+    ======================================== */
+    .page-banner {
+        background: linear-gradient(135deg, #81c408 0%, #6a9e06 100%);
+        padding: 60px 0;
+        position: relative;
+        overflow: hidden;
+        margin-top: 120px; /* Push below fixed header */
+    }
+    
+    .page-banner::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        right: -20%;
+        width: 500px;
+        height: 500px;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 50%;
+    }
+    
+    .page-banner::after {
+        content: '';
+        position: absolute;
+        bottom: -30%;
+        left: -10%;
+        width: 300px;
+        height: 300px;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 50%;
+    }
+    
+    .page-banner .breadcrumb {
+        background: transparent;
+        padding: 0;
+        margin: 0;
+        justify-content: center;
+    }
+    
+    .page-banner .breadcrumb-item a {
+        color: #ffc107;
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+    
+    .page-banner .breadcrumb-item a:hover {
+        color: #ffc107;
+    }
+    
+    .page-banner .breadcrumb-item.active {
+        color: #ffc107;
+    }
+    
+    .page-banner .breadcrumb-item + .breadcrumb-item::before {
+        color: rgba(255, 255, 255, 0.5);
+    }
+    
+    .page-banner h1 {
+        font-size: 42px;
+        font-weight: 700;
+        color: #ffffff;
+        margin-bottom: 10px;
+        position: relative;
+        z-index: 1;
+    }
+    
+    .page-banner p {
+        color: rgba(255, 255, 255, 0.9);
+        font-size: 18px;
+        margin-bottom: 0;
+        position: relative;
+        z-index: 1;
+    }
+    
+    .page-banner .banner-icon {
+        font-size: 60px;
+        color: rgba(255, 255, 255, 0.2);
+        position: absolute;
+        right: 50px;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+    
+    /* ========================================
+       MAIN CONTENT
+    ======================================== */
+    .terms-container {
+        padding: 60px 0;
+        background: #f8fafc;
+    }
+    
+    .terms-card {
+        background: #ffffff;
+        border-radius: 20px;
+        padding: 50px;
+        box-shadow: 0 10px 40px rgba(0,0,0,0.05);
+    }
+    
+    .terms-header {
+        text-align: center;
+        margin-bottom: 40px;
+        padding-bottom: 30px;
+        border-bottom: 2px solid #f0f2f5;
+    }
+    
+    .terms-header h1 {
+        font-size: 36px;
+        font-weight: 700;
+        color: #1a202c;
+        margin-bottom: 10px;
+    }
+    
+    .terms-header .subtitle {
+        color: #6c757d;
+        font-size: 16px;
+    }
+    
+    .terms-header .last-updated {
+        color: #81c408;
+        font-size: 14px;
+        font-weight: 600;
+        margin-top: 10px;
+    }
+    
+    .terms-section {
+        margin-bottom: 35px;
+        scroll-margin-top: 150px; /* For smooth scroll offset */
+    }
+    
+    .terms-section h2 {
+        font-size: 22px;
+        font-weight: 700;
+        color: #1a202c;
+        margin-bottom: 15px;
+        padding-bottom: 10px;
+        border-bottom: 2px solid #81c408;
+        display: inline-block;
+    }
+    
+    .terms-section h2 i {
+        color: #81c408;
+        margin-right: 10px;
+    }
+    
+    .terms-section p {
+        color: #4a5568;
+        line-height: 1.8;
+        font-size: 16px;
+        margin-bottom: 15px;
+    }
+    
+    .terms-section ul {
+        list-style: none;
+        padding-left: 0;
+    }
+    
+    .terms-section ul li {
+        color: #4a5568;
+        padding: 8px 0 8px 30px;
+        position: relative;
+        line-height: 1.6;
+        border-bottom: 1px solid #f8f9fa;
+    }
+    
+    .terms-section ul li:last-child {
+        border-bottom: none;
+    }
+    
+    .terms-section ul li::before {
+        content: '✓';
+        position: absolute;
+        left: 0;
+        top: 8px;
+        color: #81c408;
+        font-weight: 700;
+        font-size: 18px;
+    }
+    
+    .terms-section .highlight-box {
+        background: #f0fdf4;
+        border-left: 4px solid #81c408;
+        padding: 20px 25px;
+        border-radius: 8px;
+        margin: 15px 0;
+    }
+    
+    .terms-section .highlight-box p {
+        margin-bottom: 0;
+        color: #1a202c;
+    }
+    
+    .terms-footer {
+        margin-top: 40px;
+        padding-top: 30px;
+        border-top: 2px solid #f0f2f5;
+        text-align: center;
+    }
+    
+    .terms-footer p {
+        color: #6c757d;
+        font-size: 14px;
+        margin-bottom: 5px;
+    }
+    
+    .terms-footer .btn-primary {
+        background-color: #81c408;
+        border-color: #81c408;
+        padding: 12px 30px;
+        border-radius: 50px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        margin-top: 10px;
+    }
+    
+    .terms-footer .btn-primary:hover {
+        background-color: #6a9e06;
+        border-color: #6a9e06;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 20px rgba(129, 196, 8, 0.3);
+    }
+    
+    .terms-sidebar {
+        position: sticky;
+        top: 140px; /* Adjusted for fixed header */
+    }
+    
+    .terms-sidebar .sidebar-card {
+        background: #ffffff;
+        border-radius: 15px;
+        padding: 25px;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+    }
+    
+    .terms-sidebar .sidebar-card h5 {
+        font-weight: 700;
+        color: #1a202c;
+        margin-bottom: 15px;
+        padding-bottom: 10px;
+        border-bottom: 2px solid #f0f2f5;
+    }
+    
+    .terms-sidebar .sidebar-card ul {
+        list-style: none;
+        padding-left: 0;
+        margin-bottom: 0;
+    }
+    
+    .terms-sidebar .sidebar-card ul li {
+        padding: 8px 0;
+        border-bottom: 1px solid #f8f9fa;
+    }
+    
+    .terms-sidebar .sidebar-card ul li:last-child {
+        border-bottom: none;
+    }
+    
+    .terms-sidebar .sidebar-card ul li a {
+        color: #4a5568;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        font-size: 14px;
+        display: block;
+        cursor: pointer;
+    }
+    
+    .terms-sidebar .sidebar-card ul li a:hover {
+        color: #81c408;
+        padding-left: 10px;
+    }
+    
+    .terms-sidebar .sidebar-card ul li a i {
+        color: #81c408;
+        margin-right: 8px;
+        width: 16px;
+    }
+    
+    .terms-sidebar .sidebar-card ul li a.active {
+        color: #81c408;
+        font-weight: 600;
+        padding-left: 10px;
+        border-left: 3px solid #81c408;
+        padding-left: 15px;
+    }
+    
+    /* ========================================
+       RESPONSIVE
+    ======================================== */
+    @media (max-width: 768px) {
+        .page-banner {
+            padding: 40px 0;
+            margin-top: 100px;
+        }
+        
+        .page-banner h1 {
+            font-size: 28px;
+        }
+        
+        .page-banner p {
+            font-size: 16px;
+        }
+        
+        .page-banner .banner-icon {
+            display: none;
+        }
+        
+        .terms-card {
+            padding: 25px;
+        }
+        
+        .terms-header h1 {
+            font-size: 28px;
+        }
+        
+        .terms-section h2 {
+            font-size: 18px;
+        }
+        
+        .terms-section p {
+            font-size: 15px;
+        }
+        
+        .terms-sidebar {
+            position: relative;
+            top: 0;
+        }
+    }
+    
+    @media (max-width: 576px) {
+        .page-banner {
+            margin-top: 80px;
+            padding: 30px 0;
+        }
+        
+        .page-banner h1 {
+            font-size: 24px;
+        }
+        
+        .page-banner h1 i {
+            font-size: 24px !important;
+        }
+        
+        .page-banner p {
+            font-size: 14px;
+        }
+    }
+</style>
+
+<!-- ======================================== -->
+<!-- PAGE BANNER -->
+<!-- ======================================== -->
+<div class="page-banner">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-8 text-center text-lg-start">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a href="{% url 'products:home-view' %}">
+                                <i class="fas fa-home me-1"></i> Home
+                            </a>
+                        </li>
+                        <li class="breadcrumb-item active" aria-current="page">
+                            Terms of Use
+                        </li>
+                    </ol>
+                </nav>
+                <h1>
+                    <i class="fas fa-file-contract me-3" style="font-size: 35px; color: rgba(255,255,255,0.8);"></i>
+                    Terms of Use
+                </h1>
+                <p>Please read these terms carefully before using our services.</p>
+            </div>
+            <div class="col-lg-4 text-center text-lg-end d-none d-lg-block">
+                <div class="banner-icon">
+                    <i class="fas fa-file-contract"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ======================================== -->
+<!-- MAIN CONTENT -->
+<!-- ======================================== -->
+<div class="terms-container">
+    <div class="container">
+        <div class="row g-4">
+            <!-- Main Content -->
+            <div class="col-lg-9">
+                <div class="terms-card">
+                    <!-- Header -->
+                    <div class="terms-header">
+                        <h1>Terms of Use</h1>
+                        <p class="subtitle">Welcome to Hadi Sports. Please read these terms carefully before using our services.</p>
+                        <p class="last-updated"><i class="fas fa-clock me-2"></i>Last Updated: July 15, 2026</p>
+                    </div>
+                    
+                    <!-- Section 1: Acceptance -->
+                    <div id="section-acceptance" class="terms-section">
+                        <h2><i class="fas fa-check-circle"></i>1. Acceptance of Terms</h2>
+                        <p>By accessing and using the Hadi Sports website, you agree to be bound by these Terms of Use and all applicable laws and regulations. If you do not agree with any of these terms, please do not use our services.</p>
+                        <div class="highlight-box">
+                            <p><strong>By using our services, you confirm that you have read, understood, and agree to these terms.</strong></p>
+                        </div>
+                    </div>
+                    
+                    <!-- Section 2: Eligibility -->
+                    <div id="section-eligibility" class="terms-section">
+                        <h2><i class="fas fa-user-check"></i>2. Eligibility</h2>
+                        <p>To use our services, you must:</p>
+                        <ul>
+                            <li>Be at least 18 years old or have parental/guardian consent</li>
+                            <li>Provide accurate and complete registration information</li>
+                            <li>Maintain the security of your account credentials</li>
+                            <li>Not use our services for any illegal or unauthorized purpose</li>
+                            <li>Comply with all applicable laws and regulations</li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Section 3: Account Registration -->
+                    <div id="section-account" class="terms-section">
+                        <h2><i class="fas fa-user-plus"></i>3. Account Registration</h2>
+                        <p>When creating an account with Hadi Sports, you agree to:</p>
+                        <ul>
+                            <li>Provide accurate, current, and complete information</li>
+                            <li>Maintain and promptly update your account information</li>
+                            <li>Keep your password secure and confidential</li>
+                            <li>Notify us immediately of any unauthorized use of your account</li>
+                            <li>Be responsible for all activities that occur under your account</li>
+                        </ul>
+                        <p>We reserve the right to suspend or terminate accounts that violate these terms.</p>
+                    </div>
+                    
+                    <!-- Section 4: Products and Services -->
+                    <div id="section-products" class="terms-section">
+                        <h2><i class="fas fa-shopping-bag"></i>4. Products and Services</h2>
+                        <p>Hadi Sports offers a wide range of sports products including but not limited to:</p>
+                        <ul>
+                            <li>Sports equipment and gear</li>
+                            <li>Footwear and apparel</li>
+                            <li>Accessories and sports items</li>
+                            <li>Sports training equipment</li>
+                        </ul>
+                        <p>We strive to provide accurate product descriptions and pricing. However, we reserve the right to correct any errors, inaccuracies, or omissions.</p>
+                    </div>
+                    
+                    <!-- Section 5: Orders and Payments -->
+                    <div id="section-orders" class="terms-section">
+                        <h2><i class="fas fa-credit-card"></i>5. Orders and Payments</h2>
+                        <p>When placing an order on our website:</p>
+                        <ul>
+                            <li>All prices are listed in PKR (Pakistani Rupees)</li>
+                            <li>We accept various payment methods including credit/debit cards and bank transfers</li>
+                            <li>You agree to provide valid payment information</li>
+                            <li>We reserve the right to cancel or refuse any order</li>
+                            <li>Shipping and delivery times are estimates and may vary</li>
+                        </ul>
+                        <div class="highlight-box">
+                            <p><strong>All transactions are processed securely. We do not store your payment information.</strong></p>
+                        </div>
+                    </div>
+                    
+                    <!-- Section 6: Returns and Refunds -->
+                    <div id="section-returns" class="terms-section">
+                        <h2><i class="fas fa-undo-alt"></i>6. Returns and Refunds</h2>
+                        <p>Our return policy includes:</p>
+                        <ul>
+                            <li>Items must be returned within 30 days of delivery</li>
+                            <li>Products must be unused and in original packaging</li>
+                            <li>Customers are responsible for return shipping costs</li>
+                            <li>Refunds will be processed within 7-10 business days</li>
+                            <li>Some items may be non-returnable (final sale items)</li>
+                        </ul>
+                        <p>Please refer to our full <a href="#" class="text-primary">Refund Policy</a> for more details.</p>
+                    </div>
+                    
+                    <!-- Section 7: Intellectual Property -->
+                    <div id="section-intellectual" class="terms-section">
+                        <h2><i class="fas fa-copyright"></i>7. Intellectual Property</h2>
+                        <p>All content on the Hadi Sports website including:</p>
+                        <ul>
+                            <li>Text, graphics, logos, and images</li>
+                            <li>Product descriptions and designs</li>
+                            <li>Software and source code</li>
+                            <li>Brand names and trademarks</li>
+                        </ul>
+                        <p>are the property of Hadi Sports and are protected by copyright and intellectual property laws. You may not reproduce, distribute, or create derivative works without our explicit permission.</p>
+                    </div>
+                    
+                    <!-- Section 8: User Content -->
+                    <div id="section-user-content" class="terms-section">
+                        <h2><i class="fas fa-comments"></i>8. User Content</h2>
+                        <p>By submitting content to our website (reviews, comments, photos, etc.), you grant us the right to:</p>
+                        <ul>
+                            <li>Use, modify, and display the content</li>
+                            <li>Share content on our social media channels</li>
+                            <li>Use content for promotional purposes</li>
+                            <li>Edit or remove content at our discretion</li>
+                        </ul>
+                        <p>You retain ownership of your content but grant us a license to use it.</p>
+                    </div>
+                    
+                    <!-- Section 9: Privacy Policy -->
+                    <div id="section-privacy" class="terms-section">
+                        <h2><i class="fas fa-shield-alt"></i>9. Privacy Policy</h2>
+                        <p>Your privacy is important to us. Our <a href="{% url 'main:privacy-policy' %}" class="text-primary">Privacy Policy</a> explains how we collect, use, and protect your personal information. By using our services, you agree to our data practices as described in the Privacy Policy.</p>
+                        <div class="highlight-box">
+                            <p><strong>We are committed to protecting your personal information and ensuring your data security.</strong></p>
+                        </div>
+                    </div>
+                    
+                    <!-- Section 10: Limitation of Liability -->
+                    <div id="section-liability" class="terms-section">
+                        <h2><i class="fas fa-exclamation-triangle"></i>10. Limitation of Liability</h2>
+                        <p>Hadi Sports and its affiliates shall not be liable for:</p>
+                        <ul>
+                            <li>Any indirect, incidental, or consequential damages</li>
+                            <li>Loss of profits, data, or business opportunities</li>
+                            <li>Damages arising from the use or inability to use our services</li>
+                            <li>Third-party content or actions on our platform</li>
+                        </ul>
+                        <p>Our liability is limited to the maximum extent permitted by law.</p>
+                    </div>
+                    
+                    <!-- Section 11: Governing Law -->
+                    <div id="section-governing" class="terms-section">
+                        <h2><i class="fas fa-gavel"></i>11. Governing Law</h2>
+                        <p>These terms shall be governed by and construed in accordance with the laws of Pakistan. Any disputes arising under these terms shall be subject to the exclusive jurisdiction of the courts of Lahore, Pakistan.</p>
+                    </div>
+                    
+                    <!-- Section 12: Changes to Terms -->
+                    <div id="section-changes" class="terms-section">
+                        <h2><i class="fas fa-edit"></i>12. Changes to Terms</h2>
+                        <p>We reserve the right to update or modify these terms at any time. Changes will be effective immediately upon posting on this page. We encourage you to review these terms periodically.</p>
+                        <div class="highlight-box">
+                            <p><strong>Continued use of our services constitutes acceptance of any modified terms.</strong></p>
+                        </div>
+                    </div>
+                    
+                    <!-- Section 13: Contact Information -->
+                    <div id="section-contact" class="terms-section">
+                        <h2><i class="fas fa-envelope"></i>13. Contact Information</h2>
+                        <p>If you have any questions about these Terms of Use, please contact us:</p>
+                        <ul>
+                            <li><strong>Email:</strong> support@hadisports.com</li>
+                            <li><strong>Phone:</strong> +92 300 1234567</li>
+                            <li><strong>Address:</strong> 297-C, P.I.A. Main Boulevard Road, Lahore, Pakistan</li>
+                            <li><strong>Business Hours:</strong> Monday - Saturday, 9:00 AM - 9:00 PM</li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Footer -->
+                    <div class="terms-footer">
+                        <p><i class="fas fa-check-circle text-primary me-2"></i> Thank you for choosing Hadi Sports</p>
+                        <p class="text-muted">We are committed to providing you with the best sports products and services.</p>
+                        <div class="d-flex justify-content-center gap-3 flex-wrap">
+                            <a href="{% url 'products:home-view' %}" class="btn btn-primary">
+                                <i class="fas fa-arrow-left me-2"></i> Back to Home
+                            </a>
+                            <a href="{% url 'main:privacy-policy' %}" class="btn btn-outline-primary">
+                                <i class="fas fa-shield-alt me-2"></i> Privacy Policy
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sidebar -->
+            <div class="col-lg-3">
+                <div class="terms-sidebar">
+                    <div class="sidebar-card">
+                        <h5><i class="fas fa-list me-2"></i>Contents</h5>
+                        <ul>
+                            <li><a href="#section-acceptance" class="sidebar-link"><i class="fas fa-check-circle"></i> Acceptance</a></li>
+                            <li><a href="#section-eligibility" class="sidebar-link"><i class="fas fa-user-check"></i> Eligibility</a></li>
+                            <li><a href="#section-account" class="sidebar-link"><i class="fas fa-user-plus"></i> Account Registration</a></li>
+                            <li><a href="#section-products" class="sidebar-link"><i class="fas fa-shopping-bag"></i> Products & Services</a></li>
+                            <li><a href="#section-orders" class="sidebar-link"><i class="fas fa-credit-card"></i> Orders & Payments</a></li>
+                            <li><a href="#section-returns" class="sidebar-link"><i class="fas fa-undo-alt"></i> Returns & Refunds</a></li>
+                            <li><a href="#section-intellectual" class="sidebar-link"><i class="fas fa-copyright"></i> Intellectual Property</a></li>
+                            <li><a href="#section-user-content" class="sidebar-link"><i class="fas fa-comments"></i> User Content</a></li>
+                            <li><a href="#section-privacy" class="sidebar-link"><i class="fas fa-shield-alt"></i> Privacy Policy</a></li>
+                            <li><a href="#section-liability" class="sidebar-link"><i class="fas fa-exclamation-triangle"></i> Limitation of Liability</a></li>
+                            <li><a href="#section-governing" class="sidebar-link"><i class="fas fa-gavel"></i> Governing Law</a></li>
+                            <li><a href="#section-changes" class="sidebar-link"><i class="fas fa-edit"></i> Changes to Terms</a></li>
+                            <li><a href="#section-contact" class="sidebar-link"><i class="fas fa-envelope"></i> Contact Information</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="sidebar-card mt-3">
+                        <h5><i class="fas fa-link me-2"></i>Quick Links</h5>
+                        <ul>
+                            <li><a href="{% url 'products:home-view' %}"><i class="fas fa-home"></i> Home</a></li>
+                            <li><a href="{% url 'products:product-list' %}"><i class="fas fa-box"></i> Products</a></li>
+                            <li><a href="{% url 'main:privacy-policy' %}"><i class="fas fa-shield-alt"></i> Privacy Policy</a></li>
+                            <li><a href="#"><i class="fas fa-question-circle"></i> FAQ</a></li>
+                            <li><a href="#"><i class="fas fa-envelope"></i> Contact</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ======================================== -->
+<!-- SMOOTH SCROLL JAVASCRIPT -->
+<!-- ======================================== -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Get all sidebar links
+    const sidebarLinks = document.querySelectorAll('.sidebar-link');
+    
+    // Get all sections
+    const sections = document.querySelectorAll('.terms-section');
+    
+    // ========================================
+    // SMOOTH SCROLL ON CLICK
+    // ========================================
+    sidebarLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // Get target section ID
+            const targetId = this.getAttribute('href');
+            const targetElement = document.querySelector(targetId);
+            
+            if (targetElement) {
+                // Remove active class from all links
+                sidebarLinks.forEach(l => l.classList.remove('active'));
+                
+                // Add active class to clicked link
+                this.classList.add('active');
+                
+                // Smooth scroll to target
+                targetElement.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
+    
+    // ========================================
+    // HIGHLIGHT ACTIVE SECTION ON SCROLL
+    // ========================================
+    function highlightActiveSection() {
+        let currentSection = '';
+        const scrollPosition = window.scrollY + 160; // Offset for header
+        
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            const sectionBottom = sectionTop + section.offsetHeight;
+            
+            if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
+                currentSection = section.id;
+            }
+        });
+        
+        // Update active link
+        sidebarLinks.forEach(link => {
+            const href = link.getAttribute('href').substring(1);
+            if (href === currentSection) {
+                link.classList.add('active');
+            } else {
+                link.classList.remove('active');
+            }
+        });
+    }
+    
+    // Listen for scroll events
+    window.addEventListener('scroll', highlightActiveSection);
+    
+    // Initial highlight
+    highlightActiveSection();
+});
+</script>
+
+{% endblock %}
