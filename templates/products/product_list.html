@@ -244,11 +244,10 @@
     ========================================================== -->
 <!-- Single Page Header start -->
         <div class="container-fluid page-header py-5">
-            <h1 class="text-center text-white display-6">Shop</h1>
+            <h1 class="text-center text-white display-6">Products</h1>
             <ol class="breadcrumb justify-content-center mb-0">
-                <li class="breadcrumb-item"><a style="color: #ffb524;" href="#">Home</a></li>
-                <li class="breadcrumb-item"><a style="color: #ffb524;" href="#">Pages</a></li>
-                <li class="breadcrumb-item active text-white">Shop</li>
+                <li class="breadcrumb-item"><a style="color: #ffb524;" href="{% url 'products:home-view' %}">Home</a></li>
+                <li class="breadcrumb-item active"  style="color: #ffb524;">Shop</li>
             </ol>
         </div>    
         
@@ -389,7 +388,7 @@
                         <div class="p-4 border border-top-0 rounded-bottom" style="border-color: #dee2e6 !important;">
                             
                             <!-- Product Name - Centered, 30 chars -->
-                            <h4 class="product-title">{{ product.name|truncatechars:30 }}</h4>
+                            <h4 class="product-title">{{ product.name|truncatechars:25 }}</h4>
                             
                             <!-- Short Description - Centered, 30 chars -->
                             <p class="product-description">{{ product.short_description|truncatechars:30 }}</p>
