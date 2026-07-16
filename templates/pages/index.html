@@ -99,10 +99,212 @@
     .fruite-item:hover {
         /* Nothing happens on card hover */
     }
+    /* ========================================
+   NEW ARRIVALS - Image Fit Fix
+======================================== */
+.vesitable-img {
+    height: 250px;
+    overflow: hidden;
+    background: #f8f9fa;
+}
+
+.vesitable-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.vesitable-item:hover .vesitable-img img {
+    transform: scale(1.05);
+}
+
+/* Ensure all cards are same height */
+.vesitable-item {
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+}
+
+.vesitable-item .rounded-bottom {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.vesitable-item .rounded-bottom .d-flex {
+    margin-top: auto;
+}
+
+/* ========================================
+   BESTSELLER PRODUCTS - Professional Design
+======================================== */
+
+/* Card Styles */
+.bestseller-card {
+    transition: all 0.3s ease;
+    border: 1px solid transparent;
+    border-radius: 16px !important;
+    position: relative;
+    overflow: hidden;
+}
+
+.bestseller-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 50px rgba(0,0,0,0.08);
+    border-color: #81c408;
+}
+
+.bestseller-card:hover .bestseller-img-wrapper img {
+    transform: scale(1.05);
+}
+
+/* Image Wrapper */
+.bestseller-img-wrapper {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    margin: 0 auto;
+}
+
+.bestseller-img-wrapper img {
+    transition: transform 0.3s ease;
+    border: 3px solid #f8f9fa;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+/* Bestseller Badge */
+.bestseller-badge {
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    width: 35px;
+    height: 35px;
+    background: linear-gradient(135deg, #ff6b35, #ff4500);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 12px;
+    box-shadow: 0 3px 10px rgba(255, 69, 0, 0.3);
+    border: 2px solid #ffffff;
+    z-index: 2;
+}
+
+.bestseller-badge span {
+    text-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+
+/* Vertical Card */
+.bestseller-card-vertical {
+    transition: all 0.3s ease;
+    background: #ffffff;
+    border-radius: 16px !important;
+    padding: 15px;
+    height: 100%;
+    border: 1px solid #e9ecef;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+}
+
+.bestseller-card-vertical:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+    border-color: #81c408;
+}
+
+.bestseller-img-wrapper-vertical {
+    position: relative;
+    overflow: hidden;
+    border-radius: 12px;
+}
+
+.bestseller-img-wrapper-vertical img {
+    transition: transform 0.3s ease;
+}
+
+.bestseller-img-wrapper-vertical:hover img {
+    transform: scale(1.05);
+}
+
+.bestseller-badge-small {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: linear-gradient(135deg, #ff6b35, #ff4500);
+    color: #ffffff;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    box-shadow: 0 3px 10px rgba(255, 69, 0, 0.3);
+}
+
+/* WhatsApp Small Button */
+.btn-whatsapp-small {
+    background: #25D366;
+    color: #ffffff;
+    padding: 5px 15px;
+    border-radius: 50px;
+    font-size: 12px;
+    font-weight: 600;
+    border: none;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.btn-whatsapp-small:hover {
+    background: #128C7E;
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3);
+}
+
+.btn-whatsapp-small i {
+    font-size: 14px;
+}
+
+/* Star Rating */
+.fa-star.text-warning {
+    color: #f39c12 !important;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .bestseller-img-wrapper {
+        width: 80px;
+        height: 80px;
+    }
+    
+    .bestseller-img-wrapper img {
+        height: 80px !important;
+        width: 80px !important;
+    }
+    
+    .bestseller-card {
+        padding: 15px !important;
+    }
+    
+    .bestseller-card .h5 {
+        font-size: 15px !important;
+    }
+    
+    .bestseller-card-vertical {
+        padding: 10px;
+    }
+    
+    .bestseller-img-wrapper-vertical img {
+        height: 150px !important;
+    }
+}
 </style>
 
-
-    <body>
+<body>
 
     <!-- Modal Search Start -->
     <div class="modal fade" id="searchModal" tabindex="-1"
@@ -212,761 +414,696 @@
     </div>
     <!-- Hero End -->
 
-<!-- ==========================================================
-     feartured products section
-     ========================================================== -->
-<div class="container-fluid fruite py-5">
-    <div class="container py-5">
-        <div class="tab-class text-center">
-            
-            <!-- Tabs Header -->
-            <div class="row g-4">
-                <div class="col-lg-4 text-start">
-                    <h1>Featured Products</h1>
-                </div>
-
-                <div class="col-lg-8 text-end">
-                    <ul class="nav nav-pills d-inline-flex text-center mb-5">
-
-                        <!-- All Products Tab -->
-                        <li class="nav-item">
-                            <a class="d-flex m-2 py-2 bg-light rounded-pill active"
-                               data-bs-toggle="pill"
-                               href="#tab-all">
-                                <span class="text-dark" style="width:130px;">
-                                    All Products
-                                </span>
-                            </a>
-                        </li>
-
-                        <!-- Parent Categories Tabs -->
-                        {% for category_data in category_products_list %}
-                        <li class="nav-item">
-                            <a class="d-flex m-2 py-2 bg-light rounded-pill"
-                               data-bs-toggle="pill"
-                               href="#tab-{{ category_data.category.id }}">
-                                <span class="text-dark" style="width:160px;">
-                                    {{ category_data.category.title }}
-                                </span>
-                            </a>
-                        </li>
-                        {% endfor %}
-
-                    </ul>
-                </div>
-            </div>
-
-            <!-- Tab Content -->
-            <div class="tab-content">
+    <!-- ==========================================================
+         FEATURED PRODUCTS SECTION
+    ========================================================== -->
+    <div class="container-fluid fruite py-5">
+        <div class="container py-5">
+            <div class="tab-class text-center">
                 
-                <!-- ==============================================
-                TAB: ALL PRODUCTS
-                ============================================== -->
-                <div id="tab-all" class="tab-pane fade show p-0 active">
-                    <div class="row g-4">
-                        <div class="col-lg-12">
-                            <div class="row g-4">
-                                
-                                {% for product in featured_products %}
-                                <div class="col-md-6 col-lg-4 col-xl-3">
-                                    <div class="rounded position-relative fruite-item">
-                                        
-                                        <!-- Product Image with Hover Effect -->
-                                        <div class="product-image-wrapper">
-                                            {% with product.default_variant as variant %}
-                                                {% if variant %}
-                                                    {% with variant.images.all as images %}
-                                                        {% if images %}
-                                                            <!-- Default Image -->
-                                                            <img src="{{ images.0.image.url }}" 
-                                                                 class="product-img-default" 
-                                                                 alt="{{ product.name }}">
-                                                            
-                                                            <!-- Hover Image (only if more than 1 image) -->
-                                                            {% if images|length > 1 %}
-                                                                <img src="{{ images.1.image.url }}" 
-                                                                     class="product-img-hover" 
-                                                                     alt="{{ product.name }} - hover">
+                <!-- Tabs Header -->
+                <div class="row g-4">
+                    <div class="col-lg-4 text-start">
+                        <h1>Featured Products</h1>
+                    </div>
+
+                    <div class="col-lg-8 text-end">
+                        <ul class="nav nav-pills d-inline-flex text-center mb-5">
+
+                            <!-- All Products Tab -->
+                            <li class="nav-item">
+                                <a class="d-flex m-2 py-2 bg-light rounded-pill active"
+                                   data-bs-toggle="pill"
+                                   href="#tab-all">
+                                    <span class="text-dark" style="width:130px;">
+                                        All Products
+                                    </span>
+                                </a>
+                            </li>
+
+                            <!-- Parent Categories Tabs -->
+                            {% for category_data in category_products_list %}
+                            <li class="nav-item">
+                                <a class="d-flex m-2 py-2 bg-light rounded-pill"
+                                   data-bs-toggle="pill"
+                                   href="#tab-{{ category_data.category.id }}">
+                                    <span class="text-dark" style="width:160px;">
+                                        {{ category_data.category.title }}
+                                    </span>
+                                </a>
+                            </li>
+                            {% endfor %}
+
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Tab Content -->
+                <div class="tab-content">
+                    
+                    <!-- ==============================================
+                    TAB: ALL PRODUCTS
+                    ============================================== -->
+                    <div id="tab-all" class="tab-pane fade show p-0 active">
+                        <div class="row g-4">
+                            <div class="col-lg-12">
+                                <div class="row g-4">
+                                    
+                                    {% for product in featured_products %}
+                                    <div class="col-md-6 col-lg-4 col-xl-3">
+                                        <div class="rounded position-relative fruite-item">
+                                            
+                                            <!-- Product Image with Hover Effect -->
+                                            <div class="product-image-wrapper">
+                                                {% with product.default_variant as variant %}
+                                                    {% if variant %}
+                                                        {% with variant.images.all as images %}
+                                                            {% if images %}
+                                                                <!-- Default Image -->
+                                                                <img src="{{ images.0.image.url }}" 
+                                                                     class="product-img-default" 
+                                                                     alt="{{ product.name }}">
+                                                                
+                                                                <!-- Hover Image (only if more than 1 image) -->
+                                                                {% if images|length > 1 %}
+                                                                    <img src="{{ images.1.image.url }}" 
+                                                                         class="product-img-hover" 
+                                                                         alt="{{ product.name }} - hover">
+                                                                {% endif %}
+                                                            {% else %}
+                                                                <!-- No Image - Show Default -->
+                                                                <img src="{% static 'img/default-product.jpg' %}" 
+                                                                     class="product-img-default" 
+                                                                     alt="{{ product.name }}">
                                                             {% endif %}
-                                                        {% else %}
-                                                            <!-- No Image - Show Default -->
-                                                            <img src="{% static 'img/default-product.jpg' %}" 
-                                                                 class="product-img-default" 
-                                                                 alt="{{ product.name }}">
+                                                        {% endwith %}
+                                                    {% else %}
+                                                        <!-- No Variant - Show Default -->
+                                                        <img src="{% static 'img/default-product.jpg' %}" 
+                                                             class="product-img-default" 
+                                                             alt="{{ product.name }}">
+                                                    {% endif %}
+                                                {% endwith %}
+                                            </div>
+                                            
+                                            <!-- Category Badge -->
+                                            <div class="text-white bg-secondary px-3 py-1 br-radius position-absolute" 
+                                                 style="top: 10px; left: 10px; z-index: 3; font-size:10px;">
+                                                {{ product.category.title }}
+                                            </div>
+                                            
+                                            <!-- Product Info -->
+                                            <div class="p-4 border-top-0 rounded-bottom">
+                                                <h4 style="font-size: 18px; color: #070707;">{{ product.name|truncatechars:25 }}</h4>
+                                                <p style="font-size: 14px; color: #0b0b0b;">{{ product.short_description|truncatechars:30 }}</p>
+                                                
+                                                <div class="d-flex justify-content-between flex-lg-wrap">
+                                                    {% with product.variants.all|first as variant %}
+                                                        {% if variant %}
+                                                            <p class="text-dark fs-5 fw-bold mb-0">
+                                                                Rs. {{ variant.price }}
+                                                                {% if variant.compare_price %}
+                                                                    <span class="text-danger text-decoration-line-through fs-6">
+                                                                        Rs. {{ variant.compare_price }}
+                                                                    </span>
+                                                                {% endif %}
+                                                            </p>
+                                                            <a href="{% url 'products:product-detail' slug=product.slug %}" 
+                                                               class="btn border border-secondary rounded-pill px-3 text-primary">
+                                                                <i class="fa fa-eye me-2 text-primary"></i> View
+                                                            </a>
                                                         {% endif %}
                                                     {% endwith %}
-                                                {% else %}
-                                                    <!-- No Variant - Show Default -->
-                                                    <img src="{% static 'img/default-product.jpg' %}" 
-                                                         class="product-img-default" 
-                                                         alt="{{ product.name }}">
-                                                {% endif %}
-                                            {% endwith %}
+                                                </div>
+                                            </div>
                                         </div>
-                                        
-                                        <!-- Category Badge -->
-                                        <div class="text-white bg-secondary px-3 py-1 br-radius position-absolute" 
-                                             style="top: 10px; left: 10px; z-index: 3; font-size:10px;">
-                                            {{ product.category.title }}
-                                        </div>
-                                        
-                                        <!-- Product Info -->
-                                        <div class="p-4  border-top-0 rounded-bottom">
-                                            <h4 style="font-size: 18px; color: #070707; hover-color: #81c408!important;">{{ product.name|truncatechars:25 }}</h4>
-                                            <p style="font-size: 14px; color: #0b0b0b;">{{ product.short_description|truncatechars:30 }}</p>
+                                    </div>
+                                    {% empty %}
+                                    <div class="col-12 text-center py-5">
+                                        <p class="text-muted">No featured products available.</p>
+                                    </div>
+                                    {% endfor %}
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ==============================================
+                    TAB: CATEGORY PRODUCTS
+                    ============================================== -->
+                    {% for category_data in category_products_list %}
+                    <div id="tab-{{ category_data.category.id }}" class="tab-pane fade show p-0">
+                        <div class="row g-4">
+                            <div class="col-lg-12">
+                                <div class="row g-4">
+                                    
+                                    {% for product in category_data.products %}
+                                    <div class="col-md-6 col-lg-4 col-xl-3">
+                                        <div class="rounded position-relative fruite-item">
                                             
-                                            <div class="d-flex justify-content-between flex-lg-wrap">
+                                            <!-- Product Image with Hover Effect -->
+                                            <div class="product-image-wrapper">
+                                                {% with product.default_variant as variant %}
+                                                    {% if variant %}
+                                                        {% with variant.images.all as images %}
+                                                            {% if images %}
+                                                                <!-- Default Image -->
+                                                                <img src="{{ images.0.image.url }}" 
+                                                                     class="product-img-default" 
+                                                                     alt="{{ product.name }}">
+                                                                
+                                                                <!-- Hover Image (only if more than 1 image) -->
+                                                                {% if images|length > 1 %}
+                                                                    <img src="{{ images.1.image.url }}" 
+                                                                         class="product-img-hover" 
+                                                                         alt="{{ product.name }} - hover">
+                                                                {% endif %}
+                                                            {% else %}
+                                                                <!-- No Image - Show Default -->
+                                                                <img src="{% static 'img/default-product.jpg' %}" 
+                                                                     class="product-img-default" 
+                                                                     alt="{{ product.name }}">
+                                                            {% endif %}
+                                                        {% endwith %}
+                                                    {% else %}
+                                                        <!-- No Variant - Show Default -->
+                                                        <img src="{% static 'img/default-product.jpg' %}" 
+                                                             class="product-img-default" 
+                                                             alt="{{ product.name }}">
+                                                    {% endif %}
+                                                {% endwith %}
+                                            </div>
+                                            
+                                            <!-- Category Badge -->
+                                            <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" 
+                                                 style="top: 10px; left: 10px; z-index: 3;">
+                                                {{ product.category.title }}
+                                            </div>
+                                            
+                                            <!-- Product Info -->
+                                            <div class="p-4 border border-secondary border-top-0 rounded-bottom">
+                                                <h4>{{ product.name }}</h4>
+                                                <p>{{ product.short_description|truncatechars:80 }}</p>
+                                                
+                                                <div class="d-flex justify-content-between flex-lg-wrap">
+                                                    {% with product.default_variant as variant %}
+                                                        {% if variant %}
+                                                            <p class="text-dark fs-5 fw-bold mb-0">
+                                                                Rs. {{ variant.price }}
+                                                                {% if variant.compare_price %}
+                                                                {% endif %}
+                                                            </p>
+                                                        {% else %}
+                                                            <p class="text-dark fs-5 fw-bold mb-0">
+                                                                No variant available
+                                                            </p>
+                                                        {% endif %}
+                                                    {% endwith %}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% empty %}
+                                    <div class="col-12 text-center py-5">
+                                        <p class="text-muted">No products available in {{ category_data.category.title }}.</p>
+                                    </div>
+                                    {% endfor %}
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==========================================================
+         NEW ARRIVALS SECTION
+    ========================================================== -->
+    <div class="container-fluid vesitable py-5">
+        <div class="container py-5">
+            <h1 class="mb-0">New Arrivals</h1>
+            <div class="owl-carousel vegetable-carousel justify-content-center">
+                {% for product in new_arrivals %}
+                <div class="border border-primary rounded position-relative vesitable-item">
+                    <div class="vesitable-img" style="height: 250px; overflow: hidden;">
+                        {% with product.default_variant as variant %}
+                            {% if variant %}
+                                {% with variant.images.all as images %}
+                                    {% if images %}
+                                        <img src="{{ images.0.image.url }}" 
+                                             class="img-fluid w-100 rounded-top" 
+                                             alt="{{ product.name }}"
+                                             style="height: 100%; width: 100%; object-fit: cover;">
+                                    {% else %}
+                                        <img src="{% static 'img/default-product.jpg' %}" 
+                                             class="img-fluid w-100 rounded-top" 
+                                             alt="{{ product.name }}"
+                                             style="height: 100%; width: 100%; object-fit: cover;">
+                                    {% endif %}
+                                {% endwith %}
+                            {% else %}
+                                <img src="{% static 'img/default-product.jpg' %}" 
+                                     class="img-fluid w-100 rounded-top" 
+                                     alt="{{ product.name }}"
+                                     style="height: 100%; width: 100%; object-fit: cover;">
+                            {% endif %}
+                        {% endwith %}
+                    </div>
+                    <div class="text-white px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px; font-size: 12px; background-color: #6a9e06 !important">
+                        {{ product.category.title }}
+                    </div>
+                    <div class="p-4 rounded-bottom">
+                        <h4 style="font-size: 16px; font-weight: 700; text-align: center; color: black;">
+                            {{ product.name|truncatechars:25 }}
+                        </h4>
+                        <p style="font-size: 14px; color: #000000; text-align: center;">
+                            {{ product.short_description|truncatechars:25 }}
+                        </p>
+                        <div class="d-flex justify-content-between flex-lg-wrap">
                             {% with product.variants.all|first as variant %}
                                 {% if variant %}
                                     <p class="text-dark fs-5 fw-bold mb-0">
                                         Rs. {{ variant.price }}
                                         {% if variant.compare_price %}
-                                            <span class="text-danger text-decoration-line-through fs-6">
+                                            <span class="text-danger text-decoration-line-through fs-6" style="font-weight: 400;">
                                                 Rs. {{ variant.compare_price }}
                                             </span>
                                         {% endif %}
                                     </p>
                                     <a href="{% url 'products:product-detail' slug=product.slug %}" 
-                                       class="btn border border-secondary rounded-pill px-3 text-primary">
+                                       class="btn border border-secondary rounded-pill px-3 text-primary"
+                                       style="font-size: 16px; font-weight: 700; text-align: center;">
                                         <i class="fa fa-eye me-2 text-primary"></i> View
                                     </a>
                                 {% endif %}
                             {% endwith %}
                         </div>
-                                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <div class="col-12 text-center py-5">
+                    <p class="text-muted">No new arrivals available.</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <!-- ==========================================================
+         BESTSELLER PRODUCTS
+    ========================================================== -->
+    <div class="container-fluid py-5">
+        <div class="container py-5">
+            <div class="text-center mx-auto mb-5" style="max-width: 700px;">
+                <h4 class="text-primary" style="font-weight: 600; letter-spacing: 2px; text-transform: uppercase; font-size: 14px;">
+                    <i class="fas fa-fire me-2"></i> Top Selling
+                </h4>
+                <h1 class="display-4 mb-3" style="font-weight: 700;">Bestseller Products</h1>
+                <p class="text-muted" style="font-size: 16px;">Discover our most popular products loved by thousands of customers worldwide.</p>
+            </div>
+            
+            <div class="row g-4">
+                <!-- First 6 Bestseller Products -->
+                {% for product in bestseller_products %}
+                <div class="col-lg-6 col-xl-4">
+                    <div class="p-4 rounded bg-light bestseller-card">
+                        <div class="row align-items-center g-3">
+                            <div class="col-5">
+                                <div class="bestseller-img-wrapper">
+                                    {% with product.default_variant as variant %}
+                                        {% if variant and variant.images.all %}
+                                            <img src="{{ variant.images.first.image.url }}" 
+                                                 class="img-fluid rounded-circle w-100" 
+                                                 alt="{{ product.name }}"
+                                                 style="height: 120px; width: 120px; object-fit: cover;">
+                                        {% else %}
+                                            <img src="{% static 'img/default-product.jpg' %}" 
+                                                 class="img-fluid rounded-circle w-100" 
+                                                 alt="{{ product.name }}"
+                                                 style="height: 120px; width: 120px; object-fit: cover;">
+                                        {% endif %}
+                                    {% endwith %}
+                                    <!-- Bestseller Badge -->
+                                  
+                                </div>
+                            </div>
+                            <div class="col-7">
+                                <div class="bestseller-info">
+                                    <a href="{% url 'products:product-detail' slug=product.slug %}" 
+                                       class="h5 text-dark text-decoration-none"
+                                       style="font-weight: 600; font-size: 18px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+                                        {{ product.name|truncatechars:25 }}
+                                    </a>
+                                    <div class="d-flex my-2">
+                                        <i class="fas fa-star text-warning"></i>
+                                        <i class="fas fa-star text-warning"></i>
+                                        <i class="fas fa-star text-warning"></i>
+                                        <i class="fas fa-star text-warning"></i>
+                                        <i class="fas fa-star text-warning"></i>
+                                        <span class="ms-2 text-muted small">(4.9)</span>
                                     </div>
+                                    <div class="d-flex align-items-center gap-2 flex-wrap">
+                                        {% with product.variants.all|first as variant %}
+                                            {% if variant %}
+                                                <h4 class="mb-0 text-primary fw-bold" style="font-size: 20px;">
+                                                    Rs. {{ variant.price }}
+                                                </h4>
+                                                {% if variant.compare_price %}
+                                                    <span class="text-danger text-decoration-line-through" style="font-size: 14px;">
+                                                        Rs. {{ variant.compare_price }}
+                                                    </span>
+                                                {% endif %}
+                                            {% endif %}
+                                        {% endwith %}
+                                    </div>
+                                    
+                                    <!-- WhatsApp Order Button -->
+                                    <a href="#" 
+                                       class="btn btn-whatsapp-small mt-2"
+                                       onclick="openWhatsApp('{{ product.name|escapejs }}', '{% with product.variants.all|first as variant %}{{ variant.price }}{% endwith %}')">
+                                        <i class="fab fa-whatsapp"></i> Order Now
+                                    </a>
                                 </div>
-                                {% empty %}
-                                <div class="col-12 text-center py-5">
-                                    <p class="text-muted">No featured products available.</p>
-                                </div>
-                                {% endfor %}
-                                
                             </div>
                         </div>
                     </div>
                 </div>
-
-                <!-- ==============================================
-                TAB: CATEGORY PRODUCTS
-                ============================================== -->
-                {% for category_data in category_products_list %}
-                <div id="tab-{{ category_data.category.id }}" class="tab-pane fade show p-0">
-                    <div class="row g-4">
-                        <div class="col-lg-12">
-                            <div class="row g-4">
-                                
-                                {% for product in category_data.products %}
-                                <div class="col-md-6 col-lg-4 col-xl-3">
-                                    <div class="rounded position-relative fruite-item">
-                                        
-                                        <!-- Product Image with Hover Effect -->
-                                        <div class="product-image-wrapper">
-                                            {% with product.default_variant as variant %}
-                                                {% if variant %}
-                                                    {% with variant.images.all as images %}
-                                                        {% if images %}
-                                                            <!-- Default Image -->
-                                                            <img src="{{ images.0.image.url }}" 
-                                                                 class="product-img-default" 
-                                                                 alt="{{ product.name }}">
-                                                            
-                                                            <!-- Hover Image (only if more than 1 image) -->
-                                                            {% if images|length > 1 %}
-                                                                <img src="{{ images.1.image.url }}" 
-                                                                     class="product-img-hover" 
-                                                                     alt="{{ product.name }} - hover">
-                                                            {% endif %}
-                                                        {% else %}
-                                                            <!-- No Image - Show Default -->
-                                                            <img src="{% static 'img/default-product.jpg' %}" 
-                                                                 class="product-img-default" 
-                                                                 alt="{{ product.name }}">
-                                                        {% endif %}
-                                                    {% endwith %}
-                                                {% else %}
-                                                    <!-- No Variant - Show Default -->
-                                                    <img src="{% static 'img/default-product.jpg' %}" 
-                                                         class="product-img-default" 
-                                                         alt="{{ product.name }}">
-                                                {% endif %}
-                                            {% endwith %}
-                                        </div>
-                                        
-                                        <!-- Category Badge -->
-                                        <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" 
-                                             style="top: 10px; left: 10px; z-index: 3;">
-                                            {{ product.category.title }}
-                                        </div>
-                                        
-                                        <!-- Product Info -->
-                                        <div class="p-4 border border-secondary border-top-0 rounded-bottom">
-                                            <h4>{{ product.name }}</h4>
-                                            <p>{{ product.short_description|truncatechars:80 }}</p>
-                                            
-                                            <div class="d-flex justify-content-between flex-lg-wrap">
-                                                {% with product.default_variant as variant %}
-                                                    {% if variant %}
-                                                        <p class="text-dark fs-5 fw-bold mb-0">
-                                                            Rs. {{ variant.price }}
-                                                            {% if variant.compare_price %}
-                                                                                                                           {% endif %}
-                                                        </p>
-                                                        
-                                                                                                          {% else %}
-                                                        <p class="text-dark fs-5 fw-bold mb-0">
-                                                            No variant available
-                                                        </p>
-                                                    {% endif %}
-                                                {% endwith %}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                {% empty %}
-                                <div class="col-12 text-center py-5">
-                                    <p class="text-muted">No products available in {{ category_data.category.title }}.</p>
-                                </div>
-                                {% endfor %}
-                                
+                {% empty %}
+                <div class="col-12 text-center py-5">
+                    <p class="text-muted">No bestseller products available.</p>
+                </div>
+                {% endfor %}
+            </div>
+            
+            <!-- Second Row - Remaining Products -->
+            {% if bestseller_remaining %}
+            <div class="row g-4 mt-3">
+                {% for product in bestseller_remaining %}
+                <div class="col-md-6 col-lg-6 col-xl-3">
+                    <div class="text-center bestseller-card-vertical">
+                        <div class="bestseller-img-wrapper-vertical">
+                            {% with product.default_variant as variant %}
+                                {% if variant and variant.images.all %}
+                                    <img src="{{ variant.images.first.image.url }}" 
+                                         class="img-fluid rounded" 
+                                         alt="{{ product.name }}"
+                                         style="height: 200px; width: 100%; object-fit: cover;">
+                                {% else %}
+                                    <img src="{% static 'img/default-product.jpg' %}" 
+                                         class="img-fluid rounded" 
+                                         alt="{{ product.name }}"
+                                         style="height: 200px; width: 100%; object-fit: cover;">
+                                {% endif %}
+                            {% endwith %}
+                            <div class="bestseller-badge-small">Bestseller</div>
+                        </div>
+                        <div class="py-3">
+                            <a href="{% url 'products:product-detail' slug=product.slug %}" 
+                               class="h5 text-dark text-decoration-none"
+                               style="font-weight: 600; font-size: 16px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+                                {{ product.name|truncatechars:25 }}
+                            </a>
+                            <div class="d-flex my-2 justify-content-center">
+                                <i class="fas fa-star text-warning"></i>
+                                <i class="fas fa-star text-warning"></i>
+                                <i class="fas fa-star text-warning"></i>
+                                <i class="fas fa-star text-warning"></i>
+                                <i class="fas fa-star text-warning"></i>
                             </div>
+                            <h4 class="mb-2 text-primary fw-bold" style="font-size: 18px;">
+                                {% with product.variants.all|first as variant %}
+                                    {% if variant %}
+                                        Rs. {{ variant.price }}
+                                    {% endif %}
+                                {% endwith %}
+                            </h4>
+                            <a href="{% url 'products:product-detail' slug=product.slug %}" 
+                               class="btn border border-secondary rounded-pill px-4 text-primary"
+                               style="font-size: 13px;">
+                                <i class="fa fa-eye me-2 text-primary"></i> View Details
+                            </a>
                         </div>
                     </div>
                 </div>
                 {% endfor %}
-                
+            </div>
+            {% endif %}
+            
+            <!-- View All Button -->
+            <div class="text-center mt-5">
+                <a href="{% url 'products:product-list' %}" class="btn btn-primary rounded-pill px-5 py-3">
+                    View All Products <i class="fas fa-arrow-right ms-2"></i>
+                </a>
             </div>
         </div>
     </div>
-</div>
 
-<!-- ==========================================================
-     JAVASCRIPT (Optional - For Tab Functionality)
-     ========================================================== -->
+    <!-- Fact Start -->
+    <div class="container-fluid py-5">
+        <div class="container">
+            <div class="bg-light p-5 rounded">
+                <div class="row g-4 justify-content-center">
+                    <div class="col-md-6 col-lg-6 col-xl-3">
+                        <div class="counter bg-white rounded p-5">
+                            <i class="fa fa-users text-secondary"></i>
+                            <h4>satisfied customers</h4>
+                            <h1>1963</h1>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-6 col-xl-3">
+                        <div class="counter bg-white rounded p-5">
+                            <i class="fa fa-users text-secondary"></i>
+                            <h4>quality of service</h4>
+                            <h1>99%</h1>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-6 col-xl-3">
+                        <div class="counter bg-white rounded p-5">
+                            <i class="fa fa-users text-secondary"></i>
+                            <h4>quality certificates</h4>
+                            <h1>33</h1>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-6 col-xl-3">
+                        <div class="counter bg-white rounded p-5">
+                            <i class="fa fa-users text-secondary"></i>
+                            <h4>Available Products</h4>
+                            <h1>789</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Fact End -->
+
+    <!-- Testimonial Start -->
+    <div class="container-fluid testimonial py-5">
+        <div class="container py-5">
+            <div class="testimonial-header text-center">
+                <h4 class="text-primary">Our Testimonial</h4>
+                <h1 class="display-5 mb-5 text-dark">Our Client Saying!</h1>
+            </div>
+            <div class="owl-carousel testimonial-carousel">
+                <div class="testimonial-item img-border-radius bg-light rounded p-4">
+                    <div class="position-relative">
+                        <i class="fa fa-quote-right fa-2x text-secondary position-absolute" style="bottom: 30px; right: 0;"></i>
+                        <div class="mb-4 pb-4 border-bottom border-secondary">
+                            <p class="mb-0">Lorem Ipsum is simply dummy text of the printing Ipsum has been the industry's standard dummy text ever since the 1500s,
+                            </p>
+                        </div>
+                        <div class="d-flex align-items-center flex-nowrap">
+                            <div class="bg-secondary rounded">
+                                <img src="{% static 'img/testimonial-1.jpg' %}" class="img-fluid rounded" style="width: 100px; height: 100px;" alt="">
+                            </div>
+                            <div class="ms-4 d-block">
+                                <h4 class="text-dark">Client Name</h4>
+                                <p class="m-0 pb-3">Profession</p>
+                                <div class="d-flex pe-5">
+                                    <i class="fas fa-star text-primary"></i>
+                                    <i class="fas fa-star text-primary"></i>
+                                    <i class="fas fa-star text-primary"></i>
+                                    <i class="fas fa-star text-primary"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-item img-border-radius bg-light rounded p-4">
+                    <div class="position-relative">
+                        <i class="fa fa-quote-right fa-2x text-secondary position-absolute" style="bottom: 30px; right: 0;"></i>
+                        <div class="mb-4 pb-4 border-bottom border-secondary">
+                            <p class="mb-0">Lorem Ipsum is simply dummy text of the printing Ipsum has been the industry's standard dummy text ever since the 1500s,
+                            </p>
+                        </div>
+                        <div class="d-flex align-items-center flex-nowrap">
+                            <div class="bg-secondary rounded">
+                                <img src="{% static 'img/testimonial-1.jpg' %}" class="img-fluid rounded" style="width: 100px; height: 100px;" alt="">
+                            </div>
+                            <div class="ms-4 d-block">
+                                <h4 class="text-dark">Client Name</h4>
+                                <p class="m-0 pb-3">Profession</p>
+                                <div class="d-flex pe-5">
+                                    <i class="fas fa-star text-primary"></i>
+                                    <i class="fas fa-star text-primary"></i>
+                                    <i class="fas fa-star text-primary"></i>
+                                    <i class="fas fa-star text-primary"></i>
+                                    <i class="fas fa-star text-primary"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-item img-border-radius bg-light rounded p-4">
+                    <div class="position-relative">
+                        <i class="fa fa-quote-right fa-2x text-secondary position-absolute" style="bottom: 30px; right: 0;"></i>
+                        <div class="mb-4 pb-4 border-bottom border-secondary">
+                            <p class="mb-0">Lorem Ipsum is simply dummy text of the printing Ipsum has been the industry's standard dummy text ever since the 1500s,
+                            </p>
+                        </div>
+                        <div class="d-flex align-items-center flex-nowrap">
+                            <div class="bg-secondary rounded">
+                                <img src="{% static 'img/testimonial-1.jpg' %}" class="img-fluid rounded" style="width: 100px; height: 100px;" alt="">
+                            </div>
+                            <div class="ms-4 d-block">
+                                <h4 class="text-dark">Client Name</h4>
+                                <p class="m-0 pb-3">Profession</p>
+                                <div class="d-flex pe-5">
+                                    <i class="fas fa-star text-primary"></i>
+                                    <i class="fas fa-star text-primary"></i>
+                                    <i class="fas fa-star text-primary"></i>
+                                    <i class="fas fa-star text-primary"></i>
+                                    <i class="fas fa-star text-primary"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Testimonial End -->
+
+</body>
+
+<!-- ========================================================== -->
+<!-- JAVASCRIPT - WhatsApp Function -->
+<!-- ========================================================== -->
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        
-        // Tab switching functionality (if Bootstrap JS not loaded)
-        const tabs = document.querySelectorAll('.nav-pills .nav-link');
-        
-        tabs.forEach(tab => {
-            tab.addEventListener('click', function(e) {
-                e.preventDefault();
-                
-                // Remove active class from all tabs
-                tabs.forEach(t => t.classList.remove('active'));
-                
-                // Add active class to clicked tab
-                this.classList.add('active');
-                
-                // Get target tab content
-                const target = this.getAttribute('href');
-                
-                // Hide all tab panes
-                document.querySelectorAll('.tab-pane').forEach(pane => {
-                    pane.classList.remove('show', 'active');
-                });
-                
-                // Show target tab pane
-                const targetPane = document.querySelector(target);
-                if (targetPane) {
-                    targetPane.classList.add('show', 'active');
-                }
-            });
-        });
-        
+// ========================================
+// WHATSAPP ORDER FUNCTION
+// ========================================
+function openWhatsApp(productName, price) {
+    // Get WhatsApp number from site settings or use default
+    var whatsappNumber = "{{ site_settings.whatsapp_number|default:'923001234567' }}";
+    var cleanNumber = whatsappNumber.replace(/[^0-9]/g, '');
+    
+    var message = "Hello! I'm interested in this product:\n\n📦 *Product:* " + productName + "\n💰 *Price:* Rs. " + price + "\n\nCan you provide more details?";
+    var encodedMessage = encodeURIComponent(message);
+    
+    window.open('https://wa.me/' + cleanNumber + '?text=' + encodedMessage, '_blank');
+}
+
+// ========================================
+// OWL CAROUSEL INITIALIZATION
+// ========================================
+$(document).ready(function() {
+    // New Arrivals Carousel
+    $('.vegetable-carousel').owlCarousel({
+        loop: true,
+        margin: 25,
+        nav: true,
+        dots: true,
+        autoplay: true,
+        autoplayTimeout: 4000,
+        autoplayHoverPause: true,
+        responsive: {
+            0: {
+                items: 1,
+                nav: false,
+                dots: true
+            },
+            576: {
+                items: 2,
+                nav: false,
+                dots: true
+            },
+            768: {
+                items: 3,
+                nav: true,
+                dots: true
+            },
+            992: {
+                items: 4,
+                nav: true,
+                dots: true
+            },
+            1200: {
+                items: 4,
+                nav: true,
+                dots: true
+            }
+        }
     });
+    
+    // Testimonial Carousel
+    $('.testimonial-carousel').owlCarousel({
+        loop: true,
+        margin: 30,
+        nav: true,
+        dots: true,
+        autoplay: true,
+        autoplayTimeout: 5000,
+        autoplayHoverPause: true,
+        responsive: {
+            0: {
+                items: 1,
+                nav: false
+            },
+            768: {
+                items: 2,
+                nav: true
+            },
+            992: {
+                items: 3,
+                nav: true
+            }
+        }
+    });
+});
+
+// ========================================
+// TAB FUNCTIONALITY
+// ========================================
+document.addEventListener('DOMContentLoaded', function() {
+    const tabs = document.querySelectorAll('.nav-pills .nav-link');
+    
+    tabs.forEach(tab => {
+        tab.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            tabs.forEach(t => t.classList.remove('active'));
+            this.classList.add('active');
+            
+            const target = this.getAttribute('href');
+            
+            document.querySelectorAll('.tab-pane').forEach(pane => {
+                pane.classList.remove('show', 'active');
+            });
+            
+            const targetPane = document.querySelector(target);
+            if (targetPane) {
+                targetPane.classList.add('show', 'active');
+            }
+        });
+    });
+});
 </script>
-        <!-- Vesitable Shop Start-->
-        <div class="container-fluid vesitable py-5">
-            <div class="container py-5">
-                <h1 class="mb-0">Fresh Organic Vegetables</h1>
-                <div class="owl-carousel vegetable-carousel justify-content-center">
-                    <div class="border border-primary rounded position-relative vesitable-item">
-                        <div class="vesitable-img">
-                            <img src="{% static 'img/vegetable-item-6.jpg' %}" class="img-fluid w-100 rounded-top" alt="">
-                        </div>
-                        <div class="text-white bg-primary px-3 py-1 rounded position-absolute" style="top: 10px; right: 10px;">Vegetable</div>
-                        <div class="p-4 rounded-bottom">
-                            <h4>Parsely</h4>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt</p>
-                            <div class="d-flex justify-content-between flex-lg-wrap">
-                                <p class="text-dark fs-5 fw-bold mb-0">$4.99 / kg</p>
-                                <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="border border-primary rounded position-relative vesitable-item">
-                        <div class="vesitable-img">
-                            <img src="{% static 'img/vegetable-item-1.jpg' %}" class="img-fluid w-100 rounded-top" alt="">
-                        </div>
-                        <div class="text-white bg-primary px-3 py-1 rounded position-absolute" style="top: 10px; right: 10px;">Vegetable</div>
-                        <div class="p-4 rounded-bottom">
-                            <h4>Parsely</h4>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt</p>
-                            <div class="d-flex justify-content-between flex-lg-wrap">
-                                <p class="text-dark fs-5 fw-bold mb-0">$4.99 / kg</p>
-                                <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="border border-primary rounded position-relative vesitable-item">
-                        <div class="vesitable-img">
-                            <img src="{% static 'img/vegetable-item-3.png' %}" class="img-fluid w-100 rounded-top bg-light" alt="">
-                        </div>
-                        <div class="text-white bg-primary px-3 py-1 rounded position-absolute" style="top: 10px; right: 10px;">Vegetable</div>
-                        <div class="p-4 rounded-bottom">
-                            <h4>Banana</h4>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt</p>
-                            <div class="d-flex justify-content-between flex-lg-wrap">
-                                <p class="text-dark fs-5 fw-bold mb-0">$7.99 / kg</p>
-                                <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="border border-primary rounded position-relative vesitable-item">
-                        <div class="vesitable-img">
-                            <img src="{% static 'img/vegetable-item-4.jpg' %}" class="img-fluid w-100 rounded-top" alt="">
-                        </div>
-                        <div class="text-white bg-primary px-3 py-1 rounded position-absolute" style="top: 10px; right: 10px;">Vegetable</div>
-                        <div class="p-4 rounded-bottom">
-                            <h4>Bell Papper</h4>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt</p>
-                            <div class="d-flex justify-content-between flex-lg-wrap">
-                                <p class="text-dark fs-5 fw-bold mb-0">$7.99 / kg</p>
-                                <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="border border-primary rounded position-relative vesitable-item">
-                        <div class="vesitable-img">
-                            <img src="{% static 'img/vegetable-item-5.jpg' %}" class="img-fluid w-100 rounded-top" alt="">
-                        </div>
-                        <div class="text-white bg-primary px-3 py-1 rounded position-absolute" style="top: 10px; right: 10px;">Vegetable</div>
-                        <div class="p-4 rounded-bottom">
-                            <h4>Potatoes</h4>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt</p>
-                            <div class="d-flex justify-content-between flex-lg-wrap">
-                                <p class="text-dark fs-5 fw-bold mb-0">$7.99 / kg</p>
-                                <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="border border-primary rounded position-relative vesitable-item">
-                        <div class="vesitable-img">
-                            <img src="{% static 'img/vegetable-item-6.jpg' %}" class="img-fluid w-100 rounded-top" alt="">
-                        </div>
-                        <div class="text-white bg-primary px-3 py-1 rounded position-absolute" style="top: 10px; right: 10px;">Vegetable</div>
-                        <div class="p-4 rounded-bottom">
-                            <h4>Parsely</h4>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt</p>
-                            <div class="d-flex justify-content-between flex-lg-wrap">
-                                <p class="text-dark fs-5 fw-bold mb-0">$7.99 / kg</p>
-                                <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="border border-primary rounded position-relative vesitable-item">
-                        <div class="vesitable-img">
-                            <img src="{% static 'img/vegetable-item-5.jpg' %}" class="img-fluid w-100 rounded-top" alt="">
-                        </div>
-                        <div class="text-white bg-primary px-3 py-1 rounded position-absolute" style="top: 10px; right: 10px;">Vegetable</div>
-                        <div class="p-4 rounded-bottom">
-                            <h4>Potatoes</h4>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt</p>
-                            <div class="d-flex justify-content-between flex-lg-wrap">
-                                <p class="text-dark fs-5 fw-bold mb-0">$7.99 / kg</p>
-                                <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="border border-primary rounded position-relative vesitable-item">
-                        <div class="vesitable-img">
-                            <img src="{% static 'img/vegetable-item-6.jpg' %}" class="img-fluid w-100 rounded-top" alt="">
-                        </div>
-                        <div class="text-white bg-primary px-3 py-1 rounded position-absolute" style="top: 10px; right: 10px;">Vegetable</div>
-                        <div class="p-4 rounded-bottom">
-                            <h4>Parsely</h4>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt</p>
-                            <div class="d-flex justify-content-between flex-lg-wrap">
-                                <p class="text-dark fs-5 fw-bold mb-0">$7.99 / kg</p>
-                                <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Vesitable Shop End -->
 
-
-        <!-- Banner Section Start-->
-        <div class="container-fluid banner bg-secondary my-5">
-            <div class="container py-5">
-                <div class="row g-4 align-items-center">
-                    <div class="col-lg-6">
-                        <div class="py-4">
-                            <h1 class="display-3 text-white">Fresh Exotic Fruits</h1>
-                            <p class="fw-normal display-3 text-dark mb-4">in Our Store</p>
-                            <p class="mb-4 text-dark">The generated Lorem Ipsum is therefore always free from repetition injected humour, or non-characteristic words etc.</p>
-                            <a href="#" class="banner-btn btn border-2 border-white rounded-pill text-dark py-3 px-5">BUY</a>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="position-relative">
-                            <img src="{% static 'img/baner-1.png' %}" class="img-fluid w-100 rounded" alt="">
-                            <div class="d-flex align-items-center justify-content-center bg-white rounded-circle position-absolute" style="width: 140px; height: 140px; top: 0; left: 0;">
-                                <h1 style="font-size: 100px;">1</h1>
-                                <div class="d-flex flex-column">
-                                    <span class="h2 mb-0">50$</span>
-                                    <span class="h4 text-muted mb-0">kg</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Banner Section End -->
-
-
-        <!-- Bestsaler Product Start -->
-        <div class="container-fluid py-5">
-            <div class="container py-5">
-                <div class="text-center mx-auto mb-5" style="max-width: 700px;">
-                    <h1 class="display-4">Bestseller Products</h1>
-                    <p>Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable.</p>
-                </div>
-                <div class="row g-4">
-                    <div class="col-lg-6 col-xl-4">
-                        <div class="p-4 rounded bg-light">
-                            <div class="row align-items-center">
-                                <div class="col-6">
-                                    <img src="{% static 'img/best-product-1.jpg' %}" class="img-fluid rounded-circle w-100" alt="">
-                                </div>
-                                <div class="col-6">
-                                    <a href="#" class="h5">Organic Tomato</a>
-                                    <div class="d-flex my-3">
-                                        <i class="fas fa-star text-primary"></i>
-                                        <i class="fas fa-star text-primary"></i>
-                                        <i class="fas fa-star text-primary"></i>
-                                        <i class="fas fa-star text-primary"></i>
-                                        <i class="fas fa-star"></i>
-                                    </div>
-                                    <h4 class="mb-3">3.12 $</h4>
-                                    <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-xl-4">
-                        <div class="p-4 rounded bg-light">
-                            <div class="row align-items-center">
-                                <div class="col-6">
-                                    <img src="{% static 'img/best-product-2.jpg' %}" class="img-fluid rounded-circle w-100" alt="">
-                                </div>
-                                <div class="col-6">
-                                    <a href="#" class="h5">Organic Tomato</a>
-                                    <div class="d-flex my-3">
-                                        <i class="fas fa-star text-primary"></i>
-                                        <i class="fas fa-star text-primary"></i>
-                                        <i class="fas fa-star text-primary"></i>
-                                        <i class="fas fa-star text-primary"></i>
-                                        <i class="fas fa-star"></i>
-                                    </div>
-                                    <h4 class="mb-3">3.12 $</h4>
-                                    <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-xl-4">
-                        <div class="p-4 rounded bg-light">
-                            <div class="row align-items-center">
-                                <div class="col-6">
-                                    <img src="{% static 'img/best-product-3.jpg' %}" class="img-fluid rounded-circle w-100" alt="">
-                                </div>
-                                <div class="col-6">
-                                    <a href="#" class="h5">Organic Tomato</a>
-                                    <div class="d-flex my-3">
-                                        <i class="fas fa-star text-primary"></i>
-                                        <i class="fas fa-star text-primary"></i>
-                                        <i class="fas fa-star text-primary"></i>
-                                        <i class="fas fa-star text-primary"></i>
-                                        <i class="fas fa-star"></i>
-                                    </div>
-                                    <h4 class="mb-3">3.12 $</h4>
-                                    <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-xl-4">
-                        <div class="p-4 rounded bg-light">
-                            <div class="row align-items-center">
-                                <div class="col-6">
-                                    <img src="{% static 'img/best-product-4.jpg' %}" class="img-fluid rounded-circle w-100" alt="">
-                                </div>
-                                <div class="col-6">
-                                    <a href="#" class="h5">Organic Tomato</a>
-                                    <div class="d-flex my-3">
-                                        <i class="fas fa-star text-primary"></i>
-                                        <i class="fas fa-star text-primary"></i>
-                                        <i class="fas fa-star text-primary"></i>
-                                        <i class="fas fa-star text-primary"></i>
-                                        <i class="fas fa-star"></i>
-                                    </div>
-                                    <h4 class="mb-3">3.12 $</h4>
-                                    <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-xl-4">
-                        <div class="p-4 rounded bg-light">
-                            <div class="row align-items-center">
-                                <div class="col-6">
-                                    <img src="{% static 'img/best-product-5.jpg' %}" class="img-fluid rounded-circle w-100" alt="">
-                                </div>
-                                <div class="col-6">
-                                    <a href="#" class="h5">Organic Tomato</a>
-                                    <div class="d-flex my-3">
-                                        <i class="fas fa-star text-primary"></i>
-                                        <i class="fas fa-star text-primary"></i>
-                                        <i class="fas fa-star text-primary"></i>
-                                        <i class="fas fa-star text-primary"></i>
-                                        <i class="fas fa-star"></i>
-                                    </div>
-                                    <h4 class="mb-3">3.12 $</h4>
-                                    <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-xl-4">
-                        <div class="p-4 rounded bg-light">
-                            <div class="row align-items-center">
-                                <div class="col-6">
-                                    <img src="{% static 'img/best-product-6.jpg' %}" class="img-fluid rounded-circle w-100" alt="">
-                                </div>
-                                <div class="col-6">
-                                    <a href="#" class="h5">Organic Tomato</a>
-                                    <div class="d-flex my-3">
-                                        <i class="fas fa-star text-primary"></i>
-                                        <i class="fas fa-star text-primary"></i>
-                                        <i class="fas fa-star text-primary"></i>
-                                        <i class="fas fa-star text-primary"></i>
-                                        <i class="fas fa-star"></i>
-                                    </div>
-                                    <h4 class="mb-3">3.12 $</h4>
-                                    <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-6 col-xl-3">
-                        <div class="text-center">
-                            <img src="{% static 'img/fruite-item-1.jpg' %}" class="img-fluid rounded" alt="">
-                            <div class="py-4">
-                                <a href="#" class="h5">Organic Tomato</a>
-                                <div class="d-flex my-3 justify-content-center">
-                                    <i class="fas fa-star text-primary"></i>
-                                    <i class="fas fa-star text-primary"></i>
-                                    <i class="fas fa-star text-primary"></i>
-                                    <i class="fas fa-star text-primary"></i>
-                                    <i class="fas fa-star"></i>
-                                </div>
-                                <h4 class="mb-3">3.12 $</h4>
-                                <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-6 col-xl-3">
-                        <div class="text-center">
-                            <img src="{% static 'img/fruite-item-2.jpg' %}" class="img-fluid rounded" alt="">
-                            <div class="py-4">
-                                <a href="#" class="h5">Organic Tomato</a>
-                                <div class="d-flex my-3 justify-content-center">
-                                    <i class="fas fa-star text-primary"></i>
-                                    <i class="fas fa-star text-primary"></i>
-                                    <i class="fas fa-star text-primary"></i>
-                                    <i class="fas fa-star text-primary"></i>
-                                    <i class="fas fa-star"></i>
-                                </div>
-                                <h4 class="mb-3">3.12 $</h4>
-                                <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-6 col-xl-3">
-                        <div class="text-center">
-                            <img src="{% static 'img/fruite-item-3.jpg' %}" class="img-fluid rounded" alt="">
-                            <div class="py-4">
-                                <a href="#" class="h5">Organic Tomato</a>
-                                <div class="d-flex my-3 justify-content-center">
-                                    <i class="fas fa-star text-primary"></i>
-                                    <i class="fas fa-star text-primary"></i>
-                                    <i class="fas fa-star text-primary"></i>
-                                    <i class="fas fa-star text-primary"></i>
-                                    <i class="fas fa-star"></i>
-                                </div>
-                                <h4 class="mb-3">3.12 $</h4>
-                                <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-6 col-xl-3">
-                        <div class="text-center">
-                            <img src="{% static 'img/fruite-item-4.jpg' %}" class="img-fluid rounded" alt="">
-                            <div class="py-2">
-                                <a href="#" class="h5">Organic Tomato</a>
-                                <div class="d-flex my-3 justify-content-center">
-                                    <i class="fas fa-star text-primary"></i>
-                                    <i class="fas fa-star text-primary"></i>
-                                    <i class="fas fa-star text-primary"></i>
-                                    <i class="fas fa-star text-primary"></i>
-                                    <i class="fas fa-star"></i>
-                                </div>
-                                <h4 class="mb-3">3.12 $</h4>
-                                <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Bestsaler Product End -->
-
-
-        <!-- Fact Start -->
-        <div class="container-fluid py-5">
-            <div class="container">
-                <div class="bg-light p-5 rounded">
-                    <div class="row g-4 justify-content-center">
-                        <div class="col-md-6 col-lg-6 col-xl-3">
-                            <div class="counter bg-white rounded p-5">
-                                <i class="fa fa-users text-secondary"></i>
-                                <h4>satisfied customers</h4>
-                                <h1>1963</h1>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-lg-6 col-xl-3">
-                            <div class="counter bg-white rounded p-5">
-                                <i class="fa fa-users text-secondary"></i>
-                                <h4>quality of service</h4>
-                                <h1>99%</h1>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-lg-6 col-xl-3">
-                            <div class="counter bg-white rounded p-5">
-                                <i class="fa fa-users text-secondary"></i>
-                                <h4>quality certificates</h4>
-                                <h1>33</h1>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-lg-6 col-xl-3">
-                            <div class="counter bg-white rounded p-5">
-                                <i class="fa fa-users text-secondary"></i>
-                                <h4>Available Products</h4>
-                                <h1>789</h1>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Fact Start -->
-
-
-        <!-- Tastimonial Start -->
-        <div class="container-fluid testimonial py-5">
-            <div class="container py-5">
-                <div class="testimonial-header text-center">
-                    <h4 class="text-primary">Our Testimonial</h4>
-                    <h1 class="display-5 mb-5 text-dark">Our Client Saying!</h1>
-                </div>
-                <div class="owl-carousel testimonial-carousel">
-                    <div class="testimonial-item img-border-radius bg-light rounded p-4">
-                        <div class="position-relative">
-                            <i class="fa fa-quote-right fa-2x text-secondary position-absolute" style="bottom: 30px; right: 0;"></i>
-                            <div class="mb-4 pb-4 border-bottom border-secondary">
-                                <p class="mb-0">Lorem Ipsum is simply dummy text of the printing Ipsum has been the industry's standard dummy text ever since the 1500s,
-                                </p>
-                            </div>
-                            <div class="d-flex align-items-center flex-nowrap">
-                                <div class="bg-secondary rounded">
-                                    <img src="{% static 'img/testimonial-1.jpg' %}" class="img-fluid rounded" style="width: 100px; height: 100px;" alt="">
-                                </div>
-                                <div class="ms-4 d-block">
-                                    <h4 class="text-dark">Client Name</h4>
-                                    <p class="m-0 pb-3">Profession</p>
-                                    <div class="d-flex pe-5">
-                                        <i class="fas fa-star text-primary"></i>
-                                        <i class="fas fa-star text-primary"></i>
-                                        <i class="fas fa-star text-primary"></i>
-                                        <i class="fas fa-star text-primary"></i>
-                                        <i class="fas fa-star"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="testimonial-item img-border-radius bg-light rounded p-4">
-                        <div class="position-relative">
-                            <i class="fa fa-quote-right fa-2x text-secondary position-absolute" style="bottom: 30px; right: 0;"></i>
-                            <div class="mb-4 pb-4 border-bottom border-secondary">
-                                <p class="mb-0">Lorem Ipsum is simply dummy text of the printing Ipsum has been the industry's standard dummy text ever since the 1500s,
-                                </p>
-                            </div>
-                            <div class="d-flex align-items-center flex-nowrap">
-                                <div class="bg-secondary rounded">
-                                    <img src="{% static 'img/testimonial-1.jpg' %}" class="img-fluid rounded" style="width: 100px; height: 100px;" alt="">
-                                </div>
-                                <div class="ms-4 d-block">
-                                    <h4 class="text-dark">Client Name</h4>
-                                    <p class="m-0 pb-3">Profession</p>
-                                    <div class="d-flex pe-5">
-                                        <i class="fas fa-star text-primary"></i>
-                                        <i class="fas fa-star text-primary"></i>
-                                        <i class="fas fa-star text-primary"></i>
-                                        <i class="fas fa-star text-primary"></i>
-                                        <i class="fas fa-star text-primary"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="testimonial-item img-border-radius bg-light rounded p-4">
-                        <div class="position-relative">
-                            <i class="fa fa-quote-right fa-2x text-secondary position-absolute" style="bottom: 30px; right: 0;"></i>
-                            <div class="mb-4 pb-4 border-bottom border-secondary">
-                                <p class="mb-0">Lorem Ipsum is simply dummy text of the printing Ipsum has been the industry's standard dummy text ever since the 1500s,
-                                </p>
-                            </div>
-                            <div class="d-flex align-items-center flex-nowrap">
-                                <div class="bg-secondary rounded">
-                                    <img src="{% static 'img/testimonial-1.jpg' %}" class="img-fluid rounded" style="width: 100px; height: 100px;" alt="">
-                                </div>
-                                <div class="ms-4 d-block">
-                                    <h4 class="text-dark">Client Name</h4>
-                                    <p class="m-0 pb-3">Profession</p>
-                                    <div class="d-flex pe-5">
-                                        <i class="fas fa-star text-primary"></i>
-                                        <i class="fas fa-star text-primary"></i>
-                                        <i class="fas fa-star text-primary"></i>
-                                        <i class="fas fa-star text-primary"></i>
-                                        <i class="fas fa-star text-primary"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Tastimonial End -->
-
-    </body>
-
-</html>
 {% endblock %}

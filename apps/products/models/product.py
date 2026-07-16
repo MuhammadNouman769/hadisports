@@ -59,6 +59,14 @@ class Product(SlugModel):
     is_featured = models.BooleanField(
         default=False,
     )
+    is_new_arrival = models.BooleanField(
+        default=False,
+        help_text="Check this to show product in New Arrivals section"
+    )
+    is_bestseller = models.BooleanField(
+        default=False,
+        help_text="Check this to show product in Bestseller section"
+    )
 
     class Meta:
         db_table = "products"

@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.db.models import Prefetch
 from django.utils.html import format_html
+from django.utils import timezone
 
 from apps.products.models import (
     Product,
@@ -26,14 +27,20 @@ class ProductAdmin(admin.ModelAdmin):
         "default_price",
         "variants_count",
         "is_featured",
+        "is_bestseller",      # Added
+        "is_new_arrival",
         "is_active",
+        "created_at",
     )
 
     list_filter = (
         "category",
         "brand",
         "is_featured",
+        "is_bestseller",      # Added
+        "is_new_arrival",
         "is_active",
+        "created_at",
     )
 
     search_fields = (
@@ -53,6 +60,8 @@ class ProductAdmin(admin.ModelAdmin):
 
     list_editable = (
         "is_featured",
+        "is_bestseller",      # Added
+        "is_new_arrival",
         "is_active",
     )
 
@@ -60,6 +69,8 @@ class ProductAdmin(admin.ModelAdmin):
         "variants_count",
         "created_at",
         "updated_at",
+        "new_arrival_status",
+        "bestseller_status",  # Added
     )
 
     fieldsets = (
@@ -90,6 +101,8 @@ class ProductAdmin(admin.ModelAdmin):
             {
                 "fields": (
                     "is_featured",
+                    "is_bestseller",      # Added
+                    "is_new_arrival",
                     "is_active",
                 )
             },
@@ -100,6 +113,8 @@ class ProductAdmin(admin.ModelAdmin):
             {
                 "fields": (
                     "variants_count",
+                    "new_arrival_status",
+                    "bestseller_status",  # Added
                     "created_at",
                     "updated_at",
                 ),
@@ -174,6 +189,18 @@ class ProductAdmin(admin.ModelAdmin):
             is_active=True,
         ).count()
 
+    @admin.display(description="New Arrival Status", boolean=True)
+    def new_arrival_status(self, obj):
+        """Display if product is currently in new arrivals"""
+        if hasattr(obj, 'new_arrival_until') and obj.new_arrival_until:
+            return timezone.now() <= obj.new_arrival_until
+        return obj.is_new_arrival
+
+    @admin.display(description="Bestseller Status", boolean=True)
+    def bestseller_status(self, obj):
+        """Display if product is currently a bestseller"""
+        return obj.is_bestseller
+
     # ============================================================
     # Actions
     # ============================================================
@@ -183,6 +210,11 @@ class ProductAdmin(admin.ModelAdmin):
         "deactivate_products",
         "mark_featured",
         "remove_featured",
+        "mark_bestseller",          # Added
+        "remove_bestseller",        # Added
+        "mark_new_arrival",
+        "remove_new_arrival",
+        "make_new_arrival_for_days",
     )
 
     @admin.action(description="Activate selected products")
@@ -232,3 +264,78 @@ class ProductAdmin(admin.ModelAdmin):
             request,
             f"{updated} product(s) updated.",
         )
+
+    @admin.action(description="Mark selected as bestseller")
+    def mark_bestseller(self, request, queryset):
+
+        updated = queryset.update(
+            is_bestseller=True,
+        )
+
+        self.message_user(
+            request,
+            f"{updated} product(s) marked as bestseller.",
+        )
+
+    @admin.action(description="Remove bestseller status")
+    def remove_bestseller(self, request, queryset):
+
+        updated = queryset.update(
+            is_bestseller=False,
+        )
+
+        self.message_user(
+            request,
+            f"{updated} product(s) removed from bestsellers.",
+        )
+
+    @admin.action(description="Mark selected as new arrival")
+    def mark_new_arrival(self, request, queryset):
+
+        updated = queryset.update(
+            is_new_arrival=True,
+        )
+
+        self.message_user(
+            request,
+            f"{updated} product(s) marked as new arrival.",
+        )
+
+    @admin.action(description="Remove new arrival status")
+    def remove_new_arrival(self, request, queryset):
+
+        updated = queryset.update(
+            is_new_arrival=False,
+        )
+
+        self.message_user(
+            request,
+            f"{updated} product(s) removed from new arrivals.",
+        )
+
+    @admin.action(description="Mark as new arrival for 15 days")
+    def make_new_arrival_for_days(self, request, queryset):
+        """
+        Mark products as new arrivals for a specific number of days
+        """
+        from django.utils import timezone
+        from datetime import timedelta
+        
+        updated = queryset.update(
+            is_new_arrival=True,
+        )
+        
+        self.message_user(
+            request,
+            f"{updated} product(s) marked as new arrival.",
+        )
+
+    # ============================================================
+    # Inline Customization
+    # ============================================================
+
+    class Media:
+        css = {
+            'all': ('admin/css/custom_admin.css',)
+        }
+        js = ('admin/js/custom_admin.js',)

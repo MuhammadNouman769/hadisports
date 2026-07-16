@@ -72,18 +72,18 @@ class HomeView(TemplateView):
 
         context["parent_categories"] = featured_parent_categories
 
-        # ------------------------------------------------------
-        # Featured Products
-        # ------------------------------------------------------
+        # ======================================================
+        # 1. FEATURED PRODUCTS
+        # ======================================================
 
         context["featured_products"] = (
             product_queryset.filter(is_featured=True)
             .order_by("-created_at")[:8]
         )
 
-        # ------------------------------------------------------
-        # Category Wise Products (for tabs)
-        # ------------------------------------------------------
+        # ======================================================
+        # 2. CATEGORY WISE PRODUCTS (for tabs)
+        # ======================================================
 
         category_products_list = []
 
@@ -106,9 +106,56 @@ class HomeView(TemplateView):
 
         context["category_products_list"] = category_products_list
 
-        # ------------------------------------------------------
-        # Latest Products
-        # ------------------------------------------------------
+        # ======================================================
+        # 3. NEW ARRIVALS
+        # ======================================================
+
+        context["new_arrivals"] = (
+            product_queryset
+            .order_by("-created_at")[:8]
+        )
+
+        # ======================================================
+        # 4. BESTSELLER PRODUCTS
+        # ======================================================
+        
+        # Get products marked as bestseller
+        bestseller_products = list(
+            product_queryset.filter(
+                is_bestseller=True
+            ).order_by("-created_at")[:6]
+        )
+
+        # If less than 6 bestsellers, fill with featured products
+        if len(bestseller_products) < 6:
+            needed = 6 - len(bestseller_products)
+            additional = product_queryset.filter(
+                is_featured=True
+            ).exclude(
+                id__in=[p.id for p in bestseller_products]
+            ).order_by("-created_at")[:needed]
+            bestseller_products.extend(additional)
+
+        # If still less than 6, get latest products
+        if len(bestseller_products) < 6:
+            needed = 6 - len(bestseller_products)
+            additional = product_queryset.exclude(
+                id__in=[p.id for p in bestseller_products]
+            ).order_by("-created_at")[:needed]
+            bestseller_products.extend(additional)
+
+        context["bestseller_products"] = bestseller_products
+
+        # Get remaining products for second row of bestsellers
+        remaining_products = product_queryset.exclude(
+            id__in=[p.id for p in bestseller_products]
+        ).order_by("-created_at")[:4]
+
+        context["bestseller_remaining"] = remaining_products
+
+        # ======================================================
+        # 5. LATEST PRODUCTS
+        # ======================================================
 
         context["latest_products"] = (
             product_queryset.order_by("-created_at")[:12]
