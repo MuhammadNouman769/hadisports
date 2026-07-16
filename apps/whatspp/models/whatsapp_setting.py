@@ -6,10 +6,11 @@ class SiteSetting(BaseModel):
     """
     Site-wide settings that can be configured from admin
     """
+    # WhatsApp Settings
     whatsapp_number = models.CharField(
         max_length=20,
-        default="923248699647",
-        help_text="WhatsApp number with country code (e.g., 923248699647)"
+        default="923285774948",
+        help_text="WhatsApp number with country code (e.g., 923285774948 for +92 328 5774948)"
     )
     
     whatsapp_message_template = models.TextField(
@@ -17,18 +18,21 @@ class SiteSetting(BaseModel):
         help_text="Message template for WhatsApp. Use {product_name}, {price}, {product_url} as variables."
     )
     
+    # Site Information
     site_name = models.CharField(
         max_length=100,
         default="Hadi Sports"
     )
     
     site_email = models.EmailField(
-        default="info@hadisports.com"
+        default="info@hadisports.com",
+        help_text="Email address for contact form submissions"
     )
     
     site_phone = models.CharField(
         max_length=20,
-        default="+92 324 869 9647"
+        default="+92 300 1234567",
+        help_text="Contact phone number"
     )
     
     site_address = models.TextField(
@@ -48,8 +52,11 @@ class SiteSetting(BaseModel):
         settings, created = cls.objects.get_or_create(
             id=1,
             defaults={
-                'whatsapp_number': '923248699647',
-                'site_name': 'Hadi Sports'
+                'whatsapp_number': '923285774948',
+                'site_name': 'Hadi Sports',
+                'site_email': 'info@hadisports.com',
+                'site_phone': '+92 328 5774948',
+                'site_address': '297-C, P.I.A. Main Boulevard Road, Lahore, Pakistan'
             }
         )
         return settings

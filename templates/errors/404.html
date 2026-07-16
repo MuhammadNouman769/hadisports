@@ -1,34 +1,297 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block title %}B.Store - 404 Error{% endblock %}
+{% block title %}Page Not Found | Hadi Sports{% endblock %}
+
 {% block content %}
 
-        <!-- Single Page Header start -->
-        <div class="container-fluid page-header py-5">
-            <h1 class="text-center text-white display-6">404 Error</h1>
-            <ol class="breadcrumb justify-content-center mb-0">
-                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                <li class="breadcrumb-item"><a href="#">Pages</a></li>
-                <li class="breadcrumb-item active text-white">404</li>
-            </ol>
+<style>
+    .error-page-header {
+        background: linear-gradient(135deg, #81c408 0%, #6a9e06 100%);
+        padding: 80px 0;
+        margin-top: 120px;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .error-page-header::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        right: -20%;
+        width: 500px;
+        height: 500px;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 50%;
+    }
+    
+    .error-page-header h1 {
+        font-size: 42px;
+        font-weight: 700;
+        color: #ffffff;
+        position: relative;
+        z-index: 1;
+    }
+    
+    .error-page-header .breadcrumb {
+        background: transparent;
+        padding: 0;
+        margin: 0;
+        justify-content: center;
+        position: relative;
+        z-index: 1;
+    }
+    
+    .error-page-header .breadcrumb-item a {
+        color: #ffc107;
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+    
+    .error-page-header .breadcrumb-item a:hover {
+        color: #ffc107;
+    }
+    
+    .error-page-header .breadcrumb-item.active {
+        color: #ffc107;
+    }
+    
+    .error-page-header .breadcrumb-item + .breadcrumb-item::before {
+        color: rgba(255, 255, 255, 0.5);
+    }
+    
+    .error-container {
+        padding: 80px 0;
+        background: #f8fafc;
+        min-height: 60vh;
+        display: flex;
+        align-items: center;
+    }
+    
+    .error-card {
+        background: #ffffff;
+        border-radius: 20px;
+        padding: 60px 40px;
+        box-shadow: 0 10px 40px rgba(0,0,0,0.05);
+        text-align: center;
+    }
+    
+    .error-icon {
+        font-size: 80px;
+        color: #81c408;
+        margin-bottom: 20px;
+    }
+    
+    .error-code {
+        font-size: 120px;
+        font-weight: 800;
+        color: #81c408;
+        line-height: 1;
+        margin-bottom: 10px;
+        text-shadow: 0 10px 30px rgba(129, 196, 8, 0.15);
+    }
+    
+    .error-title {
+        font-size: 32px;
+        font-weight: 700;
+        color: #1a202c;
+        margin-bottom: 15px;
+    }
+    
+    .error-description {
+        color: #6c757d;
+        font-size: 16px;
+        max-width: 500px;
+        margin: 0 auto 30px;
+        line-height: 1.8;
+    }
+    
+    .error-actions {
+        display: flex;
+        gap: 15px;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+    
+    .btn-error-primary {
+        background: #81c408;
+        color: #ffffff;
+        padding: 14px 35px;
+        border-radius: 50px;
+        font-weight: 600;
+        border: none;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+    }
+    
+    .btn-error-primary:hover {
+        background: #6a9e06;
+        color: #ffffff;
+        transform: translateY(-2px);
+        box-shadow: 0 10px 30px rgba(129, 196, 8, 0.3);
+    }
+    
+    .btn-error-secondary {
+        background: transparent;
+        color: #81c408;
+        padding: 14px 35px;
+        border-radius: 50px;
+        font-weight: 600;
+        border: 2px solid #81c408;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+    }
+    
+    .btn-error-secondary:hover {
+        background: #81c408;
+        color: #ffffff;
+        transform: translateY(-2px);
+        box-shadow: 0 10px 30px rgba(129, 196, 8, 0.15);
+    }
+    
+    .error-suggestions {
+        margin-top: 40px;
+        padding-top: 30px;
+        border-top: 1px solid #e9ecef;
+    }
+    
+    .error-suggestions h5 {
+        font-size: 16px;
+        font-weight: 600;
+        color: #1a202c;
+        margin-bottom: 15px;
+    }
+    
+    .error-suggestions .suggestion-links {
+        display: flex;
+        gap: 20px;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+    
+    .error-suggestions .suggestion-links a {
+        color: #6c757d;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        font-size: 14px;
+    }
+    
+    .error-suggestions .suggestion-links a:hover {
+        color: #81c408;
+    }
+    
+    @media (max-width: 768px) {
+        .error-page-header {
+            padding: 40px 0;
+            margin-top: 100px;
+        }
+        
+        .error-page-header h1 {
+            font-size: 28px;
+        }
+        
+        .error-card {
+            padding: 30px 20px;
+        }
+        
+        .error-code {
+            font-size: 80px;
+        }
+        
+        .error-title {
+            font-size: 24px;
+        }
+        
+        .error-actions {
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .btn-error-primary,
+        .btn-error-secondary {
+            width: 100%;
+            justify-content: center;
+        }
+    }
+</style>
+
+<!-- ======================================== -->
+<!-- PAGE HEADER -->
+<!-- ======================================== -->
+<div class="container-fluid error-page-header">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-12 text-center">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb justify-content-center">
+                        <li class="breadcrumb-item">
+                            <a href="{% url 'products:home-view' %}">
+                                <i class="fas fa-home me-1"></i> Home
+                            </a>
+                        </li>
+                        <li class="breadcrumb-item active" aria-current="page">
+                            404 Error
+                        </li>
+                    </ol>
+                </nav>
+                <h1>
+                    <i class="fas fa-exclamation-triangle me-3" style="font-size: 35px; color: rgba(255,255,255,0.8);"></i>
+                    Page Not Found
+                </h1>
+                <p class="text-white-50">Oops! The page you're looking for doesn't exist.</p>
+            </div>
         </div>
-        <!-- Single Page Header End -->
+    </div>
+</div>
 
-
-        <!-- 404 Start -->
-        <div class="container-fluid py-5">
-            <div class="container py-5 text-center">
-                <div class="row justify-content-center">
-                    <div class="col-lg-6">
-                        <i class="bi bi-exclamation-triangle display-1 text-secondary"></i>
-                        <h1 class="display-1">404</h1>
-                        <h1 class="mb-4">Page Not Found</h1>
-                        <p class="mb-4">We're sorry, the page you have looked for does not exist in our website! Maybe go to our home page or try to use a search?</p>
-                        <a class="btn border-secondary rounded-pill py-3 px-5" href="{% url 'home' %}">Go Back To Home</a>
+<!-- ======================================== -->
+<!-- ERROR CONTENT -->
+<!-- ======================================== -->
+<div class="error-container">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 col-md-10">
+                <div class="error-card">
+                    <div class="error-icon">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    
+                    <div class="error-code">404</div>
+                    
+                    <h2 class="error-title">Page Not Found</h2>
+                    
+                    <p class="error-description">
+                        We couldn't find the page you were looking for. It might have been moved, 
+                        deleted, or the URL might be incorrect.
+                    </p>
+                    
+                    <div class="error-actions">
+                        <a href="{% url 'products:home-view' %}" class="btn-error-primary">
+                            <i class="fas fa-home"></i> Back to Home
+                        </a>
+                        <a href="{% url 'products:product-list' %}" class="btn-error-secondary">
+                            <i class="fas fa-shopping-bag"></i> Browse Products
+                        </a>
+                    </div>
+                    
+                    <div class="error-suggestions">
+                        <h5>You might be looking for:</h5>
+                        <div class="suggestion-links">
+                            <a href="{% url 'products:product-list' %}">Products</a>
+                            <a href="{% url 'contact:contact' %}">Contact Us</a>
+                            <a href="{% url 'products:home-view' %}">Home</a>
+                            <a href="{% url 'main:faqs' %}">FAQ</a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- 404 End -->
+    </div>
+</div>
 
 {% endblock %}
