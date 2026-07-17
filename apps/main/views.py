@@ -1,7 +1,28 @@
 from django.views.generic import TemplateView
 from django.shortcuts import render
 from django.templatetags.static import static
-# Create your views here.
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.http import require_POST
+from .models import NewsletterSubscriber
+
+
+@csrf_exempt
+@require_POST
+def newsletter_subscribe(request):
+    email = request.POST.get('email', '').strip()
+    
+    if not email:
+        return JsonResponse({'success': False, 'message': 'Email is required'})
+    
+    if NewsletterSubscriber.objects.filter(email=email).exists():
+        return JsonResponse({'success': False, 'message': 'Already subscribed!'})
+    
+    subscriber = NewsletterSubscriber.objects.create(email=email)
+    return JsonResponse({'success': True, 'message': 'Subscribed successfully!'})
+
+
+
 
 
 class TermsOfUseView(TemplateView):

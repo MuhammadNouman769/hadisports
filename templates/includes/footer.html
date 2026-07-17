@@ -7,6 +7,147 @@
 }
 
 /* ========================================
+   NEWSLETTER POPUP
+======================================== */
+.newsletter-popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(8px);
+    z-index: 99999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 0.3s ease;
+}
+
+.newsletter-popup-overlay.active {
+    display: flex;
+}
+
+.newsletter-popup {
+    background: #ffffff;
+    border-radius: 24px;
+    padding: 50px 40px;
+    max-width: 450px;
+    width: 90%;
+    text-align: center;
+    position: relative;
+    animation: slideUp 0.4s ease;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.2);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideUp {
+    from { 
+        transform: translateY(40px);
+        opacity: 0;
+    }
+    to { 
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.newsletter-popup .icon-wrapper {
+    width: 80px;
+    height: 80px;
+    background: #f0fdf4;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    font-size: 40px;
+    color: #81c408;
+}
+
+.newsletter-popup .icon-wrapper.error {
+    background: #fef2f2;
+    color: #e74c3c;
+}
+
+.newsletter-popup h3 {
+    font-size: 24px;
+    font-weight: 700;
+    color: #1a202c;
+    margin-bottom: 10px;
+}
+
+.newsletter-popup p {
+    color: #6c757d;
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 25px;
+}
+
+.newsletter-popup .btn-close-popup {
+    background: #81c408;
+    color: #ffffff;
+    border: none;
+    padding: 12px 40px;
+    border-radius: 50px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 16px;
+}
+
+.newsletter-popup .btn-close-popup:hover {
+    background: #6a9e06;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(129, 196, 8, 0.3);
+}
+
+.newsletter-popup .btn-close-popup.error {
+    background: #e74c3c;
+}
+
+.newsletter-popup .btn-close-popup.error:hover {
+    background: #c0392b;
+}
+
+.newsletter-popup .close-icon {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 24px;
+    color: #adb5bd;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: none;
+    border: none;
+}
+
+.newsletter-popup .close-icon:hover {
+    color: #1a202c;
+    transform: rotate(90deg);
+}
+
+@media (max-width: 576px) {
+    .newsletter-popup {
+        padding: 30px 20px;
+    }
+    
+    .newsletter-popup .icon-wrapper {
+        width: 60px;
+        height: 60px;
+        font-size: 30px;
+    }
+    
+    .newsletter-popup h3 {
+        font-size: 20px;
+    }
+}
+
+/* ========================================
    FOOTER STYLES
 ======================================== */
 .footer {
@@ -140,25 +281,6 @@
     line-height: 1.6;
 }
 
-.footer .payment-icons {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-    margin-top: 10px;
-}
-
-.footer .payment-icons img {
-    height: 30px;
-    width: auto;
-    filter: brightness(0.8);
-    transition: all 0.3s ease;
-}
-
-.footer .payment-icons img:hover {
-    filter: brightness(1);
-    transform: translateY(-2px);
-}
-
 /* Copyright */
 .copyright {
     background: #141a24;
@@ -271,18 +393,21 @@
                         </a>
                     </div>
                     
-                    <!-- Newsletter -->
+                    <!-- Newsletter Form -->
                     <div class="col-lg-6 col-md-12">
-                        <form class="position-relative" action="#" method="POST">
+                        <form id="newsletterForm" action="{% url 'main:newsletter_subscribe' %}" method="POST">
+                            {% csrf_token %}
                             <div class="row g-2">
                                 <div class="col-md-8">
                                     <input class="form-control newsletter-input" 
                                            type="email" 
+                                           name="email" 
+                                           id="newsletterEmail"
                                            placeholder="Enter your email for updates..." 
                                            required>
                                 </div>
                                 <div class="col-md-4">
-                                    <button class="btn newsletter-btn w-100" type="submit">
+                                    <button class="btn newsletter-btn w-100" type="submit" id="newsletterBtn">
                                         <i class="fas fa-paper-plane me-2"></i> Subscribe
                                     </button>
                                 </div>
@@ -386,12 +511,10 @@
                             <i class="fas fa-clock"></i>
                             <span class="text">Mon - Sat: 9:00 AM - 9:00 PM</span>
                         </div>
-                          <div class="contact-item">
+                        <div class="contact-item">
                             <i class="fas fa-map-marker-alt"></i>
                             <span class="text">297-C, P.I.A. Main Boulevard Road, Lahore, Pakistan</span>
                         </div>
-                        
-                      
                     </div>
                 </div>
             </div>
@@ -428,6 +551,25 @@
 </footer>
 
 <!-- ======================================== -->
+<!-- NEWSLETTER POPUP HTML -->
+<!-- ======================================== -->
+<div class="newsletter-popup-overlay" id="newsletterPopup">
+    <div class="newsletter-popup">
+        <button class="close-icon" onclick="closeNewsletterPopup()">
+            <i class="fas fa-times"></i>
+        </button>
+        <div class="icon-wrapper" id="popupIcon">
+            <i class="fas fa-check-circle"></i>
+        </div>
+        <h3 id="popupTitle">🎉 Subscribed Successfully!</h3>
+        <p id="popupMessage">Thank you for subscribing to our newsletter. You'll receive the latest updates and offers.</p>
+        <button class="btn-close-popup" id="popupButton" onclick="closeNewsletterPopup()">
+            <i class="fas fa-thumbs-up me-2"></i> Great!
+        </button>
+    </div>
+</div>
+
+<!-- ======================================== -->
 <!-- FOOTER JAVASCRIPT -->
 <!-- ======================================== -->
 <script>
@@ -438,7 +580,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const backToTopBtn = document.getElementById('backToTop');
     
     if (backToTopBtn) {
-        // Show/hide button based on scroll position
         window.addEventListener('scroll', function() {
             if (window.scrollY > 300) {
                 backToTopBtn.classList.add('show');
@@ -447,7 +588,6 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
         
-        // Smooth scroll to top on click
         backToTopBtn.addEventListener('click', function(e) {
             e.preventDefault();
             window.scrollTo({
@@ -458,38 +598,108 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     // ========================================
-    // NEWSLETTER FORM VALIDATION
+    // NEWSLETTER WITH BEAUTIFUL POPUP
     // ========================================
-    const newsletterForm = document.querySelector('.footer .newsletter-btn');
+    const newsletterForm = document.getElementById('newsletterForm');
+    const newsletterEmail = document.getElementById('newsletterEmail');
+    const newsletterBtn = document.getElementById('newsletterBtn');
+
     if (newsletterForm) {
-        newsletterForm.addEventListener('click', function(e) {
+        newsletterForm.addEventListener('submit', function(e) {
             e.preventDefault();
-            const input = this.closest('form').querySelector('.newsletter-input');
-            const email = input.value.trim();
             
-            if (email === '') {
-                input.style.borderColor = '#e74c3c';
-                input.placeholder = 'Please enter your email';
-                return;
-            }
+            const email = newsletterEmail.value.trim();
+            const formData = new FormData(this);
             
-            if (!isValidEmail(email)) {
-                input.style.borderColor = '#e74c3c';
-                input.value = '';
-                input.placeholder = 'Please enter a valid email';
-                return;
-            }
+            // Disable button
+            newsletterBtn.disabled = true;
+            newsletterBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i> Subscribing...';
             
-            input.style.borderColor = '#81c408';
-            alert('Thank you for subscribing! You will receive our latest updates.');
-            input.value = '';
+            fetch(this.action, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Reset button
+                newsletterBtn.innerHTML = '<i class="fas fa-paper-plane me-2"></i> Subscribe';
+                newsletterBtn.disabled = false;
+                
+                if (data.success) {
+                    newsletterEmail.value = '';
+                    showNewsletterPopup('success', '🎉 Subscribed Successfully!', data.message);
+                } else {
+                    showNewsletterPopup('error', '⚠️ Subscription Failed', data.message);
+                }
+            })
+            .catch(() => {
+                newsletterBtn.innerHTML = '<i class="fas fa-paper-plane me-2"></i> Subscribe';
+                newsletterBtn.disabled = false;
+                showNewsletterPopup('error', '⚠️ Something Went Wrong', 'Please try again later.');
+            });
         });
     }
+});
+
+// ========================================
+// SHOW BEAUTIFUL POPUP
+// ========================================
+function showNewsletterPopup(type, title, message) {
+    const popup = document.getElementById('newsletterPopup');
+    const icon = document.getElementById('popupIcon');
+    const titleEl = document.getElementById('popupTitle');
+    const msgEl = document.getElementById('popupMessage');
+    const btn = document.getElementById('popupButton');
     
-    // Email validation helper
-    function isValidEmail(email) {
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return emailRegex.test(email);
+    if (type === 'success') {
+        icon.className = 'icon-wrapper';
+        icon.innerHTML = '<i class="fas fa-check-circle"></i>';
+        titleEl.textContent = title;
+        msgEl.textContent = message;
+        btn.className = 'btn-close-popup';
+        btn.innerHTML = '<i class="fas fa-thumbs-up me-2"></i> Great!';
+    } else {
+        icon.className = 'icon-wrapper error';
+        icon.innerHTML = '<i class="fas fa-times-circle"></i>';
+        titleEl.textContent = title;
+        msgEl.textContent = message;
+        btn.className = 'btn-close-popup error';
+        btn.innerHTML = '<i class="fas fa-times me-2"></i> Try Again';
+    }
+    
+    popup.classList.add('active');
+    document.body.style.overflow = 'hidden';
+    
+    if (type === 'success') {
+        setTimeout(() => {
+            closeNewsletterPopup();
+        }, 5000);
+    }
+}
+
+// ========================================
+// CLOSE POPUP
+// ========================================
+function closeNewsletterPopup() {
+    const popup = document.getElementById('newsletterPopup');
+    popup.classList.remove('active');
+    document.body.style.overflow = '';
+}
+
+// Close on overlay click
+document.getElementById('newsletterPopup').addEventListener('click', function(e) {
+    if (e.target === this) {
+        closeNewsletterPopup();
+    }
+});
+
+// Close on ESC key
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        closeNewsletterPopup();
     }
 });
 </script>
