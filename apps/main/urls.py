@@ -1,4 +1,4 @@
-from .views import TermsOfUseView, PrivacyPolicyView, FAQsView, CartView, CheckoutView, TestimonialView, ErrorView, ServicesView
+from .views import TermsOfUseView, PrivacyPolicyView, FAQsView, CartView, CheckoutView, TestimonialView, ErrorView, ServicesView, SitemapView
 from django.urls import path
 
 app_name = 'main'
@@ -8,4 +8,5 @@ urlpatterns = [
     path('privacy-policy/', PrivacyPolicyView.as_view(), name='privacy-policy'),
     path('faqs/', FAQsView.as_view(), name='faqs'),
     path('services/', ServicesView.as_view(), name='services'),
+    path('sitemap/', SitemapView.as_view(), name='sitemap'),
 ]    

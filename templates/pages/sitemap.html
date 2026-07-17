@@ -1,0 +1,325 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Sitemap | Hadi Sports{% endblock %}
+
+{% block content %}
+
+<style>
+    /* ========================================
+       PAGE BANNER
+    ======================================== */
+    .page-banner {
+        background: linear-gradient(135deg, #81c408 0%, #6a9e06 100%);
+        padding: 80px 0;
+        margin-top: 120px;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .page-banner::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        right: -20%;
+        width: 500px;
+        height: 500px;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 50%;
+    }
+    
+    .page-banner h1 {
+        font-size: 42px;
+        font-weight: 700;
+        color: #ffffff;
+        position: relative;
+        z-index: 1;
+    }
+    
+    .page-banner p {
+        color: rgba(255, 255, 255, 0.9);
+        font-size: 18px;
+        position: relative;
+        z-index: 1;
+    }
+    
+    .page-banner .breadcrumb {
+        background: transparent;
+        padding: 0;
+        margin: 0;
+        justify-content: center;
+        position: relative;
+        z-index: 1;
+    }
+    
+    .page-banner .breadcrumb-item a {
+        color: #ffc107;
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+    
+    .page-banner .breadcrumb-item a:hover {
+        color: #ffc107;
+    }
+    
+    .page-banner .breadcrumb-item.active {
+        color: #ffc107;
+    }
+    
+    .page-banner .banner-icon {
+        font-size: 60px;
+        color: rgba(255, 255, 255, 0.2);
+        position: absolute;
+        right: 50px;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+    
+    /* ========================================
+       SITEMAP SECTION
+    ======================================== */
+    .sitemap-container {
+        padding: 60px 0;
+        background: #f8fafc;
+    }
+    
+    .sitemap-card {
+        background: #ffffff;
+        border-radius: 20px;
+        padding: 50px;
+        box-shadow: 0 10px 40px rgba(0,0,0,0.05);
+    }
+    
+    .sitemap-header {
+        text-align: center;
+        margin-bottom: 40px;
+        padding-bottom: 30px;
+        border-bottom: 2px solid #f0f2f5;
+    }
+    
+    .sitemap-header h1 {
+        font-size: 36px;
+        font-weight: 700;
+        color: #1a202c;
+        margin-bottom: 10px;
+    }
+    
+    .sitemap-header p {
+        color: #6c757d;
+        font-size: 16px;
+    }
+    
+    .sitemap-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 30px;
+    }
+    
+    .sitemap-section {
+        margin-bottom: 30px;
+    }
+    
+    .sitemap-section-title {
+        font-size: 18px;
+        font-weight: 700;
+        color: #1a202c;
+        margin-bottom: 15px;
+        padding-bottom: 10px;
+        border-bottom: 2px solid #81c408;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    
+    .sitemap-section-title i {
+        color: #81c408;
+        font-size: 20px;
+        width: 30px;
+    }
+    
+    .sitemap-links {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+    
+    .sitemap-links li {
+        padding: 6px 0;
+        border-bottom: 1px solid #f8f9fa;
+    }
+    
+    .sitemap-links li:last-child {
+        border-bottom: none;
+    }
+    
+    .sitemap-links a {
+        color: #4a5568;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        font-size: 14px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+    
+    .sitemap-links a:hover {
+        color: #81c408;
+        padding-left: 8px;
+    }
+    
+    .sitemap-links a i {
+        color: #81c408;
+        font-size: 12px;
+        width: 16px;
+    }
+    
+    .sitemap-links .link-arrow {
+        color: #81c408;
+        font-size: 12px;
+        transition: all 0.3s ease;
+    }
+    
+    .sitemap-links a:hover .link-arrow {
+        transform: translateX(3px);
+    }
+    
+    /* ========================================
+       RESPONSIVE
+    ======================================== */
+    @media (max-width: 992px) {
+        .sitemap-grid {
+            grid-template-columns: 1fr 1fr;
+        }
+    }
+    
+    @media (max-width: 768px) {
+        .page-banner {
+            padding: 40px 0;
+            margin-top: 100px;
+        }
+        
+        .page-banner h1 {
+            font-size: 28px;
+        }
+        
+        .page-banner .banner-icon {
+            display: none;
+        }
+        
+        .sitemap-card {
+            padding: 25px;
+        }
+        
+        .sitemap-grid {
+            grid-template-columns: 1fr;
+        }
+        
+        .sitemap-header h1 {
+            font-size: 28px;
+        }
+    }
+</style>
+
+<!-- ======================================== -->
+<!-- PAGE BANNER -->
+<!-- ======================================== -->
+<div class="container-fluid page-banner">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-8 text-center text-lg-start">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a href="{% url 'products:home-view' %}">
+                                <i class="fas fa-home me-1"></i> Home
+                            </a>
+                        </li>
+                        <li class="breadcrumb-item active" aria-current="page">
+                            Sitemap
+                        </li>
+                    </ol>
+                </nav>
+                <h1>
+                    <i class="fas fa-sitemap me-3" style="font-size: 35px; color: rgba(255,255,255,0.8);"></i>
+                    Sitemap
+                </h1>
+                <p>Complete navigation guide for Hadi Sports website.</p>
+            </div>
+            <div class="col-lg-4 text-center text-lg-end d-none d-lg-block">
+                <div class="banner-icon">
+                    <i class="fas fa-sitemap"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ======================================== -->
+<!-- SITEMAP CONTENT -->
+<!-- ======================================== -->
+<div class="sitemap-container">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-12">
+                <div class="sitemap-card">
+                    <!-- Header -->
+                    <div class="sitemap-header">
+                        <h1>Site Navigation</h1>
+                        <p>Find everything you need on our website. Browse our products, services, and information pages.</p>
+                    </div>
+                    
+                    <!-- Sitemap Grid -->
+                    <div class="sitemap-grid">
+                        {% for section in sitemap_sections %}
+                        <div class="sitemap-section">
+                            <div class="sitemap-section-title">
+                                <i class="fas {{ section.icon }}"></i>
+                                {{ section.title }}
+                            </div>
+                            <ul class="sitemap-links">
+                                {% for link in section.links %}
+                                <li>
+                                    <a href="
+                                        {% if link.anchor %}
+                                            {% url link.url %}#{{ link.anchor }}
+                                        {% elif link.params %}
+                                            {% url link.url %}{{ link.params }}
+                                        {% else %}
+                                            {% url link.url %}
+                                        {% endif %}
+                                    ">
+                                        <i class="fas fa-chevron-right link-arrow"></i>
+                                        {{ link.name }}
+                                    </a>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    
+                    <!-- Footer -->
+                    <div class="text-center mt-5 pt-4 border-top">
+                        <p class="text-muted small">
+                            <i class="fas fa-copyright me-1"></i>
+                            2026 Hadi Sports. All Rights Reserved.
+                        </p>
+                        <div class="d-flex justify-content-center gap-3 flex-wrap">
+                            <a href="{% url 'products:home-view' %}" class="btn btn-primary btn-sm">
+                                <i class="fas fa-home me-1"></i> Home
+                            </a>
+                            <a href="{% url 'products:product-list' %}" class="btn btn-outline-primary btn-sm">
+                                <i class="fas fa-box me-1"></i> Shop
+                            </a>
+                            <a href="{% url 'contact:contact' %}" class="btn btn-outline-primary btn-sm">
+                                <i class="fas fa-envelope me-1"></i> Contact
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
