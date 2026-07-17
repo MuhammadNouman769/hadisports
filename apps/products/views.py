@@ -11,7 +11,7 @@ from apps.products.models.product_category import ProductCategory
 from apps.products.models.product_variant import ProductVariant
 from apps.products.models.variant_image import VariantImage
 from apps.testimonials.models.testimonial import Testimonial
-
+from apps.main.models import HeroBanner
 
 """ ========================= Home View ========================= """
 class HomeView(TemplateView):
@@ -171,6 +171,16 @@ class HomeView(TemplateView):
             )
             .order_by("display_order", "-created_at")[:10]
         )
+
+
+        # ======================================================
+        # HERO BANNERS - Simple
+        # ======================================================
+        context["hero_banners"] = HeroBanner.objects.filter(
+            is_active=True
+        ).order_by("display_order", "-created_at")
+        
+        return context
 
 
         return context

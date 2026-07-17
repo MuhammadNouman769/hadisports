@@ -302,118 +302,328 @@
         height: 150px !important;
     }
 }
+
+/* ==========================================================
+   FULL-WIDTH HERO BANNER
+========================================================== */
+.hero-section {
+    position: relative;
+    overflow: hidden;
+    margin-top: 120px;
+}
+
+.hero-section .carousel-item {
+    height: 600px;
+    position: relative;
+    background-size: cover;
+    background-position: center;
+}
+
+.hero-section .hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.2) 100%);
+    z-index: 1;
+}
+
+.hero-section .hero-content {
+    position: relative;
+    z-index: 2;
+    color: #ffffff;
+}
+
+.hero-section .hero-content h1 {
+    font-size: 48px;
+    font-weight: 800;
+    line-height: 1.2;
+    color: #ffffff;
+}
+
+.hero-section .hero-content h1 .text-primary {
+    color: #81c408 !important;
+}
+
+.hero-section .hero-content p {
+    font-size: 18px;
+    color: rgba(255,255,255,0.9);
+    line-height: 1.8;
+    max-width: 500px;
+    margin-top: 15px;
+}
+
+.hero-section .badge.bg-success {
+    background: #81c408 !important;
+    font-weight: 600;
+    font-size: 13px;
+}
+
+.hero-section .btn-primary-custom {
+    background: #81c408;
+    color: #6a9e06;
+    padding: 14px 35px;
+    border-radius: 50px;
+    font-weight: 600;
+    border: none;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+}
+
+.hero-section .btn-primary-custom:hover {
+    background: #6a9e06;
+    color: #ffffff;
+    box-shadow: 0 10px 40px rgba(129, 196, 8, 0.3);
+}
+
+.hero-section .btn-outline-custom {
+    background: transparent;
+    color: #6a9e06;
+    padding: 14px 35px;
+    border-radius: 50px;
+    font-weight: 600;
+    border: 2px solid #ffb524;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    margin-left:-284px;
+    display: inline-flex;
+    align-items: center;
+}
+
+.hero-section .btn-outline-custom:hover {
+    background: #ffb524;
+    color: #6a9e06;
+}
+
+.hero-section .search-box {
+    max-width: 450px;
+    position: relative;
+}
+
+.hero-section .search-box input {
+    width: 100%;
+    padding: 14px 20px;
+    border: none;
+    border-radius: 50px;
+    font-size: 16px;
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(10px);
+    color: #ffffff;
+    transition: all 0.3s ease;
+}
+
+.hero-section .search-box input::placeholder {
+    color: rgba(255,255,255,0.7);
+}
+
+
+
+/* Hero Carousel Controls */
+#heroCarousel {
+    position: relative;
+}
+
+#heroCarousel .carousel-indicators {
+    position: absolute;
+    bottom: 30px;
+    gap: 8px;
+    z-index: 5;
+}
+
+#heroCarousel .carousel-indicators button {
+    width: 12px !important;
+    height: 12px !important;
+    border-radius: 50% !important;
+    background: rgba(255,255,255,0.5) !important;
+    border: none !important;
+    opacity: 1 !important;
+}
+
+#heroCarousel .carousel-indicators button.active {
+    background: #81c408 !important;
+    transform: scale(1.2);
+}
+
+#heroCarousel .carousel-control-prev,
+#heroCarousel .carousel-control-next {
+    width: 50px;
+    height: 50px;
+    background: #81c408;
+    backdrop-filter: blur(10px);
+    border-radius: 50%;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0;
+    transition: all 0.3s ease;
+    z-index: 5;
+}
+
+#heroCarousel:hover .carousel-control-prev,
+#heroCarousel:hover .carousel-control-next {
+    opacity: 1;
+}
+
+#heroCarousel .carousel-control-prev {
+    left: 30px;
+}
+
+#heroCarousel .carousel-control-next {
+    right: 30px;
+}
+
+#heroCarousel .carousel-control-prev-icon,
+#heroCarousel .carousel-control-next-icon {
+    filter: invert(1);
+    background-size: 60% 60%;
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+    .hero-section .carousel-item { height: 500px; }
+    .hero-section .hero-content h1 { font-size: 36px; }
+}
+
+@media (max-width: 768px) {
+    .hero-section { margin-top: 100px; }
+    .hero-section .carousel-item { height: 450px; }
+    .hero-section .hero-content h1 { font-size: 28px; }
+    .hero-section .hero-content p { font-size: 15px; }
+    .hero-section .search-box { max-width: 100%; }
+    #heroCarousel .carousel-control-prev,
+    #heroCarousel .carousel-control-next {
+        opacity: 0.7;
+        width: 35px;
+        height: 35px;
+    }
+    #heroCarousel .carousel-control-prev { left: 10px; }
+    #heroCarousel .carousel-control-next { right: 10px; }
+    .hero-section .btn-primary-custom,
+    .hero-section .btn-outline-custom {
+        padding: 10px 25px;
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 576px) {
+    .hero-section .carousel-item { height: 400px; }
+    .hero-section .hero-content h1 { font-size: 22px; }
+    .hero-section .hero-content p { font-size: 13px; }
+    .hero-section .hero-overlay {
+        background: linear-gradient(90deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.3) 100%);
+    }
+}
 </style>
 
 <body>
 
-    <!-- Modal Search Start -->
-    <div class="modal fade" id="searchModal" tabindex="-1"
-         aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-fullscreen">
-            <div class="modal-content rounded-0">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">
-                        Search by keyword
-                    </h5>
-                    <button type="button" class="btn-close"
-                            data-bs-dismiss="modal"
-                            aria-label="Close"></button>
-                </div>
-
-                <div class="modal-body d-flex align-items-center">
-                    <div class="input-group w-75 mx-auto d-flex">
-                        <input type="search"
-                               class="form-control p-3"
-                               placeholder="keywords"
-                               aria-describedby="search-icon-1">
-
-                        <span id="search-icon-1" class="input-group-text p-3">
-                            <i class="fa fa-search"></i>
-                        </span>
-                    </div>
-                </div>
-            </div>
+<!-- Hero Start -->
+<section class="hero-section">
+    <div id="heroCarousel" class="carousel slide" data-bs-ride="carousel">
+        
+        <!-- Carousel Indicators -->
+        <div class="carousel-indicators">
+            {% for banner in hero_banners %}
+            <button type="button" 
+                    data-bs-target="#heroCarousel" 
+                    data-bs-slide-to="{{ forloop.counter0 }}" 
+                    {% if forloop.first %}class="active"{% endif %}
+                    aria-label="Slide {{ forloop.counter }}"></button>
+            {% empty %}
+            <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active"></button>
+            {% endfor %}
         </div>
-    </div>
-    <!-- Modal Search End -->
-
-    <!-- Hero Start -->
-    <div class="container-fluid py-5 mb-5 hero-header">
-        <div class="container py-5">
-            <div class="row g-5 align-items-center">
-
-                <div class="col-md-12 col-lg-7">
-                    <h4 class="mb-3 text-secondary">100% Organic Foods</h4>
-                    <h1 class="mb-5 display-3 text-primary">
-                        Organic Veggies & Fruits Foods
-                    </h1>
-
-                    <div class="position-relative mx-auto">
-                        <input class="form-control border-2 border-secondary w-75 py-3 px-4 rounded-pill"
-                               type="number"
-                               placeholder="Search">
-
-                        <button type="submit"
-                                class="btn btn-primary border-2 border-secondary py-3 px-4 position-absolute rounded-pill text-white h-100"
-                                style="top:0; right:25%;">
-                            Submit Now
-                        </button>
-                    </div>
-                </div>
-
-                <div class="col-md-12 col-lg-5">
-                    <div id="carouselId"
-                         class="carousel slide position-relative"
-                         data-bs-ride="carousel">
-
-                        <div class="carousel-inner" role="listbox">
-
-                            <div class="carousel-item active rounded">
-                                <img src="{% static 'img/hero-img-1.png' %}"
-                                     class="img-fluid w-100 h-100 bg-secondary rounded"
-                                     alt="First slide">
-
-                                <a href="#" class="btn px-4 py-2 text-white rounded">
-                                    Fruites
+        
+        <div class="carousel-inner">
+            {% for banner in hero_banners %}
+            <div class="carousel-item {% if forloop.first %}active{% endif %}" 
+                 style="background-image: url('{% if banner and banner.image %}{{ banner.image.url }}{% else %}{% static 'img/hero-img-1.png' %}{% endif %}'); 
+                        background-size: cover; 
+                        background-position: center;
+                        height: 600px;">
+                
+                <!-- Dark Overlay -->
+                <div class="hero-overlay"></div>
+                
+                <!-- Content -->
+                <div class="container h-100">
+                    <div class="row h-100 align-items-center">
+                        <div class="col-lg-6 hero-content">
+                            <span class="badge bg-success mb-3 px-3 py-2 rounded-pill">
+                                <i class="fas fa-tag me-1"></i> New Collection
+                            </span>
+                            <h1>
+                                {{ banner.title|truncatechars:25|default:"Premium Sports|" }} 
+                                <span class="text-primary">Equipment</span>
+                            </h1>
+                            <p>{{ banner.description|truncatechars:45|default:"Your one-stop shop for premium sports equipment and accessories." }}</p>
+                            
+                            <div class="d-flex flex-wrap gap-3 mt-4">
+                                <a href="{% url 'products:product-list' %}" class="btn btn-primary-custom">
+                                    {{ banner.button_text|default:"Shop Now" }}
+                                    <i class="fas fa-arrow-right ms-2"></i>
+                                </a>
+                                <a href="{% url 'main:services' %}" class="btn btn-outline-custom">
+                                    <i class="fas fa-tools me-2"></i> Our Services
                                 </a>
                             </div>
-
-                            <div class="carousel-item rounded">
-                                <img src="{% static 'img/hero-img-2.jpg' %}"
-                                     class="img-fluid w-100 h-100 rounded"
-                                     alt="Second slide">
-
-                                <a href="#" class="btn px-4 py-2 text-white rounded">
-                                    Vesitables
-                                </a>
-                            </div>
-
+                            
+                          
                         </div>
-
-                        <button class="carousel-control-prev"
-                                type="button"
-                                data-bs-target="#carouselId"
-                                data-bs-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Previous</span>
-                        </button>
-
-                        <button class="carousel-control-next"
-                                type="button"
-                                data-bs-target="#carouselId"
-                                data-bs-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Next</span>
-                        </button>
-
                     </div>
                 </div>
-
             </div>
+            {% empty %}
+            <div class="carousel-item active" 
+                 style="background-image: url('{% static 'img/hero-img-1.png' %}'); 
+                        background-size: cover; 
+                        background-position: center;
+                        height: 600px;">
+                <div class="hero-overlay"></div>
+                <div class="container h-100">
+                    <div class="row h-100 align-items-center">
+                        <div class="col-lg-6 hero-content">
+                            <span class="badge bg-success mb-3 px-3 py-2 rounded-pill">
+                                <i class="fas fa-tag me-1"></i> New Collection
+                            </span>
+                            <h1>Welcome to <span class="text-primary">Hadi Sports</span></h1>
+                            <p>Your one-stop shop for premium sports equipment and accessories.</p>
+                            <div class="d-flex flex-wrap gap-3 mt-4">
+                                <a href="{% url 'products:product-list' %}" class="btn btn-primary-custom">
+                                    Shop Now <i class="fas fa-arrow-right ms-2"></i>
+                                </a>
+                                <a href="{% url 'main:services' %}" class="btn btn-outline-custom">
+                                    <i class="fas fa-tools me-2"></i> Our Services
+                                </a>
+                            </div>
+                            <div class="search-box mt-4">
+                                <form action="{% url 'products:product-list' %}" method="GET">
+                                    <input type="search" name="q" placeholder="Search for products...">
+                                    <button type="submit"><i class="fas fa-search"></i></button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
         </div>
+        
+        <!-- Carousel Controls -->
+        {% if hero_banners|length > 1 %}
+        <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon"></span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon"></span>
+        </button>
+        {% endif %}
+        
     </div>
-    <!-- Hero End -->
-
+</section>
+<!-- Hero End -->
     <!-- ==========================================================
          FEATURED PRODUCTS SECTION
     ========================================================== -->
