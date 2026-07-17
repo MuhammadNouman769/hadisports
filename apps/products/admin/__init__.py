@@ -6,3 +6,4 @@ from .product_option_admin import (
 )
 from .product_variant import ProductVariantAdmin
 from .variant_Image_admin import VariantImageAdmin
+from .testimonial_admin import TestimonialAdmin

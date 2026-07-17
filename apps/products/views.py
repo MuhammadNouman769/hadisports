@@ -10,6 +10,7 @@ from apps.products.models.product import Product
 from apps.products.models.product_category import ProductCategory
 from apps.products.models.product_variant import ProductVariant
 from apps.products.models.variant_image import VariantImage
+from apps.testimonials.models.testimonial import Testimonial
 
 
 """ ========================= Home View ========================= """
@@ -160,6 +161,17 @@ class HomeView(TemplateView):
         context["latest_products"] = (
             product_queryset.order_by("-created_at")[:12]
         )
+
+        # ======================================================
+        # TESTIMONIALS
+        # ======================================================
+        context["testimonials"] = (
+            Testimonial.objects.filter(
+                is_active=True
+            )
+            .order_by("display_order", "-created_at")[:10]
+        )
+
 
         return context
 
