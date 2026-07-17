@@ -494,123 +494,150 @@
                     <span class="fa fa-bars text-primary"></span>
                 </button>
 
-                <div class="collapse navbar-collapse bg-white" id="navbarCollapse">
-                    <div class="navbar-nav mx-auto">
-                        <a href="{% url 'products:home-view' %}" class="nav-item nav-link {% if request.resolver_match.url_name == 'home-view' %}active{% endif %}">Home</a>
-                        
-                        <!-- Products Mega Menu -->
-                        <div class="nav-item mega-dropdown">
-                            <a href="{% url 'products:product-list' %}" class="nav-link">
-                                Products
+            <div class="collapse navbar-collapse bg-white" id="navbarCollapse">
+    <div class="navbar-nav mx-auto">
+        <!-- Home -->
+        <a href="{% url 'products:home-view' %}" class="nav-item nav-link {% if request.resolver_match.url_name == 'home-view' %}active{% endif %}">
+            <i class="fas fa-home me-1"></i> Home
+        </a>
+        
+        <!-- Products Mega Menu -->
+        <div class="nav-item mega-dropdown">
+            <a href="{% url 'products:product-list' %}" class="nav-link">
+                <i class="fas fa-box me-1"></i> Products
+            </a>
+            <div class="dropdown-menu mega-menu">
+                <div class="row g-2">
+                    {% for category in menu_categories %}
+                    <div class="col-xl-2 col-lg-3 col-md-4 col-6">
+                        <div class="mega-category">
+                            <div class="mega-category-title">
+                                <i class="fas fa-tag"></i> 
+                                {{ category.title }}
+                            </div>
+                            
+                            {% for child in category.children.all|slice:":6" %}
+                            <a href="{% url 'products:product-list' %}?category={{ child.slug }}" 
+                               class="mega-link">
+                                {{ child.title }}
                             </a>
-                            <div class="dropdown-menu mega-menu">
-                                <div class="row g-2">
-                                    {% for category in menu_categories %}
-                                    <div class="col-xl-2 col-lg-3 col-md-4 col-6">
-                                        <div class="mega-category">
-                                            <div class="mega-category-title">
-                                                <i class="fas fa-tag"></i> 
-                                                {{ category.title }}
-                                            </div>
-                                            
-                                            {% for child in category.children.all|slice:":6" %}
-                                            <a href="{% url 'products:product-list' %}?category={{ child.slug }}" 
-                                               class="mega-link">
-                                                {{ child.title }}
-                                            </a>
-                                            {% endfor %}
-                                            
-                                            {% if category.children.count > 6 %}
-                                            <a href="{% url 'products:product-list' %}?category={{ category.slug }}" 
-                                               class="mega-link view-more">
-                                                View More →
-                                            </a>
-                                            {% endif %}
-                                        </div>
-                                    </div>
-                                    {% endfor %}
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Footwear Dropdown -->
-                        <div class="nav-item dropdown-simple">
-                            <a href="#" class="nav-item nav-link data-bs-toggle="dropdown">
-                                Footwear
+                            {% endfor %}
+                            
+                            {% if category.children.count > 6 %}
+                            <a href="{% url 'products:product-list' %}?category={{ category.slug }}" 
+                               class="mega-link view-more">
+                                View More →
                             </a>
-                            <div class="dropdown-menu">
-                                {% for category in menu_categories %}
-                                    {% for child in category.children.all %}
-                                        {% if 'footwear' in child.slug or 'shoe' in child.slug or 'boot' in child.slug %}
-                                        <a href="{% url 'products:product-list' %}?category={{ child.slug }}" 
-                                           class="dropdown-item">
-                                            {{ child.title }}
-                                        </a>
-                                        {% endif %}
-                                    {% endfor %}
-                                {% endfor %}
-                            </div>
+                            {% endif %}
                         </div>
-
-                        <!-- Accessories Mega Menu -->
-                        <div class="nav-item mega-dropdown">
-                            <a href="#" class="nav-item nav-link" data-bs-toggle="dropdown">
-                                Accessories
-                            </a>
-                            <div class="dropdown-menu mega-menu">
-                                <div class="row g-2">
-                                    {% for category in menu_categories %}
-                                        {% if 'accessor' in category.slug|lower or 'bag' in category.slug|lower or 'cap' in category.slug|lower or 'watch' in category.slug|lower or 'goggle' in category.slug|lower or 'towel' in category.slug|lower or 'bottle' in category.slug|lower or 'sock' in category.slug|lower or 'tool' in category.slug|lower %}
-                                        <div class="col-xl-2 col-lg-3 col-md-4 col-6">
-                                            <div class="mega-category">
-                                                <div class="mega-category-title">
-                                                    <i class="fas fa-tag"></i> 
-                                                    {{ category.title }}
-                                                </div>
-                                                
-                                                {% for child in category.children.all|slice:":6" %}
-                                                <a href="{% url 'products:product-list' %}?category={{ child.slug }}" 
-                                                   class="mega-link">
-                                                    {{ child.title }}
-                                                </a>
-                                                {% endfor %}
-                                                
-                                                {% if category.children.count > 6 %}
-                                                <a href="{% url 'products:product-list' %}?category={{ category.slug }}" 
-                                                   class="mega-link view-more">
-                                                    View More →
-                                                </a>
-                                                {% endif %}
-                                            </div>
-                                        </div>
-                                        {% endif %}
-                                    {% endfor %}
-                                </div>
-                            </div>
-                        </div>
-
-                      
-                        <div class="nav-item dropdown-simple">
-                            <a href="#" class="nav-item nav-link" data-bs-toggle="dropdown">Services</a>
-                            <div class="dropdown-menu">
-                                <a href="#" class="dropdown-item">Checkout</a>
-                                <a href="#" class="dropdown-item">Testimonial</a>
-                                <a href="#" class="dropdown-item">404 Page</a>
-                            </div>
-                        </div>
-
-                        <a href="{% url 'contact:contact' %}" class="nav-item nav-link">Contact Us</a>
                     </div>
-
-                    <!-- Search Button -->
-                    <div class="d-flex m-3 me-0">
-                        <button class="btn-search btn border border-secondary btn-md-square rounded-circle bg-white me-4"
-                                data-bs-toggle="modal"
-                                data-bs-target="#searchModal">
-                            <i class="fas fa-search bg-color"></i>
-                        </button>
-                    </div>
+                    {% endfor %}
                 </div>
+            </div>
+        </div>
+
+        <!-- Footwear Dropdown -->
+        <div class="nav-item dropdown-simple">
+            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                <i class="fas fa-shoe-prints me-1"></i> Footwear
+            </a>
+            <div class="dropdown-menu">
+                {% for category in menu_categories %}
+                    {% for child in category.children.all %}
+                        {% if 'footwear' in child.slug or 'shoe' in child.slug or 'boot' in child.slug %}
+                        <a href="{% url 'products:product-list' %}?category={{ child.slug }}" 
+                           class="dropdown-item">
+                            <i class="fas fa-shoe-prints me-2 text-primary"></i> {{ child.title }}
+                        </a>
+                        {% endif %}
+                    {% endfor %}
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Accessories Mega Menu -->
+        <div class="nav-item mega-dropdown">
+            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                <i class="fas fa-cog me-1"></i> Accessories
+            </a>
+            <div class="dropdown-menu mega-menu">
+                <div class="row g-2">
+                    {% for category in menu_categories %}
+                        {% if 'accessor' in category.slug|lower or 'bag' in category.slug|lower or 'cap' in category.slug|lower or 'watch' in category.slug|lower or 'goggle' in category.slug|lower or 'towel' in category.slug|lower or 'bottle' in category.slug|lower or 'sock' in category.slug|lower or 'tool' in category.slug|lower %}
+                        <div class="col-xl-2 col-lg-3 col-md-4 col-6">
+                            <div class="mega-category">
+                                <div class="mega-category-title">
+                                    <i class="fas fa-tag"></i> 
+                                    {{ category.title }}
+                                </div>
+                                
+                                {% for child in category.children.all|slice:":6" %}
+                                <a href="{% url 'products:product-list' %}?category={{ child.slug }}" 
+                                   class="mega-link">
+                                    {{ child.title }}
+                                </a>
+                                {% endfor %}
+                                
+                                {% if category.children.count > 6 %}
+                                <a href="{% url 'products:product-list' %}?category={{ category.slug }}" 
+                                   class="mega-link view-more">
+                                    View More →
+                                </a>
+                                {% endif %}
+                            </div>
+                        </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <!-- Services Dropdown -->
+<div class="nav-item dropdown-simple">
+    <a href="{% url 'main:services' %}" class="nav-link">
+        <i class="fas fa-tools me-1"></i> Services
+    </a>
+    <div class="dropdown-menu" style="min-width: 250px;">
+        <a href="{% url 'main:services' %}#cricket" class="dropdown-item">
+            <i class="fas fa-cricket-ball me-2 text-primary"></i> Cricket Services
+        </a>
+        <a href="{% url 'main:services' %}#racket" class="dropdown-item">
+            <i class="fas fa-table-tennis me-2 text-primary"></i> Racket Sports
+        </a>
+        <a href="{% url 'main:services' %}#football" class="dropdown-item">
+            <i class="fas fa-futbol me-2 text-primary"></i> Football Services
+        </a>
+        <a href="{% url 'main:services' %}#hockey" class="dropdown-item">
+            <i class="fas fa-hockey-stick me-2 text-primary"></i> Hockey Services
+        </a>
+        <a href="{% url 'main:services' %}#boxing" class="dropdown-item">
+            <i class="fas fa-fist-raised me-2 text-primary"></i> Boxing/MMA Services
+        </a>
+        <div class="dropdown-divider"></div>
+        <a href="{% url 'main:services' %}#custom" class="dropdown-item">
+            <i class="fas fa-paint-brush me-2 text-primary"></i> Custom Services
+        </a>
+        <a href="{% url 'contact:contact' %}" class="dropdown-item">
+            <i class="fas fa-headset me-2 text-primary"></i> Book Appointment
+        </a>
+    </div>
+</div>
+
+        <!-- Contact Us -->
+        <a href="{% url 'contact:contact' %}" class="nav-item nav-link">
+            <i class="fas fa-envelope me-1"></i> Contact Us
+        </a>
+    </div>
+
+    <!-- Search Button -->
+    <div class="d-flex m-3 me-0">
+        <button class="btn-search btn border border-secondary btn-md-square rounded-circle bg-white me-4"
+                data-bs-toggle="modal"
+                data-bs-target="#searchModal">
+            <i class="fas fa-search bg-color"></i>
+        </button>
+    </div>
+</div>
             </nav>
         </div>
     </div>
