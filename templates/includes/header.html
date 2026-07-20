@@ -1,868 +1,14 @@
 {% load static %}
 
-<style>
-/* ========================================
-   HEADER STYLES
-======================================== */
-.logo-img {
-    height: 80px !important;
-    width: auto;
-}
-
-.bg-color {
-    color: #6a9e06 !important;
-}
-
-.i-s {
-    color: #ffb524 !important;
-}
-
-/* ========================================
-   MEGA MENU - COMPACT & CLEAN
-======================================== */
-.mega-dropdown {
-    position: static !important;
-}
-
-.mega-menu {
-    width: 100%;
-    left: 0;
-    right: 0;
-    padding: 20px 25px !important;
-    background: #ffffff !important;
-    border: none !important;
-    border-radius: 0 0 12px 12px !important;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.10) !important;
-    margin-top: 8px !important;
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(10px);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    display: block !important;
-    max-height: 75vh;
-    overflow-y: auto;
-}
-
-.mega-dropdown:hover .mega-menu {
-    display: block !important;
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
-}
-
-.mega-category {
-    margin-bottom: 12px !important;
-}
-
-.mega-category-title {
-    color: #6a9e06 !important;
-    font-weight: 700 !important;
-    font-size: 12px !important;
-    text-transform: uppercase !important;
-    letter-spacing: 0.8px !important;
-    margin-bottom: 6px !important;
-    padding-bottom: 4px !important;
-    border-bottom: 1.5px solid rgba(129, 196, 8, 0.15) !important;
-    display: flex !important;
-    align-items: center !important;
-    gap: 6px !important;
-}
-
-.mega-category-title i {
-    font-size: 13px !important;
-    opacity: 0.8 !important;
-    width: 18px !important;
-}
-
-.mega-link {
-    color: #2d3748 !important;
-    font-weight: 500 !important;
-    font-size: 12.5px !important;
-    line-height: 1.4 !important;
-    padding: 3px 0 !important;
-    display: block !important;
-    text-decoration: none !important;
-    transition: all 0.2s ease !important;
-    position: relative !important;
-    padding-left: 0 !important;
-}
-
-.mega-link:hover {
-    color: #6a9e06 !important;
-    padding-left: 10px !important;
-    background: none !important;
-}
-
-.mega-link::before {
-    content: '›';
-    position: absolute;
-    left: -4px;
-    opacity: 0;
-    transition: all 0.2s ease;
-    color: #6a9e06;
-    font-weight: 700;
-}
-
-.mega-link:hover::before {
-    opacity: 1;
-    left: 0;
-}
-
-.mega-link.view-more {
-    color: #6a9e06 !important;
-    font-weight: 600 !important;
-    font-size: 12px !important;
-    margin-top: 3px !important;
-    border-top: 1px solid #f0f2f5 !important;
-    padding-top: 5px !important;
-}
-
-.mega-link.view-more:hover {
-    padding-left: 10px !important;
-}
-
-.mega-link.sub-link {
-    padding-left: 14px !important;
-    font-size: 12px !important;
-    color: #4a5568 !important;
-}
-
-.mega-link.sub-link::before {
-    content: '•';
-    left: 2px;
-    font-size: 14px;
-    opacity: 0.6;
-}
-
-.mega-link.sub-link:hover {
-    padding-left: 22px !important;
-    color: #6a9e06 !important;
-}
-
-.mega-link.sub-link:hover::before {
-    opacity: 1;
-    left: 8px;
-}
-
-.mega-menu::-webkit-scrollbar {
-    width: 5px;
-}
-.mega-menu::-webkit-scrollbar-track {
-    background: #f1f1f1;
-    border-radius: 10px;
-}
-.mega-menu::-webkit-scrollbar-thumb {
-    background: #6a9e06;
-    border-radius: 10px;
-}
-
-/* ========================================
-   SIMPLE DROPDOWN
-======================================== */
-.dropdown-simple {
-    position: relative;
-}
-
-.dropdown-simple .dropdown-menu {
-    background: #ffffff !important;
-    border: none !important;
-    border-radius: 12px !important;
-    box-shadow: 0 15px 50px rgba(0,0,0,0.10) !important;
-    padding: 8px 0 !important;
-    min-width: 220px !important;
-    margin-top: 8px !important;
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(8px);
-    transition: all 0.3s ease;
-    display: block !important;
-}
-
-.dropdown-simple:hover .dropdown-menu,
-.dropdown-simple.show .dropdown-menu {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
-}
-
-.dropdown-simple .dropdown-item {
-    color: #2d3748 !important;
-    font-weight: 500 !important;
-    padding: 6px 20px !important;
-    transition: all 0.2s ease !important;
-    font-size: 13px !important;
-    line-height: 1.4 !important;
-}
-
-.dropdown-simple .dropdown-item:hover {
-    color: #6a9e06 !important;
-    background: rgba(129, 196, 8, 0.06) !important;
-    padding-left: 28px !important;
-}
-
-/* ========================================
-   TOPBAR
-======================================== */
-.topbar {
-    background: #6a9e06 !important;
-}
-.topbar a {
-    color: #fff !important;
-    text-decoration: none;
-}
-.topbar .top-info small,
-.topbar .top-link small {
-    font-size: 12px;
-}
-
-/* ========================================
-   SEARCH MODAL
-======================================== */
-.modal-content {
-    border: none !important;
-    border-radius: 20px !important;
-    box-shadow: 0 25px 80px rgba(0,0,0,0.15) !important;
-}
-
-.modal-header {
-    padding: 20px 30px !important;
-    border-bottom: 1px solid #f0f2f5 !important;
-}
-
-.modal-body {
-    padding: 30px !important;
-}
-
-#headerSearchInput {
-    border-radius: 50px 0 0 50px !important;
-    border: 2px solid #6a9e06 !important;
-    padding: 15px 25px !important;
-    font-size: 16px !important;
-    background: #f8fafc !important;
-}
-
-#headerSearchInput:focus {
-    box-shadow: 0 0 0 4px rgba(129, 196, 8, 0.15) !important;
-    border-color: #6a9e06 !important;
-    background: #ffffff !important;
-    outline: none !important;
-}
-
-#searchSubmitBtn {
-    border-radius: 0 50px 50px 0 !important;
-    background-color: #6a9e06 !important;
-    border-color: #6a9e06 !important;
-    padding: 15px 30px !important;
-    font-weight: 600 !important;
-}
-
-#searchSubmitBtn:hover {
-    background-color: #6a9e06 !important;
-    border-color: #6a9e06 !important;
-}
-
-/* Search Suggestions */
-#searchSuggestions {
-    border-radius: 0 0 12px 12px !important;
-    z-index: 9999 !important;
-}
-
-.suggestion-item {
-    padding: 12px 20px !important;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    border-bottom: 1px solid #f8f9fa;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-
-.suggestion-item:last-child {
-    border-bottom: none;
-}
-
-.suggestion-item:hover {
-    background: #f0fdf4 !important;
-    padding-left: 25px !important;
-}
-
-.suggestion-item .suggestion-icon {
-    width: 32px;
-    height: 32px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: #f0fdf4;
-    border-radius: 50%;
-    color: #6a9e06;
-    font-size: 14px;
-    flex-shrink: 0;
-}
-
-.suggestion-item .suggestion-text {
-    flex: 1;
-}
-
-.suggestion-item .suggestion-text strong {
-    color: #1a202c;
-}
-
-.suggestion-item .suggestion-text .highlight {
-    color: #6a9e06;
-    font-weight: 700;
-}
-
-.suggestion-item .suggestion-category {
-    font-size: 11px;
-    color: #6a9e06;
-    background: #f0fdf4;
-    padding: 2px 10px;
-    border-radius: 12px;
-    font-weight: 600;
-}
-
-.suggestion-empty {
-    padding: 30px 20px;
-    text-align: center;
-    color: #6c757d;
-}
-
-.suggestion-empty i {
-    font-size: 40px;
-    color: #dee2e6;
-    display: block;
-    margin-bottom: 10px;
-}
-
-/* Popular Searches Badges */
-.badge.bg-light {
-    background-color: #f8f9fa !important;
-    border: 1px solid #e9ecef;
-    transition: all 0.3s ease;
-    font-size: 13px;
-    padding: 8px 16px !important;
-}
-
-.badge.bg-light:hover {
-    background-color: #6a9e06 !important;
-    color: #ffffff !important;
-    border-color: #6a9e06 !important;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(129, 196, 8, 0.3);
-}
-
-.badge.bg-light i {
-    font-size: 12px;
-}
-
-#searchLoader {
-    padding: 20px;
-}
-
-/* Scrollbar */
-#searchSuggestions::-webkit-scrollbar {
-    width: 5px;
-}
-#searchSuggestions::-webkit-scrollbar-track {
-    background: #f1f1f1;
-    border-radius: 10px;
-}
-#searchSuggestions::-webkit-scrollbar-thumb {
-    background: #81c408;
-    border-radius: 10px;
-}
-
-/* ========================================
-   RESPONSIVE
-======================================== */
-@media (max-width: 991.98px) {
-    .mega-menu {
-        position: static !important;
-        padding: 15px !important;
-        box-shadow: none !important;
-        border-radius: 0 !important;
-        opacity: 1 !important;
-        visibility: visible !important;
-        transform: none !important;
-        background: #f8fafc !important;
-        margin-top: 0 !important;
-        display: none !important;
-        max-height: none !important;
-        overflow-y: visible !important;
-    }
-    
-    .mega-dropdown.show .mega-menu {
-        display: block !important;
-    }
-    
-    .mega-category {
-        margin-bottom: 10px !important;
-    }
-    
-    .mega-category-title {
-        font-size: 11px !important;
-    }
-    
-    .mega-link {
-        font-size: 12px !important;
-        padding: 2px 0 !important;
-    }
-
-    .dropdown-simple .dropdown-menu {
-        position: static !important;
-        box-shadow: none !important;
-        padding: 5px 0 5px 15px !important;
-        opacity: 1 !important;
-        visibility: visible !important;
-        transform: none !important;
-        background: #f8fafc !important;
-        border-radius: 0 !important;
-        display: none !important;
-    }
-
-    .dropdown-simple.show .dropdown-menu {
-        display: block !important;
-    }
-
-    .dropdown-simple .dropdown-item {
-        padding: 4px 16px !important;
-        font-size: 12px !important;
-    }
-}
-
-@media (max-width: 576px) {
-    .modal-body {
-        padding: 20px !important;
-    }
-    
-    #headerSearchInput {
-        font-size: 14px !important;
-        padding: 12px 20px !important;
-    }
-    
-    #searchSubmitBtn {
-        padding: 12px 20px !important;
-        font-size: 14px !important;
-    }
-    
-    .suggestion-item {
-        padding: 10px 15px !important;
-        font-size: 14px !important;
-    }
-}
-/* ==========================================================
-   COMPLETE RESPONSIVE MEDIA QUERIES
-   ========================================================== */
-
-/* ========================================
-   LARGE DESKTOP - 1400px and above
-======================================== */
-@media (min-width: 1400px) {
-    .navbar-nav .nav-link {
-        font-size: 16px;
-        padding: 10px 18px !important;
-    }
-    .logo-img {
-        height: 90px !important;
-    }
-    .mega-menu {
-        padding: 25px 30px !important;
-    }
-}
-
-/* ========================================
-   DESKTOP - 1200px to 1399px
-======================================== */
-@media (min-width: 1200px) and (max-width: 1399px) {
-    .navbar-nav .nav-link {
-        font-size: 15px;
-        padding: 8px 14px !important;
-    }
-    .logo-img {
-        height: 80px !important;
-    }
-    .mega-menu {
-        padding: 20px 25px !important;
-    }
-}
-
-/* ========================================
-   SMALL DESKTOP - 992px to 1199px
-======================================== */
-@media (min-width: 992px) and (max-width: 1199px) {
-    .navbar-nav .nav-link {
-        font-size: 14px;
-        padding: 6px 10px !important;
-    }
-    .logo-img {
-        height: 70px !important;
-    }
-    .mega-menu {
-        padding: 15px 20px !important;
-    }
-    .mega-category {
-        margin-bottom: 10px !important;
-    }
-    .mega-category-title {
-        font-size: 11px !important;
-    }
-    .mega-link {
-        font-size: 11px !important;
-    }
-    .topbar .top-info small,
-    .topbar .top-link small {
-        font-size: 11px !important;
-    }
-}
-
-/* ========================================
-   TABLET - 768px to 991px
-======================================== */
-@media (max-width: 991.98px) {
-    /* Hide Topbar on tablet */
-    .topbar {
-        display: none !important;
-    }
-    
-    /* Logo */
-    .logo-img {
-        height: 60px !important;
-    }
-    
-    /* Navbar Toggle Button */
-    .navbar-toggler {
-        border: none !important;
-        padding: 8px 12px !important;
-    }
-    .navbar-toggler:focus {
-        box-shadow: none !important;
-    }
-    .navbar-toggler .fa-bars {
-        font-size: 24px;
-        color: #81c408;
-    }
-    
-    /* Navbar Links */
-    .navbar-nav {
-        padding: 10px 0;
-    }
-    .navbar-nav .nav-link {
-        font-size: 15px !important;
-        padding: 10px 15px !important;
-        border-bottom: 1px solid #f0f2f5;
-    }
-    .navbar-nav .nav-link:last-child {
-        border-bottom: none;
-    }
-    
-    /* Mega Menu - Mobile */
-    .mega-dropdown .nav-link {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-    .mega-dropdown .nav-link::after {
-        content: '\f107';
-        font-family: 'Font Awesome 6 Free';
-        font-weight: 900;
-        margin-left: auto;
-    }
-    .mega-dropdown.show .nav-link::after {
-        content: '\f106';
-    }
-    .mega-menu {
-        position: static !important;
-        padding: 15px !important;
-        box-shadow: none !important;
-        border-radius: 0 !important;
-        opacity: 1 !important;
-        visibility: visible !important;
-        transform: none !important;
-        background: #f8fafc !important;
-        margin-top: 0 !important;
-        display: none !important;
-        max-height: none !important;
-        overflow-y: visible !important;
-    }
-    .mega-dropdown.show .mega-menu {
-        display: block !important;
-    }
-    .mega-category {
-        margin-bottom: 10px !important;
-    }
-    .mega-category-title {
-        font-size: 12px !important;
-    }
-    .mega-link {
-        font-size: 13px !important;
-        padding: 4px 0 !important;
-    }
-    
-    /* Simple Dropdown - Mobile */
-    .dropdown-simple .dropdown-menu {
-        position: static !important;
-        box-shadow: none !important;
-        padding: 5px 0 5px 20px !important;
-        opacity: 1 !important;
-        visibility: visible !important;
-        transform: none !important;
-        background: #f8fafc !important;
-        border-radius: 0 !important;
-        display: none !important;
-    }
-    .dropdown-simple.show .dropdown-menu {
-        display: block !important;
-    }
-    .dropdown-simple .dropdown-item {
-        padding: 8px 16px !important;
-        font-size: 14px !important;
-        border-bottom: 1px solid #f0f2f5;
-    }
-    .dropdown-simple .dropdown-item:last-child {
-        border-bottom: none;
-    }
-    .dropdown-simple .dropdown-item i {
-        font-size: 14px !important;
-    }
-    
-    /* Search Button - Mobile */
-    .d-flex.m-3.me-0 {
-        margin: 10px 0 !important;
-        justify-content: center;
-    }
-    .btn-search {
-        width: 45px !important;
-        height: 45px !important;
-        margin-right: 0 !important;
-    }
-}
-
-/* ========================================
-   MOBILE - 576px to 767px
-======================================== */
-@media (min-width: 576px) and (max-width: 767px) {
-    .logo-img {
-        height: 50px !important;
-    }
-    .navbar-nav .nav-link {
-        font-size: 14px !important;
-        padding: 8px 12px !important;
-    }
-    .mega-category-title {
-        font-size: 11px !important;
-    }
-    .mega-link {
-        font-size: 12px !important;
-    }
-    .dropdown-simple .dropdown-item {
-        font-size: 13px !important;
-        padding: 6px 14px !important;
-    }
-    .btn-search {
-        width: 40px !important;
-        height: 40px !important;
-    }
-    /* Search Modal */
-    .modal-body {
-        padding: 20px !important;
-    }
-    #headerSearchInput {
-        font-size: 14px !important;
-        padding: 12px 20px !important;
-    }
-    #searchSubmitBtn {
-        padding: 12px 20px !important;
-        font-size: 14px !important;
-    }
-    .suggestion-item {
-        padding: 10px 15px !important;
-        font-size: 14px !important;
-    }
-}
-
-/* ========================================
-   SMALL MOBILE - 575px and below
-======================================== */
-@media (max-width: 575.98px) {
-    .logo-img {
-        height: 45px !important;
-    }
-    .navbar-brand {
-        padding: 0 !important;
-    }
-    .navbar-toggler {
-        padding: 6px 8px !important;
-    }
-    .navbar-toggler .fa-bars {
-        font-size: 20px;
-    }
-    .navbar-nav .nav-link {
-        font-size: 13px !important;
-        padding: 6px 10px !important;
-    }
-    .mega-category-title {
-        font-size: 10px !important;
-    }
-    .mega-link {
-        font-size: 11px !important;
-        padding: 3px 0 !important;
-    }
-    .dropdown-simple .dropdown-item {
-        font-size: 12px !important;
-        padding: 5px 12px !important;
-    }
-    .btn-search {
-        width: 38px !important;
-        height: 38px !important;
-    }
-    .btn-search i {
-        font-size: 14px !important;
-    }
-    /* Search Modal */
-    .modal-body {
-        padding: 15px !important;
-    }
-    #headerSearchInput {
-        font-size: 12px !important;
-        padding: 10px 15px !important;
-    }
-    #searchSubmitBtn {
-        padding: 10px 15px !important;
-        font-size: 12px !important;
-    }
-    .suggestion-item {
-        padding: 8px 12px !important;
-        font-size: 12px !important;
-    }
-    .suggestion-item .suggestion-icon {
-        width: 28px !important;
-        height: 28px !important;
-        font-size: 12px !important;
-    }
-    .modal-header {
-        padding: 15px 20px !important;
-    }
-    .modal-title {
-        font-size: 16px !important;
-    }
-    .badge.bg-light {
-        font-size: 11px !important;
-        padding: 5px 12px !important;
-    }
-}
-
-/* ========================================
-   EXTRA SMALL MOBILE - 400px and below
-======================================== */
-@media (max-width: 400px) {
-    .logo-img {
-        height: 38px !important;
-    }
-    .navbar-nav .nav-link {
-        font-size: 12px !important;
-        padding: 5px 8px !important;
-    }
-    .navbar-toggler .fa-bars {
-        font-size: 18px;
-    }
-    .btn-search {
-        width: 35px !important;
-        height: 35px !important;
-    }
-    .btn-search i {
-        font-size: 12px !important;
-    }
-    .mega-category-title {
-        font-size: 9px !important;
-        letter-spacing: 0.5px !important;
-    }
-    .mega-link {
-        font-size: 10px !important;
-    }
-    .dropdown-simple .dropdown-item {
-        font-size: 11px !important;
-        padding: 4px 10px !important;
-    }
-    #headerSearchInput {
-        font-size: 11px !important;
-        padding: 8px 12px !important;
-    }
-    #searchSubmitBtn {
-        padding: 8px 12px !important;
-        font-size: 11px !important;
-    }
-    .suggestion-item {
-        padding: 6px 10px !important;
-        font-size: 11px !important;
-    }
-    .modal-body {
-        padding: 12px !important;
-    }
-}
-
-/* ========================================
-   LANDSCAPE MOBILE - Height-based
-======================================== */
-@media (max-height: 600px) {
-    .mega-menu {
-        max-height: 55vh !important;
-    }
-    .modal-body {
-        padding: 15px !important;
-    }
-    #headerSearchInput {
-        padding: 10px 15px !important;
-    }
-}
-
-/* ========================================
-   PRINT STYLES
-======================================== */
-@media print {
-    .topbar,
-    .navbar-toggler,
-    .btn-search,
-    #searchModal {
-        display: none !important;
-    }
-    .navbar {
-        position: static !important;
-    }
-    .logo-img {
-        height: 60px !important;
-    }
-    .navbar-collapse {
-        display: block !important;
-    }
-}
-
-/* ========================================
-   REDUCED MOTION
-======================================== */
-@media (prefers-reduced-motion: reduce) {
-    * {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-    }
-    .mega-menu {
-        transition: none !important;
-    }
-    .dropdown-simple .dropdown-menu {
-        transition: none !important;
-    }
-    .product-img-default,
-    .product-img-hover {
-        transition: none !important;
-    }
-}
-
-</style>
+<link rel="stylesheet" href="{% static 'css/header.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 <header>
     <!-- Spinner Start -->
     <div id="spinner" class="show w-100 vh-100 bg-white position-fixed translate-middle top-50 start-50 d-flex align-items-center justify-content-center">
-        <div class="spinner-grow text-primary" role="status"></div>
+        <div class="spinner-grow text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
     </div>
     <!-- Spinner End -->
 
@@ -872,179 +18,254 @@
             <div class="d-flex justify-content-between">
                 <div class="top-info ps-2">
                     <small class="me-3">
-                        <i class="fas fa-map-marker-alt me-2 i-s"></i>
-                        <a href="#" class="text-white">Address: 297-C, P.I.A. Main Boulevard Road, Lahore Pakistan.</a>
+                        <i class="fas fa-map-marker-alt me-2 i-s" aria-hidden="true"></i>
+                        <span class="text-white">Address: 297-C, P.I.A. Main Boulevard Road, Lahore Pakistan.</span>
                     </small>
                     <small class="me-3">
-                        <i class="fas fa-envelope me-2 i-s"></i>
-                        <a href="#" class="text-white">Email@Example.com</a>
+                        <i class="fas fa-envelope me-2 i-s" aria-hidden="true"></i>
+                        <a href="mailto:Email@Example.com" class="text-white">Email@Example.com</a>
                     </small>
                 </div>
                 <div class="top-link pe-2">
-                    <a href="{% url 'main:privacy-policy' %}" class="text-white"><small class="text-white mx-2">Privacy Policy</small>/</a>
-                    <a href="{% url 'main:terms-of-use' %}" class="text-white"><small class="text-white mx-2">Terms of Use</small></a>
+                    <a href="{% url 'main:privacy-policy' %}" class="text-white">
+                        <small class="text-white mx-2">Privacy Policy</small>
+                    </a>
+                    <span class="text-white">/</span>
+                    <a href="{% url 'main:terms-of-use' %}" class="text-white">
+                        <small class="text-white mx-2">Terms of Use</small>
+                    </a>
                 </div>
             </div>
         </div>
 
         <div class="container px-0">
-            <nav class="navbar navbar-light bg-white navbar-expand-xl">
-                <a href="{% url 'products:home-view' %}" class="navbar-brand">
+            <nav class="navbar navbar-light bg-white navbar-expand-xl" aria-label="Main Navigation">
+                <a href="{% url 'products:home-view' %}" class="navbar-brand" aria-label="Home">
                     <h1 class="text-primary display-6">
-                        <img src="{% static 'logos/logo-.png' %}" class="logo-img" alt="Logo">
+                        <img src="{% static 'logos/logo-.png' %}" class="logo-img" alt="Company Logo">
                     </h1>
                 </a>
 
-                <button class="navbar-toggler py-2 px-3" type="button"
+                <button class="navbar-toggler py-2 px-3" 
+                        type="button"
                         data-bs-toggle="collapse"
-                        data-bs-target="#navbarCollapse">
-                    <span class="fa fa-bars text-primary"></span>
+                        data-bs-target="#navbarCollapse"
+                        aria-controls="navbarCollapse"
+                        aria-expanded="false"
+                        aria-label="Toggle navigation">
+                    <span class="fa fa-bars text-primary" aria-hidden="true"></span>
                 </button>
 
-            <div class="collapse navbar-collapse bg-white" id="navbarCollapse">
-    <div class="navbar-nav mx-auto">
-        <!-- Home -->
-        <a href="{% url 'products:home-view' %}" class="nav-item nav-link {% if request.resolver_match.url_name == 'home-view' %}active{% endif %}">
-            <i class="fas fa-home me-1"></i> Home
-        </a>
-        
-        <!-- Products Mega Menu -->
-        <div class="nav-item mega-dropdown">
-            <a href="{% url 'products:product-list' %}" class="nav-link">
-                <i class="fas fa-box me-1"></i> Products
-            </a>
-            <div class="dropdown-menu mega-menu">
-                <div class="row g-2">
-                    {% for category in menu_categories %}
-                    <div class="col-xl-2 col-lg-3 col-md-4 col-6">
-                        <div class="mega-category">
-                            <div class="mega-category-title">
-                                <i class="fas fa-tag"></i> 
-                                {{ category.title }}
+                <div class="collapse navbar-collapse bg-white" id="navbarCollapse">
+                    <div class="navbar-nav mx-auto">
+                        <!-- Home -->
+                        <a href="{% url 'products:home-view' %}" 
+                           class="nav-item nav-link {% if request.path == '/' %}active{% endif %}">
+                            <i class="fas fa-home me-1" aria-hidden="true"></i> Home
+                        </a>
+                        
+                        <!-- Products Mega Menu -->
+                        <div class="nav-item mega-dropdown" id="productsMegaMenu">
+                            <div class="mobile-menu-head">
+                                <a href="{% url 'products:product-list' %}" 
+                                   class="nav-link {% if 'product' in request.path %}active{% endif %}">
+                                    <i class="fas fa-box me-1" aria-hidden="true"></i> Products
+                                </a>
+                                <button type="button" 
+                                        class="submenu-btn d-xl-none" 
+                                        aria-label="Toggle products submenu"
+                                        aria-expanded="false"
+                                        data-target="productsMegaMenu">
+                                    <i class="fas fa-chevron-right" aria-hidden="true"></i>
+                                </button>
                             </div>
                             
-                            {% for child in category.children.all|slice:":6" %}
-                            <a href="{% url 'products:product-list' %}?category={{ child.slug }}" 
-                               class="mega-link">
-                                {{ child.title }}
-                            </a>
-                            {% endfor %}
-                            
-                            {% if category.children.count > 6 %}
-                            <a href="{% url 'products:product-list' %}?category={{ category.slug }}" 
-                               class="mega-link view-more">
-                                View More →
-                            </a>
+                            {% if menu_categories %}
+                            <div class="dropdown-menu mega-menu" role="menu">
+                                <div class="row g-2">
+                                    {% for category in menu_categories %}
+                                    <div class="col-xl-2 col-lg-3 col-md-4 col-6">
+                                        <div class="mega-category">
+                                            <div class="mega-category-title">
+                                                <i class="fas fa-tag" aria-hidden="true"></i> 
+                                                {{ category.title }}
+                                            </div>
+                                            
+                                            {% for child in category.children.all|slice:":6" %}
+                                            <a href="{% url 'products:product-list' %}?category={{ child.slug }}" 
+                                               class="mega-link"
+                                               role="menuitem">
+                                                {{ child.title }}
+                                            </a>
+                                            {% endfor %}
+                                            
+                                            {% if category.children.count > 6 %}
+                                            <a href="{% url 'products:product-list' %}?category={{ category.slug }}" 
+                                               class="mega-link view-more"
+                                               role="menuitem">
+                                                View More →
+                                            </a>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            {% else %}
+                            <div class="dropdown-menu mega-menu">
+                                <div class="text-muted p-3 text-center">No categories available</div>
+                            </div>
                             {% endif %}
                         </div>
-                    </div>
-                    {% endfor %}
-                </div>
-            </div>
-        </div>
 
-        <!-- Footwear Dropdown -->
-        <div class="nav-item dropdown-simple">
-            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                <i class="fas fa-shoe-prints me-1"></i> Footwear
-            </a>
-            <div class="dropdown-menu">
-                {% for category in menu_categories %}
-                    {% for child in category.children.all %}
-                        {% if 'footwear' in child.slug or 'shoe' in child.slug or 'boot' in child.slug %}
-                        <a href="{% url 'products:product-list' %}?category={{ child.slug }}" 
-                           class="dropdown-item">
-                            <i class="fas fa-shoe-prints me-2 text-primary"></i> {{ child.title }}
-                        </a>
-                        {% endif %}
-                    {% endfor %}
-                {% endfor %}
-            </div>
-        </div>
-
-        <!-- Accessories Mega Menu -->
-        <div class="nav-item mega-dropdown">
-            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                <i class="fas fa-cog me-1"></i> Accessories
-            </a>
-            <div class="dropdown-menu mega-menu">
-                <div class="row g-2">
-                    {% for category in menu_categories %}
-                        {% if 'accessor' in category.slug|lower or 'bag' in category.slug|lower or 'cap' in category.slug|lower or 'watch' in category.slug|lower or 'goggle' in category.slug|lower or 'towel' in category.slug|lower or 'bottle' in category.slug|lower or 'sock' in category.slug|lower or 'tool' in category.slug|lower %}
-                        <div class="col-xl-2 col-lg-3 col-md-4 col-6">
-                            <div class="mega-category">
-                                <div class="mega-category-title">
-                                    <i class="fas fa-tag"></i> 
-                                    {{ category.title }}
-                                </div>
-                                
-                                {% for child in category.children.all|slice:":6" %}
-                                <a href="{% url 'products:product-list' %}?category={{ child.slug }}" 
-                                   class="mega-link">
-                                    {{ child.title }}
-                                </a>
+                        <!-- Footwear Dropdown -->
+                        <div class="nav-item dropdown-simple">
+                            <a href="#" 
+                               class="nav-link dropdown-toggle" 
+                               data-bs-toggle="dropdown" 
+                               role="button"
+                               aria-expanded="false"
+                               aria-haspopup="true">
+                                <i class="fas fa-shoe-prints me-1" aria-hidden="true"></i> Footwear
+                            </a>
+                            <div class="dropdown-menu" role="menu">
+                                {% for category in menu_categories %}
+                                    {% for child in category.children.all %}
+                                        {% if 'footwear' in child.slug or 'shoe' in child.slug or 'boot' in child.slug %}
+                                        <a href="{% url 'products:product-list' %}?category={{ child.slug }}" 
+                                           class="dropdown-item"
+                                           role="menuitem">
+                                            <i class="fas fa-shoe-prints me-2 text-primary" aria-hidden="true"></i> 
+                                            {{ child.title }}
+                                        </a>
+                                        {% endif %}
+                                    {% endfor %}
+                                {% empty %}
+                                <span class="dropdown-item text-muted">No footwear available</span>
                                 {% endfor %}
-                                
-                                {% if category.children.count > 6 %}
-                                <a href="{% url 'products:product-list' %}?category={{ category.slug }}" 
-                                   class="mega-link view-more">
-                                    View More →
-                                </a>
-                                {% endif %}
                             </div>
                         </div>
-                        {% endif %}
-                    {% endfor %}
+
+                        <!-- Accessories Mega Menu -->
+                        <div class="nav-item mega-dropdown" id="accessoriesMegaMenu">
+                            <div class="mobile-menu-head">
+                                <a href="#" 
+                                   class="nav-link dropdown-toggle d-xl-block d-none"
+                                   data-bs-toggle="dropdown"
+                                   role="button"
+                                   aria-expanded="false">
+                                    <i  aria-hidden="true"></i> Accessories
+                                </a>
+                                <a href="#" 
+                                   class="nav-link d-xl-none">
+                                    <i  aria-hidden="true"></i> Accessories
+                                </a>
+                                <button type="button" 
+                                        class="submenu-btn d-xl-none" 
+                                        aria-label="Toggle accessories submenu"
+                                        aria-expanded="false"
+                                        data-target="accessoriesMegaMenu">
+                                    <i class="fas fa-chevron-right" aria-hidden="true"></i>
+                                </button>
+                            </div>
+                            
+                            {% if menu_categories %}
+                            <div class="dropdown-menu mega-menu" role="menu">
+                                <div class="row g-2">
+                                    {% with accessory_slugs='accessor bag cap watch goggle towel bottle sock tool' %}
+                                    {% for category in menu_categories %}
+                                        {% with category_slug=category.slug|lower %}
+                                        {% if 'accessor' in category_slug or 'bag' in category_slug or 'cap' in category_slug or 'watch' in category_slug or 'goggle' in category_slug or 'towel' in category_slug or 'bottle' in category_slug or 'sock' in category_slug or 'tool' in category_slug %}
+                                        <div class="col-xl-2 col-lg-3 col-md-4 col-6">
+                                            <div class="mega-category">
+                                                <div class="mega-category-title">
+                                                    <i class="fas fa-tag" aria-hidden="true"></i> 
+                                                    {{ category.title }}
+                                                </div>
+                                                
+                                                {% for child in category.children.all|slice:":6" %}
+                                                <a href="{% url 'products:product-list' %}?category={{ child.slug }}" 
+                                                   class="mega-link"
+                                                   role="menuitem">
+                                                    {{ child.title }}
+                                                </a>
+                                                {% endfor %}
+                                                
+                                                {% if category.children.count > 6 %}
+                                                <a href="{% url 'products:product-list' %}?category={{ category.slug }}" 
+                                                   class="mega-link view-more"
+                                                   role="menuitem">
+                                                    View More →
+                                                </a>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                        {% endif %}
+                                        {% endwith %}
+                                    {% endfor %}
+                                    {% endwith %}
+                                </div>
+                            </div>
+                            {% else %}
+                            <div class="dropdown-menu mega-menu">
+                                <div class="text-muted p-3 text-center">No accessories available</div>
+                            </div>
+                            {% endif %}
+                        </div>
+
+                        <!-- Services Dropdown -->
+                        <div class="nav-item dropdown-simple">
+                            <a href="{% url 'main:services' %}" 
+                               class="nav-link dropdown-toggle" 
+                               data-bs-toggle="dropdown"
+                               role="button"
+                               aria-expanded="false"
+                               aria-haspopup="true">
+                                <i class="fas fa-tools me-1" aria-hidden="true"></i> Services
+                            </a>
+                            <div class="dropdown-menu" style="min-width: 250px;" role="menu">
+                                <a href="{% url 'main:services' %}#cricket" class="dropdown-item" role="menuitem">
+                                    <i class="fas fa-cricket-ball me-2 text-primary" aria-hidden="true"></i> Cricket Services
+                                </a>
+                                <a href="{% url 'main:services' %}#racket" class="dropdown-item" role="menuitem">
+                                    <i class="fas fa-table-tennis me-2 text-primary" aria-hidden="true"></i> Racket Sports
+                                </a>
+                                <a href="{% url 'main:services' %}#football" class="dropdown-item" role="menuitem">
+                                    <i class="fas fa-futbol me-2 text-primary" aria-hidden="true"></i> Football Services
+                                </a>
+                                <a href="{% url 'main:services' %}#hockey" class="dropdown-item" role="menuitem">
+                                    <i class="fas fa-hockey-stick me-2 text-primary" aria-hidden="true"></i> Hockey Services
+                                </a>
+                                <a href="{% url 'main:services' %}#boxing" class="dropdown-item" role="menuitem">
+                                    <i class="fas fa-fist-raised me-2 text-primary" aria-hidden="true"></i> Boxing/MMA Services
+                                </a>
+                                <div class="dropdown-divider" role="separator"></div>
+                                <a href="{% url 'main:services' %}#custom" class="dropdown-item" role="menuitem">
+                                    <i class="fas fa-paint-brush me-2 text-primary" aria-hidden="true"></i> Custom Services
+                                </a>
+                                <a href="{% url 'contact:contact' %}" class="dropdown-item" role="menuitem">
+                                    <i class="fas fa-headset me-2 text-primary" aria-hidden="true"></i> Book Appointment
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Contact Us -->
+                        <a href="{% url 'contact:contact' %}" 
+                           class="nav-item nav-link {% if 'contact' in request.path %}active{% endif %}">
+                            <i class="fas fa-envelope me-1" aria-hidden="true"></i> Contact Us
+                        </a>
+                    </div>
+
+                    <!-- Search Button -->
+                    <div class="d-flex m-3 me-0">
+                        <button class="btn-search btn border border-secondary btn-md-square rounded-circle bg-white"
+                                data-bs-toggle="modal"
+                                data-bs-target="#searchModal"
+                                aria-label="Open search">
+                            <i class="fas fa-search bg-color" aria-hidden="true"></i>
+                        </button>
+                    </div>
                 </div>
-            </div>
-        </div>
-
-        <!-- Services Dropdown -->
-<div class="nav-item dropdown-simple">
-    <a href="{% url 'main:services' %}" class="nav-link">
-        <i class="fas fa-tools me-1"></i> Services
-    </a>
-    <div class="dropdown-menu" style="min-width: 250px;">
-        <a href="{% url 'main:services' %}#cricket" class="dropdown-item">
-            <i class="fas fa-cricket-ball me-2 text-primary"></i> Cricket Services
-        </a>
-        <a href="{% url 'main:services' %}#racket" class="dropdown-item">
-            <i class="fas fa-table-tennis me-2 text-primary"></i> Racket Sports
-        </a>
-        <a href="{% url 'main:services' %}#football" class="dropdown-item">
-            <i class="fas fa-futbol me-2 text-primary"></i> Football Services
-        </a>
-        <a href="{% url 'main:services' %}#hockey" class="dropdown-item">
-            <i class="fas fa-hockey-stick me-2 text-primary"></i> Hockey Services
-        </a>
-        <a href="{% url 'main:services' %}#boxing" class="dropdown-item">
-            <i class="fas fa-fist-raised me-2 text-primary"></i> Boxing/MMA Services
-        </a>
-        <div class="dropdown-divider"></div>
-        <a href="{% url 'main:services' %}#custom" class="dropdown-item">
-            <i class="fas fa-paint-brush me-2 text-primary"></i> Custom Services
-        </a>
-        <a href="{% url 'contact:contact' %}" class="dropdown-item">
-            <i class="fas fa-headset me-2 text-primary"></i> Book Appointment
-        </a>
-    </div>
-</div>
-
-        <!-- Contact Us -->
-        <a href="{% url 'contact:contact' %}" class="nav-item nav-link">
-            <i class="fas fa-envelope me-1"></i> Contact Us
-        </a>
-    </div>
-
-    <!-- Search Button -->
-    <div class="d-flex m-3 me-0">
-        <button class="btn-search btn border border-secondary btn-md-square rounded-circle bg-white me-4"
-                data-bs-toggle="modal"
-                data-bs-target="#searchModal">
-            <i class="fas fa-search bg-color"></i>
-        </button>
-    </div>
-</div>
             </nav>
         </div>
     </div>
@@ -1053,34 +274,52 @@
     <!-- ======================================== -->
     <!-- SEARCH MODAL -->
     <!-- ======================================== -->
-    <div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal fade" 
+         id="searchModal" 
+         tabindex="-1" 
+         aria-labelledby="searchModalLabel" 
+         aria-hidden="true"
+         role="dialog">
         <div class="modal-dialog modal-lg modal-dialog-centered">
             <div class="modal-content rounded-0">
                 <div class="modal-header border-0">
                     <h5 class="modal-title" id="searchModalLabel">
-                        <i class="fas fa-search me-2 text-primary"></i>Search Products
+                        <i class="fas fa-search me-2 text-primary" aria-hidden="true"></i>Search Products
                     </h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" 
+                            class="btn-close" 
+                            data-bs-dismiss="modal" 
+                            aria-label="Close search"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="{% url 'products:product-list' %}" method="GET" id="headerSearchForm" autocomplete="off">
+                    <form action="{% url 'products:product-list' %}" 
+                          method="GET" 
+                          id="headerSearchForm" 
+                          autocomplete="off"
+                          role="search">
                         <div class="position-relative">
                             <div class="input-group">
+                                <label for="headerSearchInput" class="visually-hidden">Search for products</label>
                                 <input type="search" 
                                        class="form-control form-control-lg" 
                                        name="q" 
                                        id="headerSearchInput"
                                        placeholder="Search for products, brands, categories..." 
-                                       aria-label="Search"
+                                       aria-label="Search for products, brands, categories"
                                        autocomplete="off">
-                                <button class="btn btn-primary px-4" type="submit" id="searchSubmitBtn">
-                                    <i class="fas fa-search me-2"></i> Search
+                                <button class="btn btn-primary px-4" 
+                                        type="submit" 
+                                        id="searchSubmitBtn"
+                                        aria-label="Submit search">
+                                    <i class="fas fa-search me-2" aria-hidden="true"></i> Search
                                 </button>
                             </div>
                             
                             <!-- Live Search Suggestions -->
-                            <div id="searchSuggestions" class="position-absolute w-100 bg-white shadow-lg rounded-3 mt-1 d-none" 
-                                 style="z-index: 9999; max-height: 400px; overflow-y: auto; border: 1px solid #e9ecef;">
+                            <div id="searchSuggestions" 
+                                 class="position-absolute w-100 bg-white shadow-lg rounded-3 mt-1 d-none" 
+                                 style="z-index: 9999; max-height: 400px; overflow-y: auto; border: 1px solid #e9ecef;"
+                                 role="listbox">
                                 <div id="suggestionsList"></div>
                             </div>
                         </div>
@@ -1088,7 +327,7 @@
                         <!-- Loading Spinner -->
                         <div id="searchLoader" class="text-center mt-2 d-none">
                             <div class="spinner-border text-primary" role="status" style="width: 30px; height: 30px;">
-                                <span class="visually-hidden">Loading...</span>
+                                <span class="visually-hidden">Loading search results...</span>
                             </div>
                         </div>
                         
@@ -1096,23 +335,35 @@
                         <div id="popularSearches" class="mt-4">
                             <small class="text-muted">Popular Searches:</small>
                             <div class="d-flex flex-wrap gap-2 mt-2">
-                                <a href="{% url 'products:product-list' %}?q=badminton" class="badge bg-light text-dark p-2 text-decoration-none">
-                                    <i class="fas fa-shuttlecock me-1"></i> Badminton
+                                <a href="{% url 'products:product-list' %}?q=badminton" 
+                                   class="badge bg-light text-dark p-2 text-decoration-none"
+                                   aria-label="Search for badminton">
+                                    <i class="fas fa-shuttlecock me-1" aria-hidden="true"></i> Badminton
                                 </a>
-                                <a href="{% url 'products:product-list' %}?q=tennis" class="badge bg-light text-dark p-2 text-decoration-none">
-                                    <i class="fas fa-table-tennis me-1"></i> Tennis
+                                <a href="{% url 'products:product-list' %}?q=tennis" 
+                                   class="badge bg-light text-dark p-2 text-decoration-none"
+                                   aria-label="Search for tennis">
+                                    <i class="fas fa-table-tennis me-1" aria-hidden="true"></i> Tennis
                                 </a>
-                                <a href="{% url 'products:product-list' %}?q=cricket" class="badge bg-light text-dark p-2 text-decoration-none">
-                                    <i class="fas fa-baseball-ball me-1"></i> Cricket
+                                <a href="{% url 'products:product-list' %}?q=cricket" 
+                                   class="badge bg-light text-dark p-2 text-decoration-none"
+                                   aria-label="Search for cricket">
+                                    <i class="fas fa-baseball-ball me-1" aria-hidden="true"></i> Cricket
                                 </a>
-                                <a href="{% url 'products:product-list' %}?q=football" class="badge bg-light text-dark p-2 text-decoration-none">
-                                    <i class="fas fa-futbol me-1"></i> Football
+                                <a href="{% url 'products:product-list' %}?q=football" 
+                                   class="badge bg-light text-dark p-2 text-decoration-none"
+                                   aria-label="Search for football">
+                                    <i class="fas fa-futbol me-1" aria-hidden="true"></i> Football
                                 </a>
-                                <a href="{% url 'products:product-list' %}?q=shoes" class="badge bg-light text-dark p-2 text-decoration-none">
-                                    <i class="fas fa-shoe-prints me-1"></i> Shoes
+                                <a href="{% url 'products:product-list' %}?q=shoes" 
+                                   class="badge bg-light text-dark p-2 text-decoration-none"
+                                   aria-label="Search for shoes">
+                                    <i class="fas fa-shoe-prints me-1" aria-hidden="true"></i> Shoes
                                 </a>
-                                <a href="{% url 'products:product-list' %}?q=bags" class="badge bg-light text-dark p-2 text-decoration-none">
-                                    <i class="fas fa-bag me-1"></i> Bags
+                                <a href="{% url 'products:product-list' %}?q=bags" 
+                                   class="badge bg-light text-dark p-2 text-decoration-none"
+                                   aria-label="Search for bags">
+                                    <i class="fas fa-bag me-1" aria-hidden="true"></i> Bags
                                 </a>
                             </div>
                         </div>
@@ -1123,11 +374,79 @@
     </div>
 </header>
 
+
 <!-- ======================================== -->
-<!-- SEARCH JAVASCRIPT -->
+<!-- SEARCH JAVASCRIPT - FIXED VERSION -->
 <!-- ======================================== -->
 <script>
 document.addEventListener('DOMContentLoaded', function() {
+    'use strict';
+    
+    // ============================
+    // SPINNER HANDLING
+    // ============================
+    const spinner = document.getElementById('spinner');
+    if (spinner) {
+        spinner.classList.remove('show');
+        spinner.classList.add('d-none');
+    }
+
+    // ============================
+    // SUBMENU BUTTON TOGGLE (Fixed)
+    // ============================
+    document.querySelectorAll(".submenu-btn").forEach(function(btn) {
+        btn.addEventListener("click", function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            // Toggle button active state
+            this.classList.toggle("active");
+            const icon = this.querySelector('i');
+            if (icon) {
+                icon.style.transform = this.classList.contains('active') ? 'rotate(90deg)' : 'rotate(0deg)';
+            }
+            
+            // Find parent mega-dropdown and toggle
+            const parent = this.closest(".mega-dropdown");
+            if (parent) {
+                parent.classList.toggle("show");
+                
+                // Update aria-expanded
+                const isExpanded = parent.classList.contains('show');
+                this.setAttribute('aria-expanded', isExpanded);
+                
+                // Find and toggle the mega menu
+                const menu = parent.querySelector(".mega-menu");
+                if (menu) {
+                    menu.style.display = isExpanded ? 'block' : 'none';
+                }
+            }
+        });
+    });
+
+    // ============================
+    // DROPDOWN TOGGLE FOR MOBILE
+    // ============================
+    document.querySelectorAll('.dropdown-simple .dropdown-toggle').forEach(function(toggle) {
+        toggle.addEventListener('click', function(e) {
+            if (window.innerWidth <= 991.98) {
+                e.preventDefault();
+                const parent = this.closest('.dropdown-simple');
+                if (parent) {
+                    parent.classList.toggle('show');
+                    const menu = parent.querySelector('.dropdown-menu');
+                    if (menu) {
+                        menu.style.display = parent.classList.contains('show') ? 'block' : 'none';
+                    }
+                    this.setAttribute('aria-expanded', parent.classList.contains('show'));
+                }
+            }
+        });
+    });
+
+    // ============================
+    // SEARCH FUNCTIONALITY - FIXED
+    // ============================
     const searchInput = document.getElementById('headerSearchInput');
     const suggestionsDiv = document.getElementById('searchSuggestions');
     const suggestionsList = document.getElementById('suggestionsList');
@@ -1233,19 +552,31 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
-    // Fetch suggestions
+    // ========================================
+    // FETCH SUGGESTIONS - FIXED URL
+    // ========================================
     function fetchSuggestions(query) {
         if (isProcessing) return;
         isProcessing = true;
         
-        fetch(`/products/search-suggestions/?q=${encodeURIComponent(query)}`, {
+        // FIXED: Use the correct URL pattern name with underscore
+        // Using a dynamic approach to avoid template tag issues in JavaScript
+        const searchUrl = window.searchSuggestionsUrl || '/products/search-suggestions/';
+        const url = searchUrl + '?q=' + encodeURIComponent(query);
+        
+        fetch(url, {
             method: 'GET',
             headers: {
                 'X-Requested-With': 'XMLHttpRequest',
             }
         })
-        .then(response => response.json())
-        .then(data => {
+        .then(function(response) {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(function(data) {
             searchLoader.classList.add('d-none');
             isProcessing = false;
             
@@ -1257,8 +588,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 suggestionsDiv.classList.remove('d-none');
                 suggestionsList.innerHTML = `
                     <div class="suggestion-empty">
-                        <i class="fas fa-search"></i>
-                        <div>No results found for "<strong>${query}</strong>"</div>
+                        <i class="fas fa-search" aria-hidden="true"></i>
+                        <div>No results found for "<strong>${escapeHtml(query)}</strong>"</div>
                         <small class="text-muted">Try searching with different keywords</small>
                     </div>
                 `;
@@ -1266,7 +597,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         })
         .catch(function(error) {
-            console.error('Error:', error);
+            console.error('Search error:', error);
             searchLoader.classList.add('d-none');
             isProcessing = false;
             suggestionsDiv.classList.add('d-none');
@@ -1274,7 +605,9 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Render suggestions
+    // ========================================
+    // RENDER SUGGESTIONS
+    // ========================================
     function renderSuggestions(suggestions) {
         let html = '';
         
@@ -1283,17 +616,22 @@ document.addEventListener('DOMContentLoaded', function() {
             const url = item.url || '';
             
             html += `
-                <div class="suggestion-item" data-query="${item.name}" data-url="${url}" data-index="${index}">
+                <div class="suggestion-item" 
+                     data-query="${escapeHtml(item.name)}" 
+                     data-url="${escapeHtml(url)}" 
+                     data-index="${index}"
+                     role="option"
+                     aria-selected="false">
                     <div class="suggestion-icon">
-                        <i class="${icon}"></i>
+                        <i class="${escapeHtml(icon)}" aria-hidden="true"></i>
                     </div>
                     <div class="suggestion-text">
                         <div>
-                            <strong>${highlightName(item.name)}</strong>
-                            <small class="text-muted ms-2">${item.category || ''}</small>
+                            <strong>${highlightName(escapeHtml(item.name))}</strong>
+                            ${item.category ? `<small class="text-muted ms-2">${escapeHtml(item.category)}</small>` : ''}
                         </div>
                     </div>
-                    <div class="suggestion-category">${item.type || 'Product'}</div>
+                    <div class="suggestion-category">${escapeHtml(item.type || 'Product')}</div>
                 </div>
             `;
         });
@@ -1322,31 +660,58 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Highlight search term
+    // ========================================
+    // HIGHLIGHT SEARCH TERM
+    // ========================================
     function highlightName(name) {
         const query = searchInput.value.trim();
         if (!query) return name;
         
         try {
-            const regex = new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+            const regex = new RegExp('(' + escapeRegExp(query) + ')', 'gi');
             return name.replace(regex, '<span class="highlight">$1</span>');
         } catch (e) {
             return name;
         }
     }
     
-    // Update selected item
+    // ========================================
+    // UPDATE SELECTED ITEM
+    // ========================================
     function updateSelectedItem(items, index) {
         items.forEach(function(item, i) {
             if (i === index) {
                 item.style.background = '#f0fdf4';
                 item.style.paddingLeft = '25px';
+                item.setAttribute('aria-selected', 'true');
                 item.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
             } else {
                 item.style.background = '';
                 item.style.paddingLeft = '';
+                item.setAttribute('aria-selected', 'false');
             }
         });
     }
+    
+    // ========================================
+    // UTILITY FUNCTIONS
+    // ========================================
+    function escapeHtml(text) {
+        if (!text) return '';
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+    }
+    
+    function escapeRegExp(string) {
+        if (!string) return '';
+        return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    }
 });
+
+// ========================================
+// SET SEARCH URL IN WINDOW OBJECT
+// This avoids Django template tag issues in JavaScript
+// ========================================
+window.searchSuggestionsUrl = "{% url 'products:search_suggestions' %}";
 </script>

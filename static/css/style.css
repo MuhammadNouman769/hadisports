@@ -491,3 +491,30 @@
 }
 /*** Footer End ***/
 
+/* Mobile */
+@media (max-width: 767.98px){
+
+    .category-tabs{
+        display:flex !important;
+        flex-wrap:nowrap !important;
+        overflow-x:auto;
+        overflow-y:hidden;
+        white-space:nowrap;
+        gap:12px;
+        padding-bottom:8px;
+        scrollbar-width:none;
+        -ms-overflow-style:none;
+    }
+
+    .category-tabs::-webkit-scrollbar{
+        display:none;
+    }
+
+    .category-tabs .btn,
+    .category-tabs .category-btn{
+        flex:0 0 auto;
+        white-space:nowrap;
+        min-width:150px;
+    }
+
+}

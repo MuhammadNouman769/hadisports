@@ -12,6 +12,8 @@ from apps.products.models.product_variant import ProductVariant
 from apps.products.models.variant_image import VariantImage
 from apps.testimonials.models.testimonial import Testimonial
 from apps.main.models import HeroBanner
+from django.views.decorators.http import require_GET
+
 
 """ ========================= Home View ========================= """
 class HomeView(TemplateView):
@@ -332,6 +334,7 @@ class ProductDetailView(DetailView):
 """ ========================= AJAX Search Suggestions View ========================="""
 
 
+@require_GET
 def search_suggestions(request):
     """
     AJAX endpoint for live search suggestions.
@@ -342,7 +345,7 @@ def search_suggestions(request):
         return JsonResponse({'suggestions': []})
     
     suggestions = []
-    seen = set()  # To avoid duplicates
+    seen = set()
     
     # ==========================================
     # 1. Search Products
@@ -362,7 +365,7 @@ def search_suggestions(request):
                 'category': product.category.title if product.category else 'Product',
                 'type': 'Product',
                 'icon': 'fas fa-box',
-                'url': f"/product/{product.slug}/" if hasattr(product, 'slug') else None
+                'url': product.get_absolute_url() if hasattr(product, 'get_absolute_url') else None
             })
     
     # ==========================================
@@ -385,12 +388,13 @@ def search_suggestions(request):
             })
     
     # ==========================================
-    # 3. Search Brands (from products)
+    # 3. Search Brands
     # ==========================================
     brands = Product.objects.filter(
         brand__icontains=query,
         is_active=True
-    ).values_list('brand', flat=True).distinct()[:3]
+    ).exclude(brand__isnull=True).exclude(brand__exact='') \
+     .values_list('brand', flat=True).distinct()[:3]
     
     for brand in brands:
         if brand and brand not in seen:
@@ -403,4 +407,4 @@ def search_suggestions(request):
                 'url': f"/products/?q={brand}"
             })
     
-    return JsonResponse({'suggestions': suggestions})        
+    return JsonResponse({'suggestions': suggestions[:15]})

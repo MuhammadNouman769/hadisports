@@ -8,6 +8,7 @@ urlpatterns = [
     path("", HomeView.as_view(), name="home-view"),
     path("products/", ProductListView.as_view(), name="product-list"),
     path("product/<slug:slug>/", ProductDetailView.as_view(), name="product-detail"),
-    path('search-suggestions/', search_suggestions, name='search-suggestions'),
+    path('search-suggestions/', search_suggestions, name='search_suggestions'),
+
 
 ]
