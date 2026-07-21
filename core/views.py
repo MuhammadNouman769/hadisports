@@ -3,6 +3,12 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 import logging
+from django.http import FileResponse, Http404
+from django.conf import settings
+import os
+
+
+
 
 logger = logging.getLogger(__name__)
 
@@ -36,3 +42,14 @@ def custom_500(request):
     return render(request, '500.html', {
         'site_settings': site_settings
     }, status=500)
+
+
+
+def serve_media(request, path):
+    """Serve media files in production with DEBUG=False"""
+    file_path = os.path.join(settings.MEDIA_ROOT, path)
+    
+    if os.path.exists(file_path):
+        return FileResponse(open(file_path, 'rb'))
+    else:
+        raise Http404("File not found")    

@@ -1,9 +1,10 @@
-# core/urls.py
+# core/urls.py - Clean Version
 
 from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from core.views import serve_media
 
 urlpatterns = [
     path('nested_admin/', include('nested_admin.urls')),
@@ -11,14 +12,16 @@ urlpatterns = [
     path('', include('apps.products.urls')),
     path('', include('apps.main.urls')),
     path('', include('apps.contact.urls')),
+    path('media/<path:path>/', serve_media, name='serve_media'),  # ← Custom view
 ]
 
-# ============================================================
-# SERVE STATIC & MEDIA FILES IN DEVELOPMENT
-# ============================================================
+# ============================================
+# MEDIA & STATIC FILES SERVING (Development)
+# ============================================
+# Sirf development mein Django serve karega
 if settings.DEBUG:
-    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 # ============================================================
 # ERROR HANDLERS

@@ -902,7 +902,7 @@
             {% for banner in hero_banners %}
 
             <div class="carousel-item {% if forloop.first %}active{% endif %}"
-                 style="background-image:url('{% if banner.image %}{{ banner.image.url }}{% else %}{% static "img/hero-img-1.png" %}{% endif %}');">
+                 style="background-image:url('{% if banner.image %}{{ banner.image.url }}{% else %}{% static "img/banner.png" %}{% endif %}');">
 
                 <div class="hero-overlay"></div>
 
@@ -923,7 +923,7 @@
                             </h1>
 
                             <p>
-                                {{ banner.description|truncatechars:45|default:"Your one-stop shop for premium sports equipment and accessories." }}
+                                {{ banner.description|truncatechars:40|default:"Your one-stop shop for premium sports equipment and accessories." }}
                             </p>
 
                             <div class="hero-buttons mt-4">
