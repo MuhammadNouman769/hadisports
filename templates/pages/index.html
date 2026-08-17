@@ -3,7 +3,6 @@
 {% block title %}Home | Hadi Sports{% endblock %}
 {% block content %}
 
-
 <style>
     /* ==========================================================
        ONLY IMAGE HOVER EFFECT - NO OTHER EFFECTS
@@ -912,42 +911,7 @@
 
                         <div class="col-xl-6 col-lg-7 col-md-10 hero-content">
 
-                            <span class="badge rounded-pill mb-3">
-                                <i class="fas fa-tag me-2"></i>
-                                New Collection
-                            </span>
-
-                            <h1>
-                                {{ banner.title|truncatechars:25|default:"Premium Sports" }}
-                                <span class="text-primary">Equipment</span>
-                            </h1>
-
-                            <p>
-                                {{ banner.description|truncatechars:40|default:"Your one-stop shop for premium sports equipment and accessories." }}
-                            </p>
-
-                            <div class="hero-buttons mt-4">
-
-                                <a href="{% url 'products:product-list' %}"
-                                   class="btn btn-primary-custom">
-
-                                    {{ banner.button_text|default:"Shop Now" }}
-
-                                    <i class="fas fa-arrow-right ms-2"></i>
-
-                                </a>
-
-                                <a href="{% url 'main:services' %}"
-                                   class="btn btn-outline-custom">
-
-                                    <i class="fas fa-tools me-2"></i>
-
-                                    Our Services
-
-                                </a>
-
-                            </div>
-
+                          
                         </div>
 
                     </div>
@@ -969,44 +933,8 @@
 
                         <div class="col-xl-6 col-lg-7 col-md-10 hero-content">
 
-                            <span class="badge rounded-pill mb-3">
-                                <i class="fas fa-tag me-2"></i>
-                                New Collection
-                            </span>
-
-                            <h1>
-                                Welcome to
-                                <span class="text-primary">
-                                    Hadi Sports
-                                </span>
-                            </h1>
-
-                            <p>
-                                Your one-stop shop for premium sports equipment and accessories.
-                            </p>
-
-                            <div class="hero-buttons mt-4">
-
-                                <a href="{% url 'products:product-list' %}"
-                                   class="btn btn-primary-custom">
-
-                                    Shop Now
-
-                                    <i class="fas fa-arrow-right ms-2"></i>
-
-                                </a>
-
-                                <a href="{% url 'main:services' %}"
-                                   class="btn btn-outline-custom">
-
-                                    <i class="fas fa-tools me-2"></i>
-
-                                    Our Services
-
-                                </a>
-
-                            </div>
-
+                          
+                          
                             <div class="search-box mt-4">
 
                                 <form action="{% url 'products:product-list' %}"

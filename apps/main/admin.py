@@ -20,24 +20,16 @@ class HeroBannerAdmin(admin.ModelAdmin):
     list_display = (
         'id',
         'image_preview',
-        'title',
         'display_order',
         'is_active',
     )
     
     list_filter = ('is_active',)
-    search_fields = ('title', 'description')
     list_editable = ('display_order', 'is_active')
     
     fieldsets = (
-        ('Content', {
-            'fields': ('title', 'description')
-        }),
         ('Image', {
             'fields': ('image', 'image_preview')
-        }),
-        ('Button', {
-            'fields': ('button_text',)  
         }),
         ('Settings', {
             'fields': ('display_order', 'is_active')
