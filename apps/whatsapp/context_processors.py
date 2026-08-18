@@ -1,5 +1,5 @@
 
-from apps.whatspp.models.whatsapp_setting import SiteSetting
+from apps.whatsapp.models.whatsapp_setting import SiteSetting
 
 
 def site_settings(request):

@@ -3,6 +3,145 @@
 <link rel="stylesheet" href="{% static 'css/header.css' %}">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
+<style>
+/* ==========================================================
+   CART BADGE STYLES
+========================================================== */
+.cart-icon-wrapper {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cart-badge {
+    position: absolute;
+    top: -8px;
+    right: -10px;
+    background: #dc3545;
+    color: #ffffff;
+    border-radius: 50%;
+    padding: 2px 7px;
+    font-size: 10px;
+    font-weight: 700;
+    min-width: 18px;
+    text-align: center;
+    line-height: 1.4;
+    display: none;
+    border: 2px solid #ffffff;
+    box-shadow: 0 2px 6px rgba(220, 53, 69, 0.3);
+}
+
+.cart-badge.show {
+    display: block;
+    animation: badgePop 0.3s ease;
+}
+
+@keyframes badgePop {
+    0% { transform: scale(0.5); opacity: 0; }
+    70% { transform: scale(1.2); }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+.cart-btn {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 14px;
+    border-radius: 50px;
+    background: #f8fafc;
+    border: 1px solid #e9ecef;
+    transition: all 0.3s ease;
+    color: #1a202c;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.cart-btn:hover {
+    background: #81c408;
+    border-color: #81c408;
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(129, 196, 8, 0.3);
+}
+
+.cart-btn i {
+    font-size: 18px;
+}
+
+.cart-btn .cart-text {
+    display: none;
+}
+
+@media (min-width: 768px) {
+    .cart-btn .cart-text {
+        display: inline;
+    }
+}
+
+/* Header search and cart container */
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.btn-search {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    border: 1px solid #e9ecef;
+    background: #f8fafc;
+    color: #1a202c;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.btn-search:hover {
+    background: #81c408;
+    border-color: #81c408;
+    color: #ffffff;
+    transform: translateY(-2px);
+}
+
+.btn-search i {
+    font-size: 16px;
+}
+
+/* Responsive */
+@media (max-width: 991.98px) {
+    .header-actions {
+        padding: 10px 0;
+        justify-content: center;
+    }
+    .cart-btn .cart-text {
+        display: inline;
+    }
+}
+
+@media (max-width: 576px) {
+    .cart-btn {
+        padding: 6px 12px;
+        font-size: 12px;
+    }
+    .cart-btn i {
+        font-size: 15px;
+    }
+    .btn-search {
+        width: 36px;
+        height: 36px;
+    }
+    .btn-search i {
+        font-size: 14px;
+    }
+}
+</style>
+
 <header>
     <!-- Spinner Start -->
     <div id="spinner" class="show w-100 vh-100 bg-white position-fixed translate-middle top-50 start-50 d-flex align-items-center justify-content-center">
@@ -154,11 +293,11 @@
                                    data-bs-toggle="dropdown"
                                    role="button"
                                    aria-expanded="false">
-                                    <i  aria-hidden="true"></i> Accessories
+                                    <i aria-hidden="true"></i> Accessories
                                 </a>
                                 <a href="#" 
                                    class="nav-link d-xl-none">
-                                    <i  aria-hidden="true"></i> Accessories
+                                    <i aria-hidden="true"></i> Accessories
                                 </a>
                                 <button type="button" 
                                         class="submenu-btn d-xl-none" 
@@ -256,14 +395,29 @@
                         </a>
                     </div>
 
-                    <!-- Search Button -->
-                    <div class="d-flex m-3 me-0">
-                        <button class="btn-search btn border border-secondary btn-md-square rounded-circle bg-white"
+                    <!-- ======================================== -->
+                    <!-- HEADER ACTIONS: SEARCH + CART -->
+                    <!-- ======================================== -->
+                    <div class="header-actions">
+                        <!-- Search Button -->
+                        <button class="btn-search" 
                                 data-bs-toggle="modal"
                                 data-bs-target="#searchModal"
                                 aria-label="Open search">
-                            <i class="fas fa-search bg-color" aria-hidden="true"></i>
+                            <i class="fas fa-search" aria-hidden="true"></i>
                         </button>
+                        
+                        <!-- Cart Button with Live Badge -->
+                        <a href="{% url 'cart:view' %}" 
+                           class="cart-btn" 
+                           id="cartBtn"
+                           aria-label="View shopping cart">
+                            <span class="cart-icon-wrapper">
+                                <i class="fas fa-shopping-cart" aria-hidden="true"></i>
+                                <span class="cart-badge" id="cartBadge">0</span>
+                            </span>
+                            <span class="cart-text">Cart</span>
+                        </a>
                     </div>
                 </div>
             </nav>
@@ -374,18 +528,61 @@
     </div>
 </header>
 
-
 <!-- ======================================== -->
-<!-- SEARCH JAVASCRIPT - FIXED VERSION -->
+<!-- LIVE CART BADGE UPDATE JAVASCRIPT -->
 <!-- ======================================== -->
 <script>
+// ==========================================================
+// UPDATE CART BADGE - LIVE
+// ==========================================================
+function updateCartBadge() {
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', '/cart/get-count/', true);
+    xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+    
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            try {
+                var data = JSON.parse(xhr.responseText);
+                var badge = document.getElementById('cartBadge');
+                if (badge) {
+                    var totalItems = data.total_items || 0;
+                    if (totalItems > 0) {
+                        badge.textContent = totalItems;
+                        badge.classList.add('show');
+                    } else {
+                        badge.classList.remove('show');
+                    }
+                }
+            } catch (e) {
+                // Silent fail
+            }
+        }
+    };
+    xhr.send();
+}
+
+// ==========================================================
+// UPDATE BADGE ON PAGE LOAD
+// ==========================================================
+document.addEventListener('DOMContentLoaded', function() {
+    // Update cart badge
+    updateCartBadge();
+    
+    // Update badge every 30 seconds (for safety)
+    setInterval(updateCartBadge, 30000);
+});
+
+// ==========================================================
+// SEARCH FUNCTIONALITY - FIXED
+// ==========================================================
 document.addEventListener('DOMContentLoaded', function() {
     'use strict';
     
     // ============================
     // SPINNER HANDLING
     // ============================
-    const spinner = document.getElementById('spinner');
+    var spinner = document.getElementById('spinner');
     if (spinner) {
         spinner.classList.remove('show');
         spinner.classList.add('d-none');
@@ -399,24 +596,18 @@ document.addEventListener('DOMContentLoaded', function() {
             e.preventDefault();
             e.stopPropagation();
             
-            // Toggle button active state
             this.classList.toggle("active");
-            const icon = this.querySelector('i');
+            var icon = this.querySelector('i');
             if (icon) {
                 icon.style.transform = this.classList.contains('active') ? 'rotate(90deg)' : 'rotate(0deg)';
             }
             
-            // Find parent mega-dropdown and toggle
-            const parent = this.closest(".mega-dropdown");
+            var parent = this.closest(".mega-dropdown");
             if (parent) {
                 parent.classList.toggle("show");
-                
-                // Update aria-expanded
-                const isExpanded = parent.classList.contains('show');
+                var isExpanded = parent.classList.contains('show');
                 this.setAttribute('aria-expanded', isExpanded);
-                
-                // Find and toggle the mega menu
-                const menu = parent.querySelector(".mega-menu");
+                var menu = parent.querySelector(".mega-menu");
                 if (menu) {
                     menu.style.display = isExpanded ? 'block' : 'none';
                 }
@@ -431,10 +622,10 @@ document.addEventListener('DOMContentLoaded', function() {
         toggle.addEventListener('click', function(e) {
             if (window.innerWidth <= 991.98) {
                 e.preventDefault();
-                const parent = this.closest('.dropdown-simple');
+                var parent = this.closest('.dropdown-simple');
                 if (parent) {
                     parent.classList.toggle('show');
-                    const menu = parent.querySelector('.dropdown-menu');
+                    var menu = parent.querySelector('.dropdown-menu');
                     if (menu) {
                         menu.style.display = parent.classList.contains('show') ? 'block' : 'none';
                     }
@@ -445,30 +636,30 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // ============================
-    // SEARCH FUNCTIONALITY - FIXED
+    // SEARCH FUNCTIONALITY
     // ============================
-    const searchInput = document.getElementById('headerSearchInput');
-    const suggestionsDiv = document.getElementById('searchSuggestions');
-    const suggestionsList = document.getElementById('suggestionsList');
-    const popularSearches = document.getElementById('popularSearches');
-    const searchLoader = document.getElementById('searchLoader');
-    const searchModal = document.getElementById('searchModal');
-    let searchTimeout;
-    let isProcessing = false;
-    let selectedIndex = -1;
+    var searchInput = document.getElementById('headerSearchInput');
+    var suggestionsDiv = document.getElementById('searchSuggestions');
+    var suggestionsList = document.getElementById('suggestionsList');
+    var popularSearches = document.getElementById('popularSearches');
+    var searchLoader = document.getElementById('searchLoader');
+    var searchModal = document.getElementById('searchModal');
+    var searchTimeout;
+    var isProcessing = false;
+    var selectedIndex = -1;
 
     if (!searchInput) return;
 
     // Auto focus on modal open
     if (searchModal) {
-        searchModal.addEventListener('shown.bs.modal', function () {
+        searchModal.addEventListener('shown.bs.modal', function() {
             setTimeout(function() {
                 searchInput.focus();
                 searchInput.select();
             }, 500);
         });
         
-        searchModal.addEventListener('hidden.bs.modal', function () {
+        searchModal.addEventListener('hidden.bs.modal', function() {
             searchInput.value = '';
             suggestionsDiv.classList.add('d-none');
             popularSearches.classList.remove('d-none');
@@ -478,7 +669,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Input event - live search
     searchInput.addEventListener('input', function() {
-        const query = this.value.trim();
+        var query = this.value.trim();
         
         clearTimeout(searchTimeout);
         selectedIndex = -1;
@@ -505,7 +696,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Keyboard navigation
     searchInput.addEventListener('keydown', function(e) {
-        const items = suggestionsList.querySelectorAll('.suggestion-item');
+        var items = suggestionsList.querySelectorAll('.suggestion-item');
         
         if (e.key === 'ArrowDown') {
             e.preventDefault();
@@ -522,12 +713,12 @@ document.addEventListener('DOMContentLoaded', function() {
         } else if (e.key === 'Enter') {
             if (selectedIndex >= 0 && items.length > 0) {
                 e.preventDefault();
-                const selectedItem = items[selectedIndex];
-                const url = selectedItem.dataset.url;
+                var selectedItem = items[selectedIndex];
+                var url = selectedItem.dataset.url;
                 if (url) {
                     window.location.href = url;
                 } else {
-                    const query = selectedItem.dataset.query;
+                    var query = selectedItem.dataset.query;
                     if (query) {
                         searchInput.value = query;
                         document.getElementById('headerSearchForm').submit();
@@ -543,7 +734,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Click outside to close
     document.addEventListener('click', function(e) {
-        const searchContainer = document.querySelector('.position-relative');
+        var searchContainer = document.querySelector('.position-relative');
         if (searchContainer && !searchContainer.contains(e.target) && e.target !== searchInput) {
             suggestionsDiv.classList.add('d-none');
             if (!searchInput.value.trim()) {
@@ -553,16 +744,14 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
     // ========================================
-    // FETCH SUGGESTIONS - FIXED URL
+    // FETCH SUGGESTIONS
     // ========================================
     function fetchSuggestions(query) {
         if (isProcessing) return;
         isProcessing = true;
         
-        // FIXED: Use the correct URL pattern name with underscore
-        // Using a dynamic approach to avoid template tag issues in JavaScript
-        const searchUrl = window.searchSuggestionsUrl || '/products/search-suggestions/';
-        const url = searchUrl + '?q=' + encodeURIComponent(query);
+        var searchUrl = window.searchSuggestionsUrl || '/products/search-suggestions/';
+        var url = searchUrl + '?q=' + encodeURIComponent(query);
         
         fetch(url, {
             method: 'GET',
@@ -586,18 +775,17 @@ document.addEventListener('DOMContentLoaded', function() {
                 popularSearches.classList.add('d-none');
             } else {
                 suggestionsDiv.classList.remove('d-none');
-                suggestionsList.innerHTML = `
-                    <div class="suggestion-empty">
-                        <i class="fas fa-search" aria-hidden="true"></i>
-                        <div>No results found for "<strong>${escapeHtml(query)}</strong>"</div>
-                        <small class="text-muted">Try searching with different keywords</small>
-                    </div>
-                `;
+                suggestionsList.innerHTML = 
+                    '<div class="suggestion-empty">' +
+                    '<i class="fas fa-search" aria-hidden="true"></i>' +
+                    '<div>No results found for "<strong>' + escapeHtml(query) + '</strong>"</div>' +
+                    '<small class="text-muted">Try searching with different keywords</small>' +
+                    '</div>';
                 popularSearches.classList.add('d-none');
             }
         })
         .catch(function(error) {
-            console.error('Search error:', error);
+            // Silent fail
             searchLoader.classList.add('d-none');
             isProcessing = false;
             suggestionsDiv.classList.add('d-none');
@@ -609,42 +797,35 @@ document.addEventListener('DOMContentLoaded', function() {
     // RENDER SUGGESTIONS
     // ========================================
     function renderSuggestions(suggestions) {
-        let html = '';
+        var html = '';
         
         suggestions.forEach(function(item, index) {
-            const icon = item.icon || 'fas fa-tag';
-            const url = item.url || '';
+            var icon = item.icon || 'fas fa-tag';
+            var url = item.url || '';
             
-            html += `
-                <div class="suggestion-item" 
-                     data-query="${escapeHtml(item.name)}" 
-                     data-url="${escapeHtml(url)}" 
-                     data-index="${index}"
-                     role="option"
-                     aria-selected="false">
-                    <div class="suggestion-icon">
-                        <i class="${escapeHtml(icon)}" aria-hidden="true"></i>
-                    </div>
-                    <div class="suggestion-text">
-                        <div>
-                            <strong>${highlightName(escapeHtml(item.name))}</strong>
-                            ${item.category ? `<small class="text-muted ms-2">${escapeHtml(item.category)}</small>` : ''}
-                        </div>
-                    </div>
-                    <div class="suggestion-category">${escapeHtml(item.type || 'Product')}</div>
-                </div>
-            `;
+            html += 
+                '<div class="suggestion-item" ' +
+                'data-query="' + escapeHtml(item.name) + '" ' +
+                'data-url="' + escapeHtml(url) + '" ' +
+                'data-index="' + index + '" ' +
+                'role="option" aria-selected="false">' +
+                '<div class="suggestion-icon"><i class="' + escapeHtml(icon) + '" aria-hidden="true"></i></div>' +
+                '<div class="suggestion-text"><div><strong>' + highlightName(escapeHtml(item.name)) + '</strong>' +
+                (item.category ? '<small class="text-muted ms-2">' + escapeHtml(item.category) + '</small>' : '') +
+                '</div></div>' +
+                '<div class="suggestion-category">' + escapeHtml(item.type || 'Product') + '</div>' +
+                '</div>';
         });
         
         suggestionsList.innerHTML = html;
         
         suggestionsList.querySelectorAll('.suggestion-item').forEach(function(item) {
             item.addEventListener('click', function() {
-                const url = this.dataset.url;
+                var url = this.dataset.url;
                 if (url) {
                     window.location.href = url;
                 } else {
-                    const query = this.dataset.query;
+                    var query = this.dataset.query;
                     if (query) {
                         searchInput.value = query;
                         document.getElementById('headerSearchForm').submit();
@@ -653,8 +834,8 @@ document.addEventListener('DOMContentLoaded', function() {
             });
             
             item.addEventListener('mouseenter', function() {
-                const items = suggestionsList.querySelectorAll('.suggestion-item');
-                const idx = parseInt(this.dataset.index);
+                var items = suggestionsList.querySelectorAll('.suggestion-item');
+                var idx = parseInt(this.dataset.index);
                 updateSelectedItem(items, idx);
             });
         });
@@ -664,11 +845,11 @@ document.addEventListener('DOMContentLoaded', function() {
     // HIGHLIGHT SEARCH TERM
     // ========================================
     function highlightName(name) {
-        const query = searchInput.value.trim();
+        var query = searchInput.value.trim();
         if (!query) return name;
         
         try {
-            const regex = new RegExp('(' + escapeRegExp(query) + ')', 'gi');
+            var regex = new RegExp('(' + escapeRegExp(query) + ')', 'gi');
             return name.replace(regex, '<span class="highlight">$1</span>');
         } catch (e) {
             return name;
@@ -698,7 +879,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // ========================================
     function escapeHtml(text) {
         if (!text) return '';
-        const div = document.createElement('div');
+        var div = document.createElement('div');
         div.textContent = text;
         return div.innerHTML;
     }
@@ -711,7 +892,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // ========================================
 // SET SEARCH URL IN WINDOW OBJECT
-// This avoids Django template tag issues in JavaScript
 // ========================================
 window.searchSuggestionsUrl = "{% url 'products:search_suggestions' %}";
 </script>

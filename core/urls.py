@@ -12,7 +12,9 @@ urlpatterns = [
     path('', include('apps.products.urls')),
     path('', include('apps.main.urls')),
     path('', include('apps.contact.urls')),
-    path('media/<path:path>/', serve_media, name='serve_media'),  # ← Custom view
+    path('cart/', include('apps.cart.urls')),  
+    path('orders/', include('apps.order.urls')),
+    path('media/<path:path>/', serve_media, name='serve_media'),  
 ]
 
 # ============================================

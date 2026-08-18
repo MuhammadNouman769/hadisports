@@ -49,7 +49,6 @@
         cursor: zoom-out;
     }
     
-    /* Zoom Lens Effect */
     .image-zoom-container .zoom-lens {
         position: absolute;
         border: 2px solid #81c408;
@@ -66,7 +65,6 @@
         display: block;
     }
     
-    /* Zoom Result */
     .zoom-result {
         position: absolute;
         top: 0;
@@ -124,7 +122,7 @@
         transition: all 0.3s ease;
         flex-shrink: 0;
         margin-left: 10px;
-        margin-top: 10PX
+        margin-top: 10px;
     }
     
     .product-thumbnails img:hover,
@@ -136,6 +134,13 @@
     /* ========================================
        PRODUCT INFO
     ======================================== */
+    .product-price-wrapper {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        flex-wrap: wrap;
+    }
+    
     .product-price {
         font-size: 28px;
         font-weight: 700;
@@ -241,9 +246,11 @@
         font-weight: 600;
     }
     
-    /* WhatsApp Button */
-    .btn-whatsapp {
-        background: #25D366;
+    /* ========================================
+       BUTTONS - ADD TO CART & ORDER NOW
+    ======================================== */
+    .btn-add-to-cart {
+        background: #81c408;
         color: #ffffff;
         padding: 14px 35px;
         border-radius: 50px;
@@ -255,20 +262,92 @@
         gap: 12px;
         text-decoration: none;
         font-size: 16px;
+        width: 100%;
+        justify-content: center;
+        cursor: pointer;
     }
     
-    .btn-whatsapp:hover {
-        background: #128C7E;
+    .btn-add-to-cart:hover {
+        background: #6a9f06;
         color: #ffffff;
         transform: translateY(-2px);
-        box-shadow: 0 5px 20px rgba(37, 211, 102, 0.3);
+        box-shadow: 0 5px 20px rgba(129, 196, 8, 0.3);
     }
     
-    .btn-whatsapp i {
-        font-size: 22px;
+    .btn-add-to-cart:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+        transform: none;
     }
     
-    /* Tab Styles */
+    .btn-add-to-cart .spinner {
+        display: none;
+        width: 20px;
+        height: 20px;
+        border: 2px solid #ffffff;
+        border-top: 2px solid transparent;
+        border-radius: 50%;
+        animation: spin 0.8s linear infinite;
+    }
+    
+    .btn-add-to-cart.loading .btn-text {
+        display: none;
+    }
+    
+    .btn-add-to-cart.loading .spinner {
+        display: block;
+    }
+    
+    .btn-add-to-cart.success {
+        background: #28a745;
+    }
+    
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+    
+    .btn-order-now {
+        background: #ff6b35;
+        color: #ffffff;
+        padding: 14px 35px;
+        border-radius: 50px;
+        font-weight: 600;
+        border: none;
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        text-decoration: none;
+        font-size: 16px;
+        width: 100%;
+        justify-content: center;
+        cursor: pointer;
+    }
+    
+    .btn-order-now:hover {
+        background: #e55a2b;
+        color: #ffffff;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 20px rgba(255, 107, 53, 0.3);
+    }
+    
+    .btn-order-now:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+        transform: none;
+    }
+    
+    .btn-group-vertical {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        margin-top: 20px;
+    }
+    
+    /* ========================================
+       TAB STYLES
+    ======================================== */
     .nav-tabs .nav-link {
         color: #4a5568;
         font-weight: 600;
@@ -286,7 +365,9 @@
         color: #81c408;
     }
     
-    /* Related Products */
+    /* ========================================
+       RELATED PRODUCTS
+    ======================================== */
     .related-product-card {
         border: 1px solid #e9ecef;
         border-radius: 12px;
@@ -358,6 +439,42 @@
         color: rgba(255, 255, 255, 0.5);
     }
     
+    /* Cart Badge */
+    .cart-badge {
+        position: absolute;
+        top: -8px;
+        right: -8px;
+        background: #dc3545;
+        color: #ffffff;
+        border-radius: 50%;
+        padding: 2px 8px;
+        font-size: 11px;
+        font-weight: 700;
+        min-width: 20px;
+        text-align: center;
+        display: none;
+    }
+    
+    /* Total Price Display */
+    .total-price-display {
+        font-size: 16px;
+        color: #1a202c;
+        margin-top: 10px;
+        padding: 10px 15px;
+        background: #f8fafc;
+        border-radius: 8px;
+        display: inline-block;
+    }
+    
+    .total-price-display span {
+        font-weight: 700;
+        color: #81c408;
+        font-size: 18px;
+    }
+    
+    /* ========================================
+       RESPONSIVE
+    ======================================== */
     @media (max-width: 768px) {
         .product-detail-container {
             margin-top: 100px;
@@ -393,9 +510,8 @@
             grid-template-columns: 1fr;
         }
         
-        .btn-whatsapp {
-            width: 100%;
-            justify-content: center;
+        .btn-add-to-cart,
+        .btn-order-now {
             padding: 12px 20px;
             font-size: 14px;
         }
@@ -425,13 +541,13 @@
 <!-- PAGE HEADER -->
 <!-- ======================================== -->
 <div class="container-fluid page-header py-5">
-            <h1 class="text-center text-white display-6">Products</h1>
-            <ol class="breadcrumb justify-content-center mb-0">
-                <li class="breadcrumb-item"><a style="color: #ffb524;" href="{% url 'products:home-view' %}">Home</a></li>
-                <li class="breadcrumb-item"><a style="color: #ffb524;" href="{% url 'products:product-list' %}">Products</a></li>
-                <li class="breadcrumb-item active"  style="color: #ffb524;">Product Detail</li>
-            </ol>
-        </div>  
+    <h1 class="text-center text-white display-6">Products</h1>
+    <ol class="breadcrumb justify-content-center mb-0">
+        <li class="breadcrumb-item"><a style="color: #ffb524;" href="{% url 'products:home-view' %}">Home</a></li>
+        <li class="breadcrumb-item"><a style="color: #ffb524;" href="{% url 'products:product-list' %}">Products</a></li>
+        <li class="breadcrumb-item active" style="color: #ffb524;">Product Detail</li>
+    </ol>
+</div>
 
 <!-- ======================================== -->
 <!-- PRODUCT DETAIL -->
@@ -457,10 +573,7 @@
                                     {% endif %}
                                 {% endwith %}
                                 
-                                <!-- Zoom Lens -->
                                 <div class="zoom-lens" id="zoomLens"></div>
-                                
-                                <!-- Zoom Result -->
                                 <div class="zoom-result" id="zoomResult"></div>
                             </div>
                             
@@ -505,16 +618,21 @@
                                     <span class="ms-2 text-muted">(4.5/5)</span>
                                 </div>
                                 
-                                <!-- Price -->
+                                <!-- Price with Live Update -->
                                 <div class="mt-3">
                                     {% with product.default_variant as variant %}
                                         {% if variant %}
-                                            <span class="product-price">
-                                                Rs. {{ variant.price }}
-                                                {% if variant.compare_price %}
-                                                    <span class="original-price">Rs. {{ variant.compare_price }}</span>
-                                                {% endif %}
-                                            </span>
+                                            <div class="product-price-wrapper">
+                                                <span class="product-price" id="productPrice">
+                                                    PKR <span id="unitPrice">{{ variant.price }}</span>
+                                                    {% if variant.compare_price %}
+                                                        <span class="original-price">PKR {{ variant.compare_price }}</span>
+                                                    {% endif %}
+                                                </span>
+                                            </div>
+                                            <div class="total-price-display" id="totalPriceDisplay">
+                                                Total: <span id="totalPrice">PKR {{ variant.price }}</span>
+                                            </div>
                                         {% endif %}
                                     {% endwith %}
                                 </div>
@@ -549,7 +667,7 @@
                                         {% if variant %}
                                         <div class="meta-item">
                                             <span class="meta-label">Stock</span>
-                                            <span class="meta-value">{{ variant.stock }} units</span>
+                                            <span class="meta-value" id="stockCount">{{ variant.stock }} units</span>
                                         </div>
                                         {% endif %}
                                     {% endwith %}
@@ -557,20 +675,26 @@
                                 
                                 <!-- Quantity Selector -->
                                 <div class="quantity-selector">
-                                    <button class="qty-btn" onclick="updateQuantity(-1)">
+                                    <button class="qty-btn" onclick="updateQuantity(-1)" id="qtyMinus">
                                         <i class="fas fa-minus"></i>
                                     </button>
                                     <input type="text" class="qty-input" id="quantityInput" value="1" readonly>
-                                    <button class="qty-btn" onclick="updateQuantity(1)">
+                                    <button class="qty-btn" onclick="updateQuantity(1)" id="qtyPlus">
                                         <i class="fas fa-plus"></i>
                                     </button>
                                 </div>
                                 
-                                <!-- WhatsApp Button -->
-                                <a href="#" class="btn-whatsapp" id="whatsappBtn" target="_blank">
-                                    <i class="fab fa-whatsapp"></i> 
-                                    Order on WhatsApp
-                                </a>
+                                <!-- Button Group -->
+                                <div class="btn-group-vertical">
+                                    <button class="btn-add-to-cart" id="addToCartBtn">
+                                        <span class="spinner"></span>
+                                        <span class="btn-text"><i class="fas fa-shopping-cart me-2"></i> Add to Cart</span>
+                                    </button>
+                                    
+                                    <button class="btn-order-now" id="orderNowBtn">
+                                        <i class="fas fa-bolt me-2"></i> Order Now
+                                    </button>
+                                </div>
                                 
                                 <p class="text-muted mt-2 small">
                                     <i class="fas fa-clock me-1"></i> 
@@ -581,7 +705,7 @@
                     </div>
                     
                     <!-- ======================================== -->
-                    <!-- TABS: Description & Reviews -->
+                    <!-- TABS -->
                     <!-- ======================================== -->
                     <div class="row mt-5">
                         <div class="col-12">
@@ -606,21 +730,16 @@
                             </nav>
                             
                             <div class="tab-content mt-3">
-                                <!-- Description Tab -->
                                 <div class="tab-pane fade show active" id="description">
                                     <div class="p-3">
                                         <p>{{ product.description|default:"No description available for this product." }}</p>
                                     </div>
                                 </div>
-                                
-                                <!-- Reviews Tab -->
                                 <div class="tab-pane fade" id="reviews">
                                     <div class="p-3">
                                         <p class="text-muted">No reviews yet. Be the first to review this product!</p>
                                     </div>
                                 </div>
-                                
-                                <!-- Specifications Tab -->
                                 <div class="tab-pane fade" id="specifications">
                                     <div class="p-3">
                                         <div class="product-meta" style="grid-template-columns: 1fr;">
@@ -673,7 +792,7 @@
                                 <div class="product-price mt-2">
                                     {% with product.default_variant as variant %}
                                         {% if variant %}
-                                            Rs. {{ variant.price }}
+                                            PKR {{ variant.price }}
                                         {% endif %}
                                     {% endwith %}
                                 </div>
@@ -692,143 +811,293 @@
 </div>
 
 <!-- ======================================== -->
-<!-- JAVASCRIPT -->
+<!-- CLEAN JAVASCRIPT - NO TOAST, NO CONSOLE LOGS -->
 <!-- ======================================== -->
 <script>
+// ==========================================================
+// CONFIGURATION - Variables from Django
+// ==========================================================
+{% with product.default_variant as variant %}
+    const UNIT_PRICE = parseFloat("{{ variant.price|default:'0' }}");
+    const VARIANT_ID = parseInt("{{ variant.id|default:'0' }}");
+{% endwith %}
+
+// ==========================================================
+// CSRF Token Helper
+// ==========================================================
+function getCsrfToken() {
+    const cookies = document.cookie.split(';');
+    for (let i = 0; i < cookies.length; i++) {
+        const cookie = cookies[i].trim();
+        if (cookie.startsWith('csrftoken=')) {
+            return cookie.substring('csrftoken='.length);
+        }
+    }
+    return '';
+}
+
+const CSRF_TOKEN = getCsrfToken();
+
+// ==========================================================
+// DOM Ready - Initialize
+// ==========================================================
 document.addEventListener('DOMContentLoaded', function() {
+    // Image zoom on hover
+    initImageZoom();
     
-    // ========================================
-    // IMAGE ZOOM ON HOVER
-    // ========================================
+    // Tabs functionality
+    initTabs();
+    
+    // Update price on load
+    updatePrice();
+    
+    // Update cart badge on load
+    updateCartBadge();
+});
+
+// ==========================================================
+// IMAGE ZOOM
+// ==========================================================
+function initImageZoom() {
     const container = document.getElementById('imageZoomContainer');
     const lens = document.getElementById('zoomLens');
     const result = document.getElementById('zoomResult');
     const mainImage = document.getElementById('mainProductImage');
     
-    if (container && lens && result && mainImage) {
-        // Only enable zoom on desktop
-        if (window.innerWidth >= 1200) {
-            container.addEventListener('mousemove', function(e) {
-                const rect = container.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                
-                // Calculate lens position
-                const lensWidth = lens.offsetWidth;
-                const lensHeight = lens.offsetHeight;
-                const lensX = Math.min(Math.max(x - lensWidth / 2, 0), rect.width - lensWidth);
-                const lensY = Math.min(Math.max(y - lensHeight / 2, 0), rect.height - lensHeight);
-                
-                lens.style.left = lensX + 'px';
-                lens.style.top = lensY + 'px';
-                
-                // Calculate zoom position
-                const naturalWidth = mainImage.naturalWidth || mainImage.width;
-                const naturalHeight = mainImage.naturalHeight || mainImage.height;
-                const ratioX = naturalWidth / rect.width;
-                const ratioY = naturalHeight / rect.height;
-                
-                result.style.backgroundImage = `url(${mainImage.src})`;
-                result.style.backgroundSize = `${rect.width * ratioX}px ${rect.height * ratioY}px`;
-                result.style.backgroundPosition = `-${lensX * ratioX}px -${lensY * ratioY}px`;
-            });
-            
-            container.addEventListener('mouseenter', function() {
-                lens.style.display = 'block';
-                result.style.display = 'block';
-            });
-            
-            container.addEventListener('mouseleave', function() {
-                lens.style.display = 'none';
-                result.style.display = 'none';
-            });
-        }
-    }
+    if (!container || !lens || !result || !mainImage) return;
+    if (window.innerWidth < 1200) return;
     
-    // ========================================
-    // CHANGE MAIN IMAGE
-    // ========================================
-    window.changeMainImage = function(src, element) {
-        const mainImg = document.getElementById('mainProductImage');
-        mainImg.src = src;
+    container.addEventListener('mousemove', function(e) {
+        const rect = container.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
         
-        // Update zoom result background
-        const result = document.getElementById('zoomResult');
-        if (result) {
-            result.style.backgroundImage = `url(${src})`;
-        }
+        const lensWidth = lens.offsetWidth;
+        const lensHeight = lens.offsetHeight;
+        const lensX = Math.min(Math.max(x - lensWidth / 2, 0), rect.width - lensWidth);
+        const lensY = Math.min(Math.max(y - lensHeight / 2, 0), rect.height - lensHeight);
         
-        document.querySelectorAll('.product-thumbnails img').forEach(img => {
-            img.classList.remove('active');
-        });
-        element.classList.add('active');
-    };
+        lens.style.left = lensX + 'px';
+        lens.style.top = lensY + 'px';
+        
+        const naturalWidth = mainImage.naturalWidth || mainImage.width;
+        const naturalHeight = mainImage.naturalHeight || mainImage.height;
+        const ratioX = naturalWidth / rect.width;
+        const ratioY = naturalHeight / rect.height;
+        
+        result.style.backgroundImage = 'url(' + mainImage.src + ')';
+        result.style.backgroundSize = (rect.width * ratioX) + 'px ' + (rect.height * ratioY) + 'px';
+        result.style.backgroundPosition = '-' + (lensX * ratioX) + 'px -' + (lensY * ratioY) + 'px';
+    });
     
-    // ========================================
-    // QUANTITY SELECTOR
-    // ========================================
-    window.updateQuantity = function(change) {
-        const input = document.getElementById('quantityInput');
-        let value = parseInt(input.value) + change;
-        if (value < 1) value = 1;
-        if (value > 99) value = 99;
-        input.value = value;
-        updateWhatsAppLink();
-    };
+    container.addEventListener('mouseenter', function() {
+        lens.style.display = 'block';
+        result.style.display = 'block';
+    });
     
-    // ========================================
-    // WHATSAPP LINK
-    // ========================================
-    function updateWhatsAppLink() {
-        const quantity = document.getElementById('quantityInput').value;
-        const whatsappBtn = document.getElementById('whatsappBtn');
-        
-        const productName = "{{ product.name|escapejs }}";
-        {% with product.default_variant as variant %}
-            const price = "{{ variant.price|default:'0' }}";
-        {% endwith %}
-        
-        const whatsappNumber = "{{ site_settings.whatsapp_number|default:'923001234567' }}";
-        const cleanNumber = whatsappNumber.replace(/[^0-9]/g, '');
-        
-        const message = `Hello! I'm interested in this product:\n\n📦 *Product:* ${productName}\n💰 *Price:* Rs. ${price}\n🔢 *Quantity:* ${quantity}\n\nCan you provide more details?`;
-        const encodedMessage = encodeURIComponent(message);
-        
-        whatsappBtn.href = `https://wa.me/${cleanNumber}?text=${encodedMessage}`;
-    }
-    
-    // Initial update
-    updateWhatsAppLink();
-    
-    // ========================================
-    // TABS FUNCTIONALITY
-    // ========================================
+    container.addEventListener('mouseleave', function() {
+        lens.style.display = 'none';
+        result.style.display = 'none';
+    });
+}
+
+// ==========================================================
+// TABS
+// ==========================================================
+function initTabs() {
     const tabButtons = document.querySelectorAll('.nav-tabs .nav-link');
-    tabButtons.forEach(button => {
+    tabButtons.forEach(function(button) {
         button.addEventListener('click', function() {
-            tabButtons.forEach(btn => btn.classList.remove('active'));
+            tabButtons.forEach(function(btn) {
+                btn.classList.remove('active');
+            });
             this.classList.add('active');
             
             const target = this.getAttribute('data-bs-target');
-            document.querySelectorAll('.tab-pane').forEach(pane => {
+            document.querySelectorAll('.tab-pane').forEach(function(pane) {
                 pane.classList.remove('show', 'active');
             });
             document.querySelector(target).classList.add('show', 'active');
         });
     });
+}
+
+// ==========================================================
+// CHANGE MAIN IMAGE
+// ==========================================================
+window.changeMainImage = function(src, element) {
+    const mainImg = document.getElementById('mainProductImage');
+    if (mainImg) mainImg.src = src;
     
-    // ========================================
-    // WHATSAPP BUTTON CLICK HANDLER
-    // ========================================
-    document.getElementById('whatsappBtn').addEventListener('click', function(e) {
-        const href = this.getAttribute('href');
-        if (!href || href === '#') {
-            e.preventDefault();
-            alert('WhatsApp number not configured. Please contact admin.');
-            return false;
-        }
-        return true;
+    const result = document.getElementById('zoomResult');
+    if (result) {
+        result.style.backgroundImage = 'url(' + src + ')';
+    }
+    
+    document.querySelectorAll('.product-thumbnails img').forEach(function(img) {
+        img.classList.remove('active');
     });
+    if (element) element.classList.add('active');
+};
+
+// ==========================================================
+// UPDATE PRICE (LIVE)
+// ==========================================================
+function updatePrice() {
+    const input = document.getElementById('quantityInput');
+    const totalPriceEl = document.getElementById('totalPrice');
+    
+    if (!input || !totalPriceEl) return;
+    
+    const quantity = parseInt(input.value) || 1;
+    const total = UNIT_PRICE * quantity;
+    totalPriceEl.textContent = 'PKR ' + total.toFixed(2);
+}
+
+// ==========================================================
+// QUANTITY SELECTOR
+// ==========================================================
+window.updateQuantity = function(change) {
+    const input = document.getElementById('quantityInput');
+    if (!input) return;
+    
+    let value = parseInt(input.value) + change;
+    if (value < 1) value = 1;
+    if (value > 99) value = 99;
+    input.value = value;
+    updatePrice();
+};
+
+// ==========================================================
+// UPDATE CART BADGE
+// ==========================================================
+function updateCartBadge() {
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', '/cart/get-count/', true);
+    xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            try {
+                var data = JSON.parse(xhr.responseText);
+                var badge = document.querySelector('.cart-badge');
+                if (badge) {
+                    if (data.total_items > 0) {
+                        badge.textContent = data.total_items;
+                        badge.style.display = 'block';
+                    } else {
+                        badge.style.display = 'none';
+                    }
+                }
+            } catch (e) {
+                // Silent fail - no console logs
+            }
+        }
+    };
+    xhr.send();
+}
+
+// ==========================================================
+// ADD TO CART
+// ==========================================================
+document.getElementById('addToCartBtn').addEventListener('click', function(e) {
+    e.preventDefault();
+    
+    if (!VARIANT_ID || VARIANT_ID === 0) return;
+    
+    var button = this;
+    var quantity = document.getElementById('quantityInput').value || 1;
+    
+    // Show loading
+    button.disabled = true;
+    button.classList.add('loading');
+    
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', '/cart/add/' + VARIANT_ID + '/', true);
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    xhr.setRequestHeader('X-CSRFToken', CSRF_TOKEN);
+    xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+    
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4) {
+            button.classList.remove('loading');
+            
+            if (xhr.status === 200) {
+                try {
+                    var data = JSON.parse(xhr.responseText);
+                    if (data.success) {
+                        // Reset quantity
+                        document.getElementById('quantityInput').value = 1;
+                        updatePrice();
+                        updateCartBadge();
+                        
+                        // Show success state
+                        button.classList.add('success');
+                        button.innerHTML = '<i class="fas fa-check me-2"></i> Added!';
+                        
+                        // Redirect to cart
+                        setTimeout(function() {
+                            window.location.href = '/cart/';
+                        }, 600);
+                    } else {
+                        button.disabled = false;
+                    }
+                } catch (e) {
+                    button.disabled = false;
+                }
+            } else {
+                button.disabled = false;
+            }
+        }
+    };
+    
+    xhr.send('quantity=' + encodeURIComponent(quantity));
+});
+
+// ==========================================================
+// ORDER NOW
+// ==========================================================
+document.getElementById('orderNowBtn').addEventListener('click', function(e) {
+    e.preventDefault();
+    
+    if (!VARIANT_ID || VARIANT_ID === 0) return;
+    
+    var button = this;
+    var quantity = document.getElementById('quantityInput').value || 1;
+    
+    // Show loading
+    button.disabled = true;
+    button.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i> Processing...';
+    
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', '/cart/add/' + VARIANT_ID + '/', true);
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    xhr.setRequestHeader('X-CSRFToken', CSRF_TOKEN);
+    xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+    
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4) {
+            if (xhr.status === 200) {
+                try {
+                    var data = JSON.parse(xhr.responseText);
+                    if (data.success) {
+                        updateCartBadge();
+                        window.location.href = '/orders/checkout/';
+                    } else {
+                        button.disabled = false;
+                        button.innerHTML = '<i class="fas fa-bolt me-2"></i> Order Now';
+                    }
+                } catch (e) {
+                    button.disabled = false;
+                    button.innerHTML = '<i class="fas fa-bolt me-2"></i> Order Now';
+                }
+            } else {
+                button.disabled = false;
+                button.innerHTML = '<i class="fas fa-bolt me-2"></i> Order Now';
+            }
+        }
+    };
+    
+    xhr.send('quantity=' + encodeURIComponent(quantity));
 });
 </script>
 

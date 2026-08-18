@@ -2,7 +2,7 @@ from django.views.generic import TemplateView
 from django.contrib import messages
 from django.core.mail import send_mail
 from django.conf import settings
-from apps.whatspp.models.whatsapp_setting import SiteSetting
+from apps.whatsapp.models.whatsapp_setting import SiteSetting
 
 
 class ContactView(TemplateView):

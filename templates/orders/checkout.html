@@ -1,0 +1,557 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Checkout | Hadi Sports{% endblock %}
+
+{% block content %}
+<style>
+/* ==========================================================
+   CHECKOUT PAGE - HADI SPORTS STYLE
+========================================================== */
+.checkout-wrapper {
+    padding: 40px 0 60px;
+    background: #f8fafc;
+    font-family: 'Inter', sans-serif;
+}
+
+.checkout-title {
+    font-size: 24px;
+    font-weight: 600;
+    color: #111;
+    margin-bottom: 30px;
+    letter-spacing: -0.5px;
+}
+
+.tr-breadcrumb {
+    font-size: 12px;
+    color: #999;
+    margin-bottom: 25px;
+    letter-spacing: 0.5px;
+}
+
+.tr-breadcrumb a {
+    color: #999;
+    text-decoration: none;
+    transition: 0.2s;
+}
+
+.tr-breadcrumb a:hover {
+    color: #111;
+}
+
+.checkout-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+}
+
+/* ==========================================================
+   LEFT: CART SUMMARY
+========================================================== */
+.checkout-summary {
+    background: #ffffff;
+    border: 1px solid #e9ecef;
+    border-radius: 16px;
+    padding: 30px;
+}
+
+.checkout-summary-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #111;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.checkout-item {
+    display: flex;
+    gap: 15px;
+    padding: 15px 0;
+    border-bottom: 1px solid #f5f5f5;
+}
+
+.checkout-item:last-child {
+    border-bottom: none;
+}
+
+.checkout-item-img {
+    width: 70px;
+    height: 90px;
+    flex-shrink: 0;
+    border-radius: 8px;
+    overflow: hidden;
+    background: #f8f8f8;
+}
+
+.checkout-item-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.checkout-item-info {
+    flex: 1;
+}
+
+.checkout-item-name {
+    font-size: 14px;
+    font-weight: 500;
+    color: #111;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.checkout-item-size {
+    font-size: 13px;
+    color: #999;
+}
+
+.checkout-item-qty {
+    font-size: 13px;
+    color: #999;
+    margin-top: 4px;
+}
+
+.checkout-item-price {
+    font-size: 15px;
+    font-weight: 600;
+    color: #111;
+    text-align: right;
+}
+
+.checkout-total-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 0;
+    font-size: 15px;
+    color: #666;
+    border-top: 1px solid #e9ecef;
+    margin-top: 15px;
+    padding-top: 15px;
+}
+
+.checkout-total-row.grand-total {
+    font-size: 20px;
+    font-weight: 700;
+    color: #111;
+    border-top: 2px solid #81c408;
+    padding-top: 20px;
+    margin-top: 10px;
+}
+
+/* ==========================================================
+   RIGHT: CHECKOUT FORM
+========================================================== */
+.checkout-form {
+    background: #ffffff;
+    border: 1px solid #e9ecef;
+    border-radius: 16px;
+    padding: 30px;
+}
+
+.checkout-form-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #111;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.checkout-form .form-label {
+    font-size: 13px;
+    font-weight: 500;
+    color: #666;
+    margin-bottom: 4px;
+}
+
+.checkout-form .form-control {
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    padding: 12px 16px;
+    font-size: 14px;
+    background: #faf8f6;
+    transition: 0.3s;
+}
+
+.checkout-form .form-control:focus {
+    border-color: #81c408;
+    box-shadow: 0 0 0 3px rgba(129, 196, 8, 0.1);
+    background: #ffffff;
+}
+
+.checkout-form .form-control.is-invalid {
+    border-color: #dc3545;
+}
+
+.checkout-form .invalid-feedback {
+    display: none;
+    font-size: 12px;
+    color: #dc3545;
+    margin-top: 4px;
+}
+
+.checkout-form .form-control.is-invalid + .invalid-feedback {
+    display: block;
+}
+
+/* ==========================================================
+   WHATSAPP BUTTON
+========================================================== */
+.checkout-whatsapp-btn {
+    display: block;
+    width: 100%;
+    background: #25D366;
+    color: #ffffff;
+    padding: 16px 30px;
+    border: none;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    text-align: center;
+    text-decoration: none;
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    cursor: pointer;
+}
+
+.checkout-whatsapp-btn:hover {
+    background: #128C7E;
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(37, 211, 102, 0.3);
+}
+
+.checkout-whatsapp-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.checkout-whatsapp-btn .spinner {
+    display: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #ffffff;
+    border-top: 2px solid transparent;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.checkout-whatsapp-btn.loading .btn-text {
+    display: none;
+}
+
+.checkout-whatsapp-btn.loading .spinner {
+    display: block;
+}
+
+.checkout-note {
+    font-size: 12px;
+    color: #999;
+    text-align: center;
+    margin-top: 15px;
+}
+
+/* ==========================================================
+   RESPONSIVE
+========================================================== */
+@media (max-width: 992px) {
+    .checkout-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+}
+
+@media (max-width: 480px) {
+    .checkout-wrapper {
+        padding: 30px 0 40px;
+    }
+    .checkout-title {
+        font-size: 20px;
+    }
+    .checkout-summary,
+    .checkout-form {
+        padding: 20px;
+    }
+    .checkout-item-img {
+        width: 60px;
+        height: 80px;
+    }
+    .checkout-whatsapp-btn {
+        padding: 14px 20px;
+        font-size: 14px;
+    }
+}
+</style>
+
+<!-- ========================================================== -->
+<!-- CHECKOUT PAGE HTML -->
+<!-- ========================================================== -->
+<div class="checkout-wrapper">
+    <div class="container">
+        
+        <!-- Breadcrumb -->
+        <div class="tr-breadcrumb">
+            <a href="{% url 'products:home-view' %}">HOME</a> &nbsp;/&nbsp; 
+            <a href="{% url 'cart:view' %}">CART</a> &nbsp;/&nbsp; 
+            <span>CHECKOUT</span>
+        </div>
+        
+        <h1 class="checkout-title">CHECKOUT</h1>
+        
+        <div class="checkout-grid">
+            
+            <!-- ==========================================================
+                 LEFT: CART SUMMARY
+            ========================================================== -->
+            <div class="checkout-summary">
+                <div class="checkout-summary-title">ORDER SUMMARY</div>
+                
+                <div id="checkoutItems">
+                    {% for item in cart_items %}
+                    <div class="checkout-item" data-variant-id="{{ item.variant.id }}">
+                        <div class="checkout-item-img">
+                            {% with item.variant.primary_image as img %}
+                                <img src="{{ img.image.url|default:'/static/img/default-product.jpg' }}" alt="{{ item.variant.product.name }}">
+                            {% endwith %}
+                        </div>
+                        <div class="checkout-item-info">
+                            <div class="checkout-item-name">{{ item.variant.product.name|truncatechars:25 }}</div>
+                            <div class="checkout-item-size">Size: {{ item.variant.variant_name|default:"Standard" }}</div>
+                            <div class="checkout-item-qty">Qty: {{ item.quantity }}</div>
+                        </div>
+                        <div class="checkout-item-price">PKR {{ item.total_price }}</div>
+                    </div>
+                    {% endfor %}
+                </div>
+                
+                <div class="checkout-total-row">
+                    <span>SUBTOTAL</span>
+                    <span id="checkoutSubtotal">PKR {{ subtotal }}</span>
+                </div>
+                
+                <div class="checkout-total-row">
+                    <span>SHIPPING</span>
+                    <span>Calculated at checkout</span>
+                </div>
+                
+                <div class="checkout-total-row grand-total">
+                    <span>TOTAL</span>
+                    <span id="checkoutTotal">PKR {{ total_amount }}</span>
+                </div>
+            </div>
+            
+            <!-- ==========================================================
+                 RIGHT: CHECKOUT FORM
+            ========================================================== -->
+            <div class="checkout-form">
+                <div class="checkout-form-title">CUSTOMER DETAILS</div>
+                
+                <form id="checkoutForm" method="POST" action="{% url 'orders:checkout' %}" novalidate>
+                    {% csrf_token %}
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Full Name *</label>
+                        <input type="text" name="full_name" class="form-control" placeholder="John Doe" required id="fullName">
+                        <div class="invalid-feedback">Please enter your full name</div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Email (Optional)</label>
+                        <input type="email" name="email" class="form-control" placeholder="john@example.com" id="email">
+                        <div class="invalid-feedback">Please enter a valid email</div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Phone Number *</label>
+                        <input type="text" name="phone" class="form-control" placeholder="0300 1234567" required id="phone">
+                        <div class="invalid-feedback">Please enter your phone number</div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Address *</label>
+                        <textarea name="address" class="form-control" rows="2" placeholder="House #, Street, Area" required id="address"></textarea>
+                        <div class="invalid-feedback">Please enter your address</div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">City *</label>
+                        <input type="text" name="city" class="form-control" placeholder="Lahore" required id="city">
+                        <div class="invalid-feedback">Please enter your city</div>
+                    </div>
+                    
+                    <!-- WhatsApp Button -->
+                    <button type="submit" class="checkout-whatsapp-btn" id="placeOrderBtn">
+                        <span class="spinner"></span>
+                        <span class="btn-text"><i class="fab fa-whatsapp"></i> Confirm Order via WhatsApp</span>
+                    </button>
+                    
+                    <div class="checkout-note">
+                        <i class="fas fa-lock me-1"></i> Your details are safe and will only be used for order processing.
+                    </div>
+                </form>
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+<!-- ========================================================== -->
+<!-- CLEAN JAVASCRIPT - NO TOAST, NO ALERTS, NO CONSOLE LOGS -->
+<!-- ========================================================== -->
+<script>
+// ==========================================================
+// CSRF TOKEN HELPER
+// ==========================================================
+function getCsrfToken() {
+    var cookies = document.cookie.split(';');
+    for (var i = 0; i < cookies.length; i++) {
+        var cookie = cookies[i].trim();
+        if (cookie.indexOf('csrftoken=') === 0) {
+            return cookie.substring('csrftoken='.length);
+        }
+    }
+    return '';
+}
+
+var CSRF_TOKEN = getCsrfToken();
+
+// ==========================================================
+// FORM VALIDATION
+// ==========================================================
+function validateForm() {
+    var isValid = true;
+    var fields = ['fullName', 'phone', 'address', 'city'];
+    
+    for (var i = 0; i < fields.length; i++) {
+        var field = document.getElementById(fields[i]);
+        if (!field.value.trim()) {
+            field.classList.add('is-invalid');
+            isValid = false;
+        } else {
+            field.classList.remove('is-invalid');
+        }
+    }
+    
+    // Validate email if provided
+    var email = document.getElementById('email');
+    if (email.value.trim() && !email.value.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+        email.classList.add('is-invalid');
+        isValid = false;
+    } else {
+        email.classList.remove('is-invalid');
+    }
+    
+    return isValid;
+}
+
+// ==========================================================
+// REAL-TIME VALIDATION
+// ==========================================================
+var formInputs = document.querySelectorAll('#checkoutForm .form-control');
+for (var i = 0; i < formInputs.length; i++) {
+    formInputs[i].addEventListener('input', function() {
+        if (this.value.trim()) {
+            this.classList.remove('is-invalid');
+        }
+    });
+}
+
+// ==========================================================
+// UPDATE CART BADGE
+// ==========================================================
+function updateCartBadge() {
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', '/cart/get-count/', true);
+    xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+    
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            try {
+                var data = JSON.parse(xhr.responseText);
+                var badge = document.querySelector('.cart-badge');
+                if (badge) {
+                    if (data.total_items > 0) {
+                        badge.textContent = data.total_items;
+                        badge.style.display = 'block';
+                    } else {
+                        badge.style.display = 'none';
+                    }
+                }
+            } catch (e) {
+                // Silent fail
+            }
+        }
+    };
+    xhr.send();
+}
+
+// ==========================================================
+// HANDLE FORM SUBMISSION - PURE AJAX, NO TOASTS
+// ==========================================================
+document.getElementById('checkoutForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    // Validate
+    if (!validateForm()) {
+        return;
+    }
+    
+    var formData = new FormData(this);
+    var submitBtn = document.getElementById('placeOrderBtn');
+    
+    // Show loading
+    submitBtn.disabled = true;
+    submitBtn.classList.add('loading');
+    
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', this.action, true);
+    xhr.setRequestHeader('X-CSRFToken', CSRF_TOKEN);
+    xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+    
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4) {
+            submitBtn.disabled = false;
+            submitBtn.classList.remove('loading');
+            
+            if (xhr.status === 200) {
+                try {
+                    var data = JSON.parse(xhr.responseText);
+                    if (data.success) {
+                        // Redirect to WhatsApp
+                        window.location.href = data.whatsapp_url;
+                    }
+                } catch (e) {
+                    // Silent fail - redirect to home
+                    window.location.href = '/';
+                }
+            } else {
+                // On error, redirect to home
+                window.location.href = '/';
+            }
+        }
+    };
+    
+    xhr.send(formData);
+});
+
+// ==========================================================
+// INITIALIZE
+// ==========================================================
+document.addEventListener('DOMContentLoaded', function() {
+    updateCartBadge();
+});
+</script>
+
+{% endblock %}
