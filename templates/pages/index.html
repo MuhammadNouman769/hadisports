@@ -4,103 +4,77 @@
 {% block content %}
 
 <style>
-    /* ==========================================================
-       ONLY IMAGE HOVER EFFECT - NO OTHER EFFECTS
-    ========================================================== */
-    
-    /* ---- Product Image Container ---- */
-    .product-image-wrapper {
-        position: relative;
-        overflow: hidden;
-        height: 250px;
-        background: #f8f9fa;
-    }
-    .bg-secondary {
-        background-color: #6a9e06 !important;
-    }
-    
-    /* ---- Default Image ---- */
-    .product-img-default {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        transition: opacity 0.3s ease;
-        z-index: 1;
-    }
-    
-    /* ---- Hover Image ---- */
-    .product-img-hover {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        opacity: 0;
-        transition: opacity 0.3s ease;
-        z-index: 2;
-    }
-    
-    /* ---- On Hover: Show hover image, hide default ---- */
-    .product-image-wrapper:hover .product-img-default {
-        opacity: 0;
-    }
-    
-    .product-image-wrapper:hover .product-img-hover {
-        opacity: 1;
-    }
-    .font-s{
-    font-size:18px;
-    font-weight:700;
-    color:#070707 !important;
-    line-height:1.5;
-
-    min-height:54px;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    text-align:center;
-
-    margin:0;
-    padding:8px 12px;
-
-    transition:0.3s;
+/* ==========================================================
+   ONLY IMAGE HOVER EFFECT - NO OTHER EFFECTS
+========================================================== */
+.product-image-wrapper {
+    position: relative;
+    overflow: hidden;
+    height: 250px;
+    background: #f8f9fa;
 }
 
-
-.hs-product-card:hover .font-s{
-    color:#81c408 !important;
+.bg-secondary {
+    background-color: #6a9e06 !important;
 }
-    .br-radius {
-        border-radius: 20px!important;
-    }
-    
-    
-    
-    .btn-add-cart i {
-        color: #6c757d !important;
-    }
-    
-    .btn-add-cart:hover i {
-        color: #6c757d !important;
-    }
-    
-    /* ---- Optional: Remove any card hover effects ---- */
-    .fruite-item {
-        /* No transform or shadow on hover */
-    }
-    
-    .fruite-item:hover {
-        /* Nothing happens on card hover */
-    }
-    /* ========================================
+
+.product-img-default {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: opacity 0.3s ease;
+    z-index: 1;
+}
+
+.product-img-hover {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 2;
+}
+
+.product-image-wrapper:hover .product-img-default {
+    opacity: 0;
+}
+
+.product-image-wrapper:hover .product-img-hover {
+    opacity: 1;
+}
+
+.font-s {
+    font-size: 18px;
+    font-weight: 700;
+    color: #070707 !important;
+    line-height: 1.5;
+    min-height: 54px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin: 0;
+    padding: 8px 12px;
+    transition: 0.3s;
+}
+
+.hs-product-card:hover .font-s {
+    color: #81c408 !important;
+}
+
+.br-radius {
+    border-radius: 20px !important;
+}
+
+/* ==========================================================
    NEW ARRIVALS - Image Fit Fix
-======================================== */
+========================================================== */
 .vesitable-img {
     height: 250px;
     overflow: hidden;
@@ -118,7 +92,6 @@
     transform: scale(1.05);
 }
 
-/* Ensure all cards are same height */
 .vesitable-item {
     height: 80%;
     display: flex;
@@ -135,11 +108,9 @@
     margin-top: auto;
 }
 
-/* ========================================
-   BESTSELLER PRODUCTS - Professional Design
-======================================== */
-
-/* Card Styles */
+/* ==========================================================
+   BESTSELLER PRODUCTS
+========================================================== */
 .bestseller-card {
     transition: all 0.3s ease;
     border: 1px solid transparent;
@@ -158,7 +129,6 @@
     transform: scale(1.05);
 }
 
-/* Image Wrapper */
 .bestseller-img-wrapper {
     position: relative;
     width: 120px;
@@ -170,9 +140,9 @@
     transition: transform 0.3s ease;
     border: 3px solid #f8f9fa;
     box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    border-radius: 50% !important;
 }
 
-/* Bestseller Badge */
 .bestseller-badge {
     position: absolute;
     top: -5px;
@@ -192,11 +162,6 @@
     z-index: 2;
 }
 
-.bestseller-badge span {
-    text-shadow: 0 1px 3px rgba(0,0,0,0.2);
-}
-
-/* Vertical Card */
 .bestseller-card-vertical {
     transition: all 0.3s ease;
     background: #ffffff;
@@ -241,7 +206,6 @@
     box-shadow: 0 3px 10px rgba(255, 69, 0, 0.3);
 }
 
-/* WhatsApp Small Button */
 .btn-whatsapp-small {
     background: #25D366;
     color: #ffffff;
@@ -264,621 +228,386 @@
     box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3);
 }
 
-.btn-whatsapp-small i {
-    font-size: 14px;
-}
-
-/* Star Rating */
 .fa-star.text-warning {
     color: #f39c12 !important;
 }
 
-/* Responsive */
+/* ==========================================================
+   HERO BANNER - CLEAN, NO TEXT, PERFECT FIT
+========================================================== */
+.hero-section {
+    position: relative;
+    overflow: hidden;
+    margin-top: 120px;
+    background: #111;
+    width: 100%;
+}
+
+.hero-section .carousel-item {
+    width: 100%;
+    height: 650px;
+    overflow: hidden;
+}
+
+.hero-banner-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center center;
+    display: block;
+}
+
+#heroCarousel {
+    position: relative;
+}
+
+#heroCarousel .carousel-control-prev,
+#heroCarousel .carousel-control-next {
+    z-index: 9999 !important;
+    pointer-events: auto !important;
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
+}
+
+#heroCarousel .carousel-control-prev:hover,
+#heroCarousel .carousel-control-next:hover {
+    opacity: 1;
+}
+
+#heroCarousel .carousel-control-prev {
+    left: 20px;
+}
+
+#heroCarousel .carousel-control-next {
+    right: 20px;
+}
+
+#heroCarousel .carousel-control-prev-icon,
+#heroCarousel .carousel-control-next-icon {
+    filter: invert(1);
+    background-size: 60%;
+    width: 40px;
+    height: 40px;
+}
+
+#heroCarousel .carousel-indicators {
+    bottom: 25px;
+    gap: 10px;
+    z-index: 10;
+}
+
+#heroCarousel .carousel-indicators button {
+    width: 12px !important;
+    height: 12px !important;
+    border-radius: 50%;
+    opacity: 1;
+    border: none;
+    background: rgba(255, 255, 255, 0.5);
+}
+
+#heroCarousel .carousel-indicators .active {
+    background: #81c408 !important;
+    transform: scale(1.2);
+}
+
+/* ==========================================================
+   HERO RESPONSIVE - PERFECT FIT
+========================================================== */
+@media (max-width: 1399.98px) {
+    .hero-section .carousel-item {
+        height: 580px;
+    }
+}
+
+@media (max-width: 1199.98px) {
+    .hero-section {
+        margin-top: 110px;
+    }
+    .hero-section .carousel-item {
+        height: 520px;
+    }
+}
+
+@media (max-width: 991.98px) {
+    .hero-section {
+        margin-top: 95px;
+    }
+    .hero-section .carousel-item {
+        height: 460px;
+    }
+    #heroCarousel .carousel-control-prev,
+    #heroCarousel .carousel-control-next {
+        width: 36px;
+        height: 36px;
+    }
+    #heroCarousel .carousel-control-prev-icon,
+    #heroCarousel .carousel-control-next-icon {
+        width: 30px;
+        height: 30px;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .hero-section {
+        margin-top: 85px;
+    }
+    .hero-section .carousel-item {
+        height: 400px;
+    }
+    #heroCarousel .carousel-control-prev {
+        left: 10px;
+    }
+    #heroCarousel .carousel-control-next {
+        right: 10px;
+    }
+    #heroCarousel .carousel-control-prev-icon,
+    #heroCarousel .carousel-control-next-icon {
+        width: 24px;
+        height: 24px;
+    }
+    #heroCarousel .carousel-indicators {
+        bottom: 15px;
+        gap: 8px;
+    }
+    #heroCarousel .carousel-indicators button {
+        width: 10px !important;
+        height: 10px !important;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .hero-section {
+        margin-top: 78px;
+    }
+    .hero-section .carousel-item {
+        height: 340px;
+    }
+    #heroCarousel .carousel-control-prev,
+    #heroCarousel .carousel-control-next {
+        width: 30px;
+        height: 30px;
+    }
+    #heroCarousel .carousel-control-prev-icon,
+    #heroCarousel .carousel-control-next-icon {
+        width: 20px;
+        height: 20px;
+    }
+    #heroCarousel .carousel-indicators {
+        bottom: 10px;
+    }
+}
+
+@media (max-width: 399.98px) {
+    .hero-section {
+        margin-top: 72px;
+    }
+    .hero-section .carousel-item {
+        height: 280px;
+    }
+    #heroCarousel .carousel-control-prev,
+    #heroCarousel .carousel-control-next {
+        width: 24px;
+        height: 24px;
+    }
+    #heroCarousel .carousel-control-prev-icon,
+    #heroCarousel .carousel-control-next-icon {
+        width: 16px;
+        height: 16px;
+    }
+    #heroCarousel .carousel-control-prev {
+        left: 5px;
+    }
+    #heroCarousel .carousel-control-next {
+        right: 5px;
+    }
+    #heroCarousel .carousel-indicators {
+        bottom: 8px;
+        gap: 5px;
+    }
+    #heroCarousel .carousel-indicators button {
+        width: 8px !important;
+        height: 8px !important;
+    }
+}
+
+
+@media (max-width: 375px) {
+  
+    .hero-banner-img {
+        width: 101%;
+        height: 114%;
+        object-fit: contain;
+        object-position: center center;
+        display: ruby-text;
+    }
+    .hero-section {
+        margin-top: 72px;
+    }
+    .hero-section .carousel-item {
+        height: 175px;
+    }
+    #heroCarousel .carousel-control-prev,
+    #heroCarousel .carousel-control-next {
+        width: 20px;
+        height: 20px;
+    }
+    #heroCarousel .carousel-control-prev-icon,
+    #heroCarousel .carousel-control-next-icon {
+        width: 16px;
+        height: 16px;
+    }
+    #heroCarousel .carousel-control-prev {
+        left: 5px;
+    }
+    #heroCarousel .carousel-control-next {
+        right: 5px;
+    }
+    #heroCarousel .carousel-indicators {
+        bottom: 4px;
+        gap: 5px;
+    }
+    #heroCarousel .carousel-indicators button {
+        width: 8px !important;
+        height: 8px !important;
+    }
+    .product-image-wrapper {
+        height: 375px!important;
+    }
+    .vesitable .vesitable-item .vesitable-img {
+    height: 300px!important;
+    transition: 0.5s;
+    border-radius: 10px 10px 0 0;
+    }
+}
+
+
+/* ==========================================================
+   CATEGORY TABS RESPONSIVE
+========================================================== */
+@media (max-width: 667px) {
+    .tab-class .row.g-4 {
+        display: block !important;
+    }
+    .tab-class .col-lg-4,
+    .tab-class .col-lg-8 {
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+    .tab-class .col-lg-8 {
+        text-align: left !important;
+        margin-top: 20px;
+    }
+    .category-tabs {
+        width: 100%;
+    }
+    .category-tabs .nav {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: stretch !important;
+        width: 100%;
+        margin-bottom: 0 !important;
+    }
+    .category-tabs .nav-item {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+    .category-tabs .nav-item a {
+        width: 100%;
+        justify-content: center;
+        margin: 0 !important;
+    }
+    .category-tabs .nav-item span {
+        width: 100% !important;
+        text-align: center;
+    }
+}
+
+/* ==========================================================
+   BESTSELLER RESPONSIVE
+========================================================== */
 @media (max-width: 768px) {
     .bestseller-img-wrapper {
         width: 80px;
         height: 80px;
     }
-    
     .bestseller-img-wrapper img {
         height: 80px !important;
         width: 80px !important;
     }
-    
     .bestseller-card {
         padding: 15px !important;
     }
-    
     .bestseller-card .h5 {
         font-size: 15px !important;
     }
-    
     .bestseller-card-vertical {
         padding: 10px;
     }
-    
     .bestseller-img-wrapper-vertical img {
         height: 150px !important;
     }
 }
 
 /* ==========================================================
-   HERO BANNER - INDUSTRY LEVEL
+   TESTIMONIAL RESPONSIVE
 ========================================================== */
-
-.hero-section{
-    position:relative;
-    overflow:hidden;
-    margin-top:120px;
-    background:#111;
-}
-
-.hero-section .carousel-item{
-    height:650px;
-    background-size:cover;
-    background-position:center center;
-    background-repeat:no-repeat;
-    position:relative;
-}
-
-.hero-section .hero-overlay{
-    position:absolute;
-    inset:0;
-    background:linear-gradient(
-        90deg,
-        rgba(0,0,0,.72) 0%,
-        rgba(0,0,0,.40) 45%,
-        rgba(0,0,0,.15) 100%
-    );
-    z-index:1;
-}
-
-.hero-section .hero-content{
-    position:relative;
-    z-index:2;
-    color:#fff;
-}
-
-.hero-section .badge{
-    background:#81c408 !important;
-    color:#fff;
-    font-size:14px;
-    font-weight:600;
-    padding:10px 18px;
-}
-
-.hero-section h1{
-    color:#fff;
-    font-size:60px;
-    font-weight:800;
-    line-height:1.15;
-    margin-bottom:18px;
-}
-
-.hero-section h1 .text-primary{
-    color:#81c408 !important;
-}
-
-.hero-section p{
-    font-size:18px;
-    line-height:1.8;
-    color:#f2f2f2;
-    max-width:520px;
-    margin-bottom:35px;
-}
-
-/* Buttons */
-
-.hero-section .d-flex{
-    display:flex;
-    gap:18px;
-    flex-wrap:wrap;
-}
-
-.hero-section .btn-primary-custom{
-
-    background:#6a9e06;
-    color:#fff;
-    border:none;
-    border-radius:50px;
-    padding:15px 36px;
-    font-weight:700;
-    text-decoration:none;
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
-    transition:.3s;
-}
-
-.hero-section .btn-primary-custom:hover{
-
-    background:#81c408;
-    color:#fff;
-}
-
-.hero-section .btn-outline-custom{
-
-    background:transparent;
-    color:#fff;
-
-    border:2px solid #ffb524;
-
-    border-radius:50px;
-
-    padding:15px 36px;
-
-    text-decoration:none;
-
-    display:inline-flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    transition:.3s;
-
-    margin-left:0 !important;
-}
-
-.hero-section .btn-outline-custom:hover{
-
-    background:#ffb524;
-    color:#fff;
-    transform:translateY(-6px);
-}
-
-/* Search */
-
-.hero-section .search-box{
-
-    max-width:480px;
-}
-
-.hero-section .search-box input{
-
-    width:100%;
-
-    border:none;
-
-    border-radius:50px;
-
-    padding:15px 20px;
-
-    background:rgba(255,255,255,.15);
-
-    color:#fff;
-
-    backdrop-filter:blur(8px);
-}
-
-.hero-section .search-box input::placeholder{
-
-    color:#ddd;
-}
-
-/* Indicators */
-
-#heroCarousel .carousel-indicators{
-
-    bottom:25px;
-
-    gap:10px;
-}
-
-#heroCarousel .carousel-indicators button{
-
-    width:12px !important;
-
-    height:12px !important;
-
-    border-radius:50%;
-
-    opacity:1;
-
-    border:none;
-
-    background:#d4d4d4;
-}
-
-#heroCarousel .carousel-indicators .active{
-
-    background:#81c408 !important;
-
-    transform:scale(1.2);
-}
-
-/* Carousel Controls Always Clickable */
-#heroCarousel{
-    position: relative;
-}
-
-#heroCarousel .carousel-control-prev,
-#heroCarousel .carousel-control-next{
-    z-index: 9999 !important;
-    pointer-events: auto !important;
-}
-
-/* Overlay ke neeche arrows nahi jane chahiye */
-.hero-overlay{
-    z-index: 1 !important;
-    pointer-events: none;
-}
-
-.hero-content{
-    position: relative;
-    z-index: 2;
-}
-
-#heroCarousel .carousel-control-prev,
-#heroCarousel .carousel-control-next{
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-}
-
-#heroCarousel .carousel-control-prev{
-    left: 20px;
-}
-
-#heroCarousel .carousel-control-next{
-    right: 20px;
-}
-
-#heroCarousel .carousel-control-prev-icon,
-#heroCarousel .carousel-control-next-icon{
-
-    filter:invert(1);
-
-    background-size:60%;
-}
-/* ==========================================================
-   HERO RESPONSIVE
-========================================================== */
-
-/* ==========================
-   Laptop
-========================== */
-
-@media (max-width:1199.98px){
-
-    .hero-section{
-        margin-top:110px;
-    }
-
-    .hero-section .carousel-item{
-        height:600px;
-    }
-
-    .hero-section h1{
-        font-size:48px;
-    }
-
-    .hero-section p{
-        font-size:17px;
-    }
-
-}
-
-
-/* ==========================
-   Tablet
-========================== */
-
-@media (max-width:991.98px){
-
-    .hero-section{
-        margin-top:95px;
-    }
-
-    .hero-section .carousel-item{
-
-        height:560px;
-
-        background-position:center center !important;
-    }
-
-    .hero-section .hero-content{
-
-        text-align:center;
-
-        max-width:700px;
-
-        margin:auto;
-    }
-
-    .hero-section h1{
-
-        font-size:42px;
-    }
-
-    .hero-section p{
-
-        max-width:100%;
-
-        margin:18px auto 30px;
-    }
-
-    .hero-section .d-flex{
-
-        justify-content:center;
-    }
-
-    .hero-section .search-box{
-
-        max-width:100%;
-    }
-
-}
-
-
-/* ==========================
-   Mobile
-========================== */
-
-@media (max-width:767.98px){
-
-    .hero-section{
-
-        margin-top:85px;
-    }
-
-    .hero-section .carousel-item{
-
-        height:540px;
-
-        background-size:cover;
-
-        background-position:center center;
-    }
-
-    .hero-section .hero-overlay{
-
-        background:linear-gradient(
-            rgba(0,0,0,.75),
-            rgba(0,0,0,.55)
-        );
-    }
-
-    .hero-section .hero-content{
-
-        text-align:center;
-
-        padding:15px;
-    }
-
-    .hero-section .badge{
-
-        font-size:12px;
-
-        padding:8px 16px;
-    }
-
-    .hero-section h1{
-
-        font-size:34px;
-
-        line-height:1.2;
-    }
-
-    .hero-section p{
-
-        font-size:15px;
-
-        max-width:100%;
-
-        margin:18px auto;
-    }
-
-    .hero-section .d-flex{
-
-        flex-direction:column;
-
-        align-items:center;
-
-        gap:15px;
-    }
-
-    .hero-section .btn-primary-custom,
-    .hero-section .btn-outline-custom{
-
-        width:240px;
-
-        justify-content:center;
-
-        margin:0 !important;
-
-        padding:14px 20px;
-    }
-
-    .hero-section .search-box{
-
-        width:100%;
-    }
-
-    .hero-section .search-box input{
-
-        font-size:15px;
-    }
-
-    #heroCarousel .carousel-control-prev,
-    #heroCarousel .carousel-control-next{
-
-        opacity:1;
-
-        width:42px;
-
-        height:42px;
-    }
-
-    #heroCarousel .carousel-control-prev{
-
-        left:10px;
-    }
-
-    #heroCarousel .carousel-control-next{
-
-        right:10px;
-    }
-
-}
-
-
-/* ==========================
-   Small Mobile
-========================== */
-
-@media (max-width:575.98px){
-
-    .hero-section{
-
-        margin-top:78px;
-    }
-
-    .hero-section .carousel-item{
-
-        height:500px;
-    }
-
-    .hero-section h1{
-
-        font-size:28px;
-    }
-
-    .hero-section p{
-
-        font-size:14px;
-    }
-
-    .hero-section .btn-primary-custom,
-    .hero-section .btn-outline-custom{
-
-        width:100%;
-        max-width:280px;
-    }
-
-    #heroCarousel .carousel-indicators{
-
-        bottom:12px;
-    }
-
-}
-
-
-/* ==========================
-   Extra Small
-========================== */
-
-@media (max-width:400px){
-
-    .hero-section .carousel-item{
-
-        height:470px;
-    }
-
-    .hero-section h1{
-
-        font-size:24px;
-    }
-
-    .hero-section p{
-
-        font-size:13px;
-    }
-
-    .hero-section .badge{
-
-        font-size:11px;
-    }
-
-    .hero-section .btn-primary-custom,
-    .hero-section .btn-outline-custom{
-
-        font-size:14px;
-
-        padding:12px 16px;
-    }
-
-}
-@media (max-width:667px){
-
-    .tab-class .row.g-4{
-        display:block !important;
-    }
-
-    .tab-class .col-lg-4,
-    .tab-class .col-lg-8{
-        width:100% !important;
-        max-width:100% !important;
-    }
-
-    .tab-class .col-lg-8{
-        text-align:left !important;
-        margin-top:20px;
-    }
-
-    .category-tabs{
-        width:100%;
-    }
-
-    .category-tabs .nav{
-        display:flex !important;
-        flex-direction:column !important;
-        align-items:stretch !important;
-        width:100%;
-        margin-bottom:0 !important;
-    }
-
-    .category-tabs .nav-item{
-        width:100%;
-        margin-bottom:12px;
-    }
-
-    .category-tabs .nav-item a{
-        width:100%;
-        justify-content:center;
-        margin:0 !important;
-    }
-
-    .category-tabs .nav-item span{
-        width:100% !important;
-        text-align:center;
-    }
-
-}
-.hero-buttons{
-    display:flex;
-    align-items:center;
-    gap:18px;
-    flex-wrap:wrap;
-}
-
-@media (max-width:767.98px){
-
-    .hero-buttons{
-        flex-direction:column;
-        align-items:center;
-        justify-content:center;
-    }
-
-    .hero-buttons .btn{
-        width:240px;
-        justify-content:center;
-    }
+@media (max-width: 767.98px) {
     .testi {
-        margin-bottom: 4rem !important;
+        margin-bottom: 2rem !important;
     }
-
 }
 
+/* ==========================================================
+   COUNTER RESPONSIVE
+========================================================== */
+@media (max-width: 575.98px) {
+    .counter {
+        padding: 20px !important;
+    }
+    .counter h1 {
+        font-size: 28px !important;
+    }
+    .counter h4 {
+        font-size: 14px !important;
+    }
+}
 
+/* ==========================================================
+   PRODUCT CARDS RESPONSIVE
+========================================================== */
+@media (max-width: 575.98px) {
+    .product-image-wrapper {
+        height: 200px;
+    }
+    .vesitable-img {
+        height: 200px;
+    }
+    .font-s {
+        font-size: 15px;
+        min-height: 40px;
+    }
+}
+
+@media (max-width: 399.98px) {
+    .product-image-wrapper {
+        height: 170px;
+    }
+    .vesitable-img {
+        height: 170px;
+    }
+    .font-s {
+        font-size: 13px;
+        min-height: 36px;
+        padding: 4px 8px;
+    }
+}
 </style>
 
-<body>
-<!-- Hero Start -->
+<!-- ========================================================== -->
+<!-- HERO BANNER - CLEAN, NO TEXT -->
+<!-- ========================================================== -->
 <section class="hero-section">
     <div id="heroCarousel" class="carousel slide" data-bs-ride="carousel">
-
-        <!-- Indicators -->
         <div class="carousel-indicators">
             {% for banner in hero_banners %}
             <button type="button"
@@ -895,588 +624,431 @@
             </button>
             {% endfor %}
         </div>
-
         <div class="carousel-inner">
-
             {% for banner in hero_banners %}
-
-            <div class="carousel-item {% if forloop.first %}active{% endif %}"
-                 style="background-image:url('{% if banner.image %}{{ banner.image.url }}{% else %}{% static "img/banner.png" %}{% endif %}');">
-
-                <div class="hero-overlay"></div>
-
-                <div class="container h-100">
-
-                    <div class="row h-100 align-items-center justify-content-center">
-
-                        <div class="col-xl-6 col-lg-7 col-md-10 hero-content">
-
-                          
-                        </div>
-
-                    </div>
-
-                </div>
-
+            <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                {% if banner.image %}
+                    <img src="{{ banner.image.url }}" 
+                         class="hero-banner-img" 
+                         alt="{{ banner.title|default:'Banner' }}">
+                {% else %}
+                    <img src="{% static 'img/banner.png' %}" 
+                         class="hero-banner-img" 
+                         alt="Banner">
+                {% endif %}
             </div>
-
             {% empty %}
-
-            <div class="carousel-item active"
-                 style="background-image:url('{% static "img/hero-img-1.png" %}');">
-
-                <div class="hero-overlay"></div>
-
-                <div class="container h-100">
-
-                    <div class="row h-100 align-items-center justify-content-center">
-
-                        <div class="col-xl-6 col-lg-7 col-md-10 hero-content">
-
-                          
-                          
-                            <div class="search-box mt-4">
-
-                                <form action="{% url 'products:product-list' %}"
-                                      method="GET">
-
-                                    <input
-                                        type="search"
-                                        name="q"
-                                        placeholder="Search for products...">
-
-                                </form>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
+            <div class="carousel-item active">
+                <img src="{% static 'img/hero-img-1.png' %}" 
+                     class="hero-banner-img" 
+                     alt="Hero Banner">
             </div>
-
             {% endfor %}
-
         </div>
-
         {% if hero_banners|length > 1 %}
-
-        <button class="carousel-control-prev"
-                type="button"
-                data-bs-target="#heroCarousel"
-                data-bs-slide="prev">
-
-            <span class="carousel-control-prev-icon"></span>
-
+        <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
         </button>
-
-        <button class="carousel-control-next"
-                type="button"
-                data-bs-target="#heroCarousel"
-                data-bs-slide="next">
-
-            <span class="carousel-control-next-icon"></span>
-
+        <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
         </button>
-
         {% endif %}
-
     </div>
 </section>
-<!-- Hero End -->    <!-- ==========================================================
-         FEATURED PRODUCTS SECTION
-    ========================================================== -->
-    <div class="container-fluid fruite py-5">
-        <div class="container py-5">
-            <div class="tab-class text-center">
-                
-                <!-- Tabs Header -->
-                <div class="row g-4">
-                    <div class="col-lg-4 text-start">
-                        <h1>Featured Products</h1>
-                    </div>
 
-                    <div class="col-lg-8 text-end">
-                        <div class="category-tabs">
+<!-- ========================================================== -->
+<!-- FEATURED PRODUCTS -->
+<!-- ========================================================== -->
+<div class="container-fluid fruite py-5">
+    <div class="container py-5">
+        <div class="tab-class text-center">
+            <div class="row g-4">
+                <div class="col-lg-4 text-start">
+                    <h1>Featured Products</h1>
+                </div>
+                <div class="col-lg-8 text-end">
+                    <div class="category-tabs">
                         <ul class="nav nav-pills d-inline-flex text-center mb-5">
-                        
-  
-                            <!-- All Products Tab -->
                             <li class="nav-item">
                                 <a class="d-flex m-2 py-2 bg-light rounded-pill active"
                                    data-bs-toggle="pill"
                                    href="#tab-all">
-                                    <span class="text-dark" style="width:130px;">
-                                        All Products
-                                    </span>
+                                    <span class="text-dark" style="width:130px;">All Products</span>
                                 </a>
                             </li>
-
-                            <!-- Parent Categories Tabs -->
                             {% for category_data in category_products_list %}
                             <li class="nav-item">
                                 <a class="d-flex m-2 py-2 bg-light rounded-pill"
                                    data-bs-toggle="pill"
                                    href="#tab-{{ category_data.category.id }}">
-                                    <span class="text-dark" style="width:160px;">
-                                        {{ category_data.category.title }}
-                                    </span>
+                                    <span class="text-dark" style="width:160px;">{{ category_data.category.title }}</span>
                                 </a>
                             </li>
                             {% endfor %}
-
                         </ul>
-                        </div>
                     </div>
                 </div>
-
-                <!-- Tab Content -->
-                <div class="tab-content">
-                    
-                    <!-- ==============================================
-                    TAB: ALL PRODUCTS
-                    ============================================== -->
-                    <div id="tab-all" class="tab-pane fade show p-0 active">
-                        <div class="row g-4">
-                            <div class="col-lg-12">
-                                <div class="row g-4">
-                                    
-                                    {% for product in featured_products %}
-                                    <div class="col-md-6 col-lg-4 col-xl-3">
-                                        <div class="rounded position-relative fruite-item">
-                                            
-                                            <!-- Product Image with Hover Effect -->
-                                            <div class="product-image-wrapper">
-                                                {% with product.default_variant as variant %}
-                                                    {% if variant %}
-                                                        {% with variant.images.all as images %}
-                                                            {% if images %}
-                                                                <!-- Default Image -->
-                                                                <img src="{{ images.0.image.url }}" 
-                                                                     class="product-img-default" 
-                                                                     alt="{{ product.name }}">
-                                                                
-                                                                <!-- Hover Image (only if more than 1 image) -->
-                                                                {% if images|length > 1 %}
-                                                                    <img src="{{ images.1.image.url }}" 
-                                                                         class="product-img-hover" 
-                                                                         alt="{{ product.name }} - hover">
-                                                                {% endif %}
-                                                            {% else %}
-                                                                <!-- No Image - Show Default -->
-                                                                <img src="{% static 'img/default-product.jpg' %}" 
-                                                                     class="product-img-default" 
-                                                                     alt="{{ product.name }}">
+            </div>
+            <div class="tab-content">
+                <div id="tab-all" class="tab-pane fade show p-0 active">
+                    <div class="row g-4">
+                        <div class="col-lg-12">
+                            <div class="row g-4">
+                                {% for product in featured_products %}
+                                <div class="col-md-6 col-lg-4 col-xl-3">
+                                    <div class="rounded position-relative fruite-item">
+                                        <div class="product-image-wrapper">
+                                            {% with product.default_variant as variant %}
+                                                {% if variant %}
+                                                    {% with variant.images.all as images %}
+                                                        {% if images %}
+                                                            <img src="{{ images.0.image.url }}" class="product-img-default" alt="{{ product.name }}">
+                                                            {% if images|length > 1 %}
+                                                                <img src="{{ images.1.image.url }}" class="product-img-hover" alt="{{ product.name }} - hover">
                                                             {% endif %}
-                                                        {% endwith %}
-                                                    {% else %}
-                                                        <!-- No Variant - Show Default -->
-                                                        <img src="{% static 'img/default-product.jpg' %}" 
-                                                             class="product-img-default" 
-                                                             alt="{{ product.name }}">
-                                                    {% endif %}
-                                                {% endwith %}
-                                            </div>
-                                            
-                                            <!-- Category Badge -->
-                                            <div class="text-white bg-secondary px-3 py-1 br-radius position-absolute" 
-                                                 style="top: 10px; left: 10px; z-index: 3; font-size:10px;">
-                                                {{ product.category.title }}
-                                            </div>
-                                            
-                                            <!-- Product Info -->
-                                            <div class="p-4 border-top-0 rounded-bottom">
-                                                <h4 style="font-size: 18px; color: #070707;">{{ product.name|truncatechars:25 }}</h4>
-                                                <p style="font-size: 14px; color: #0b0b0b;">{{ product.short_description|truncatechars:30 }}</p>
-                                                
-                                                <div class="d-flex justify-content-between flex-lg-wrap">
-                                                    {% with product.variants.all|first as variant %}
-                                                        {% if variant %}
-                                                            <p class="text-dark fs-5 fw-bold mb-0">
-                                                                Rs. {{ variant.price }}
-                                                                {% if variant.compare_price %}
-                                                                    <span class="text-danger text-decoration-line-through fs-6">
-                                                                        Rs. {{ variant.compare_price }}
-                                                                    </span>
-                                                                {% endif %}
-                                                            </p>
-                                                            <a href="{% url 'products:product-detail' slug=product.slug %}" 
-                                                               class="btn border border-secondary rounded-pill px-3 text-primary">
-                                                                <i class="fa fa-eye me-2 text-primary"></i> View
-                                                            </a>
-                                                        {% endif %}
-                                                    {% endwith %}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    {% empty %}
-                                    <div class="col-12 text-center py-5">
-                                        <p class="text-muted">No featured products available.</p>
-                                    </div>
-                                    {% endfor %}
-                                    
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- ==============================================
-                    TAB: CATEGORY PRODUCTS
-                    ============================================== -->
-                    {% for category_data in category_products_list %}
-                    <div id="tab-{{ category_data.category.id }}" class="tab-pane fade show p-0">
-                        <div class="row g-4">
-                            <div class="col-lg-12">
-                                <div class="row g-4">
-                                    
-                                    {% for product in category_data.products %}
-                                    <div class="col-md-6 col-lg-4 col-xl-3">
-                                        <div class="rounded position-relative fruite-item">
-                                            
-                                            <!-- Product Image with Hover Effect -->
-                                            <div class="product-image-wrapper">
-                                                {% with product.default_variant as variant %}
-                                                    {% if variant %}
-                                                        {% with variant.images.all as images %}
-                                                            {% if images %}
-                                                                <!-- Default Image -->
-                                                                <img src="{{ images.0.image.url }}" 
-                                                                     class="product-img-default" 
-                                                                     alt="{{ product.name }}">
-                                                                
-                                                                <!-- Hover Image (only if more than 1 image) -->
-                                                                {% if images|length > 1 %}
-                                                                    <img src="{{ images.1.image.url }}" 
-                                                                         class="product-img-hover" 
-                                                                         alt="{{ product.name }} - hover">
-                                                                {% endif %}
-                                                            {% else %}
-                                                                <!-- No Image - Show Default -->
-                                                                <img src="{% static 'img/default-product.jpg' %}" 
-                                                                     class="product-img-default" 
-                                                                     alt="{{ product.name }}">
-                                                            {% endif %}
-                                                        {% endwith %}
-                                                    {% else %}
-                                                        <!-- No Variant - Show Default -->
-                                                        <img src="{% static 'img/default-product.jpg' %}" 
-                                                             class="product-img-default" 
-                                                             alt="{{ product.name }}">
-                                                    {% endif %}
-                                                {% endwith %}
-                                            </div>
-                                            
-                                            <!-- Category Badge -->
-                                            <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" 
-                                                 style="top: 10px; left: 10px; z-index: 3;">
-                                                {{ product.category.title }}
-                                            </div>
-                                            
-                                            <!-- Product Info -->
-                                            <div class="p-4 border border-secondary border-top-0 rounded-bottom">
-                                                <h4>{{ product.name }}</h4>
-                                                <p>{{ product.short_description|truncatechars:80 }}</p>
-                                                
-                                                <div class="d-flex justify-content-between flex-lg-wrap">
-                                                    {% with product.default_variant as variant %}
-                                                        {% if variant %}
-                                                            <p class="text-dark fs-5 fw-bold mb-0">
-                                                                Rs. {{ variant.price }}
-                                                                {% if variant.compare_price %}
-                                                                {% endif %}
-                                                            </p>
                                                         {% else %}
-                                                            <p class="text-dark fs-5 fw-bold mb-0">
-                                                                No variant available
-                                                            </p>
+                                                            <img src="{% static 'img/default-product.jpg' %}" class="product-img-default" alt="{{ product.name }}">
                                                         {% endif %}
                                                     {% endwith %}
-                                                </div>
+                                                {% else %}
+                                                    <img src="{% static 'img/default-product.jpg' %}" class="product-img-default" alt="{{ product.name }}">
+                                                {% endif %}
+                                            {% endwith %}
+                                        </div>
+                                        <div class="text-white bg-secondary px-3 py-1 br-radius position-absolute" 
+                                             style="top: 10px; left: 10px; z-index: 3; font-size:10px;">
+                                            {{ product.category.title }}
+                                        </div>
+                                        <div class="p-4 border-top-0 rounded-bottom">
+                                            <h4 style="font-size: 18px; color: #070707;">{{ product.name|truncatechars:25 }}</h4>
+                                            <p style="font-size: 14px; color: #0b0b0b;">{{ product.short_description|truncatechars:30 }}</p>
+                                            <div class="d-flex justify-content-between flex-lg-wrap">
+                                                {% with product.variants.all|first as variant %}
+                                                    {% if variant %}
+                                                        <p class="text-dark fs-5 fw-bold mb-0">
+                                                            Rs. {{ variant.price }}
+                                                            {% if variant.compare_price %}
+                                                                <span class="text-danger text-decoration-line-through fs-6">
+                                                                    Rs. {{ variant.compare_price }}
+                                                                </span>
+                                                            {% endif %}
+                                                        </p>
+                                                        <a href="{% url 'products:product-detail' slug=product.slug %}" 
+                                                           class="btn border border-secondary rounded-pill px-3 text-primary">
+                                                            <i class="fa fa-eye me-2 text-primary"></i> View
+                                                        </a>
+                                                    {% endif %}
+                                                {% endwith %}
                                             </div>
                                         </div>
                                     </div>
-                                    {% empty %}
-                                    <div class="col-12 text-center py-5">
-                                        <p class="text-muted">No products available in {{ category_data.category.title }}.</p>
-                                    </div>
-                                    {% endfor %}
-                                    
                                 </div>
+                                {% empty %}
+                                <div class="col-12 text-center py-5">
+                                    <p class="text-muted">No featured products available.</p>
+                                </div>
+                                {% endfor %}
                             </div>
                         </div>
                     </div>
-                    {% endfor %}
-                    
                 </div>
+                {% for category_data in category_products_list %}
+                <div id="tab-{{ category_data.category.id }}" class="tab-pane fade show p-0">
+                    <div class="row g-4">
+                        <div class="col-lg-12">
+                            <div class="row g-4">
+                                {% for product in category_data.products %}
+                                <div class="col-md-6 col-lg-4 col-xl-3">
+                                    <div class="rounded position-relative fruite-item">
+                                        <div class="product-image-wrapper">
+                                            {% with product.default_variant as variant %}
+                                                {% if variant %}
+                                                    {% with variant.images.all as images %}
+                                                        {% if images %}
+                                                            <img src="{{ images.0.image.url }}" class="product-img-default" alt="{{ product.name }}">
+                                                            {% if images|length > 1 %}
+                                                                <img src="{{ images.1.image.url }}" class="product-img-hover" alt="{{ product.name }} - hover">
+                                                            {% endif %}
+                                                        {% else %}
+                                                            <img src="{% static 'img/default-product.jpg' %}" class="product-img-default" alt="{{ product.name }}">
+                                                        {% endif %}
+                                                    {% endwith %}
+                                                {% else %}
+                                                    <img src="{% static 'img/default-product.jpg' %}" class="product-img-default" alt="{{ product.name }}">
+                                                {% endif %}
+                                            {% endwith %}
+                                        </div>
+                                        <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" 
+                                             style="top: 10px; left: 10px; z-index: 3;">
+                                            {{ product.category.title }}
+                                        </div>
+                                        <div class="p-4 border border-secondary border-top-0 rounded-bottom">
+                                            <h4>{{ product.name }}</h4>
+                                            <p>{{ product.short_description|truncatechars:80 }}</p>
+                                            <div class="d-flex justify-content-between flex-lg-wrap">
+                                                {% with product.default_variant as variant %}
+                                                    {% if variant %}
+                                                        <p class="text-dark fs-5 fw-bold mb-0">
+                                                            Rs. {{ variant.price }}
+                                                        </p>
+                                                    {% else %}
+                                                        <p class="text-dark fs-5 fw-bold mb-0">No variant available</p>
+                                                    {% endif %}
+                                                {% endwith %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% empty %}
+                                <div class="col-12 text-center py-5">
+                                    <p class="text-muted">No products available in {{ category_data.category.title }}.</p>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
             </div>
         </div>
     </div>
+</div>
 
-    <!-- ==========================================================
-         NEW ARRIVALS SECTION
-    ========================================================== -->
-    <div class="container-fluid vesitable py-5">
-        <div class="container py-5">
-            <h1 class="mb-0">New Arrivals</h1>
-            <div class="owl-carousel vegetable-carousel justify-content-center">
-                {% for product in new_arrivals %}
-                <div class="border border-primary rounded position-relative vesitable-item">
-                    <div class="vesitable-img" style="height: 250px; overflow: hidden;">
-                        {% with product.default_variant as variant %}
+<!-- ========================================================== -->
+<!-- NEW ARRIVALS -->
+<!-- ========================================================== -->
+<div class="container-fluid vesitable py-5">
+    <div class="container py-5">
+        <h1 class="mb-0">New Arrivals</h1>
+        <div class="owl-carousel vegetable-carousel justify-content-center">
+            {% for product in new_arrivals %}
+            <div class="border border-primary rounded position-relative vesitable-item">
+                <div class="vesitable-img">
+                    {% with product.default_variant as variant %}
+                        {% if variant %}
+                            {% with variant.images.all as images %}
+                                {% if images %}
+                                    <img src="{{ images.0.image.url }}" class="img-fluid w-100 rounded-top" alt="{{ product.name }}">
+                                {% else %}
+                                    <img src="{% static 'img/default-product.jpg' %}" class="img-fluid w-100 rounded-top" alt="{{ product.name }}">
+                                {% endif %}
+                            {% endwith %}
+                        {% else %}
+                            <img src="{% static 'img/default-product.jpg' %}" class="img-fluid w-100 rounded-top" alt="{{ product.name }}">
+                        {% endif %}
+                    {% endwith %}
+                </div>
+                <div class="text-white px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px; font-size: 12px; background-color: #6a9e06 !important">
+                    {{ product.category.title }}
+                </div>
+                <div class="p-4 rounded-bottom">
+                    <h4 style="font-size: 16px; font-weight: 700; text-align: center; color: black;">
+                        {{ product.name|truncatechars:25 }}
+                    </h4>
+                    <p style="font-size: 14px; color: #000000; text-align: center;">
+                        {{ product.short_description|truncatechars:25 }}
+                    </p>
+                    <div class="d-flex justify-content-between flex-lg-wrap">
+                        {% with product.variants.all|first as variant %}
                             {% if variant %}
-                                {% with variant.images.all as images %}
-                                    {% if images %}
-                                        <img src="{{ images.0.image.url }}" 
-                                             class="img-fluid w-100 rounded-top" 
-                                             alt="{{ product.name }}"
-                                             style="height: 100%; width: 100%; object-fit: cover;">
-                                    {% else %}
-                                        <img src="{% static 'img/default-product.jpg' %}" 
-                                             class="img-fluid w-100 rounded-top" 
-                                             alt="{{ product.name }}"
-                                             style="height: 100%; width: 100%; object-fit: cover;">
+                                <p class="text-dark fs-5 fw-bold mb-0">
+                                    Rs. {{ variant.price }}
+                                    {% if variant.compare_price %}
+                                        <span class="text-danger text-decoration-line-through fs-6" style="font-weight: 400;">
+                                            Rs. {{ variant.compare_price }}
+                                        </span>
                                     {% endif %}
-                                {% endwith %}
-                            {% else %}
-                                <img src="{% static 'img/default-product.jpg' %}" 
-                                     class="img-fluid w-100 rounded-top" 
-                                     alt="{{ product.name }}"
-                                     style="height: 100%; width: 100%; object-fit: cover;">
+                                </p>
+                                <a href="{% url 'products:product-detail' slug=product.slug %}" 
+                                   class="btn border border-secondary rounded-pill px-3 text-primary"
+                                   style="font-size: 16px; font-weight: 700; text-align: center;">
+                                    <i class="fa fa-eye me-2 text-primary"></i> View
+                                </a>
                             {% endif %}
                         {% endwith %}
                     </div>
-                    <div class="text-white px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px; font-size: 12px; background-color: #6a9e06 !important">
-                        {{ product.category.title }}
-                    </div>
-                    <div class="p-4 rounded-bottom">
-                        <h4 style="font-size: 16px; font-weight: 700; text-align: center; color: black;">
-                            {{ product.name|truncatechars:25 }}
-                        </h4>
-                        <p style="font-size: 14px; color: #000000; text-align: center;">
-                            {{ product.short_description|truncatechars:25 }}
-                        </p>
-                        <div class="d-flex justify-content-between flex-lg-wrap">
-                            {% with product.variants.all|first as variant %}
-                                {% if variant %}
-                                    <p class="text-dark fs-5 fw-bold mb-0">
-                                        Rs. {{ variant.price }}
-                                        {% if variant.compare_price %}
-                                            <span class="text-danger text-decoration-line-through fs-6" style="font-weight: 400;">
-                                                Rs. {{ variant.compare_price }}
-                                            </span>
-                                        {% endif %}
-                                    </p>
-                                    <a href="{% url 'products:product-detail' slug=product.slug %}" 
-                                       class="btn border border-secondary rounded-pill px-3 text-primary"
-                                       style="font-size: 16px; font-weight: 700; text-align: center;">
-                                        <i class="fa fa-eye me-2 text-primary"></i> View
-                                    </a>
-                                {% endif %}
-                            {% endwith %}
-                        </div>
-                    </div>
                 </div>
-                {% empty %}
-                <div class="col-12 text-center py-5">
-                    <p class="text-muted">No new arrivals available.</p>
-                </div>
-                {% endfor %}
             </div>
+            {% empty %}
+            <div class="col-12 text-center py-5">
+                <p class="text-muted">No new arrivals available.</p>
+            </div>
+            {% endfor %}
         </div>
     </div>
+</div>
 
-    <!-- ==========================================================
-         BESTSELLER PRODUCTS
-    ========================================================== -->
-    <div class="container-fluid py-5">
-        <div class="container py-5">
-            <div class="text-center mx-auto mb-5" style="max-width: 700px;">
-                <h4 class="text-primary" style="font-weight: 600; letter-spacing: 2px; text-transform: uppercase; font-size: 14px;">
-                    <i class="fas fa-fire me-2"></i> Top Selling
-                </h4>
-                <h1 class="display-4 mb-3" style="font-weight: 700;">Bestseller Products</h1>
-                <p class="text-muted" style="font-size: 16px;">Discover our most popular products loved by thousands of customers worldwide.</p>
-            </div>
-            
-            <div class="row g-4">
-                <!-- First 6 Bestseller Products -->
-                {% for product in bestseller_products %}
-                <div class="col-lg-6 col-xl-4">
-                    <div class="p-4 rounded bg-light bestseller-card">
-                        <div class="row align-items-center g-3">
-                            <div class="col-5">
-                                <div class="bestseller-img-wrapper">
-                                    {% with product.default_variant as variant %}
-                                        {% if variant and variant.images.all %}
-                                            <img src="{{ variant.images.first.image.url }}" 
-                                                 class="img-fluid rounded-circle w-100" 
-                                                 alt="{{ product.name }}"
-                                                 style="height: 120px; width: 120px; object-fit: cover;">
-                                        {% else %}
-                                            <img src="{% static 'img/default-product.jpg' %}" 
-                                                 class="img-fluid rounded-circle w-100" 
-                                                 alt="{{ product.name }}"
-                                                 style="height: 120px; width: 120px; object-fit: cover;">
-                                        {% endif %}
-                                    {% endwith %}
-                                    <!-- Bestseller Badge -->
-                                  
-                                </div>
-                            </div>
-                            <div class="col-7">
-                                <div class="bestseller-info">
-                                    <a href="{% url 'products:product-detail' slug=product.slug %}" 
-                                       class="h5 text-dark text-decoration-none"
-                                       style="font-weight: 600; font-size: 18px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
-                                        {{ product.name|truncatechars:25 }}
-                                    </a>
-                                    <div class="d-flex my-2">
-                                        <i class="fas fa-star text-warning"></i>
-                                        <i class="fas fa-star text-warning"></i>
-                                        <i class="fas fa-star text-warning"></i>
-                                        <i class="fas fa-star text-warning"></i>
-                                        <i class="fas fa-star text-warning"></i>
-                                        <span class="ms-2 text-muted small">(4.9)</span>
-                                    </div>
-                                    <div class="d-flex align-items-center gap-2 flex-wrap">
-                                        {% with product.variants.all|first as variant %}
-                                            {% if variant %}
-                                                <h4 class="mb-0 text-primary fw-bold" style="font-size: 20px;">
-                                                    Rs. {{ variant.price }}
-                                                </h4>
-                                                {% if variant.compare_price %}
-                                                    <span class="text-danger text-decoration-line-through" style="font-size: 14px;">
-                                                        Rs. {{ variant.compare_price }}
-                                                    </span>
-                                                {% endif %}
-                                            {% endif %}
-                                        {% endwith %}
-                                    </div>
-                                    
-                                    <!-- WhatsApp Order Button -->
-                                    <a href="#" 
-                                       class="btn btn-whatsapp-small mt-2"
-                                       onclick="openWhatsApp('{{ product.name|escapejs }}', '{% with product.variants.all|first as variant %}{{ variant.price }}{% endwith %}')">
-                                        <i class="fab fa-whatsapp"></i> Order Now
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                {% empty %}
-                <div class="col-12 text-center py-5">
-                    <p class="text-muted">No bestseller products available.</p>
-                </div>
-                {% endfor %}
-            </div>
-            
-            <!-- Second Row - Remaining Products -->
-            {% if bestseller_remaining %}
-            <div class="row g-4 mt-3">
-                {% for product in bestseller_remaining %}
-                <div class="col-md-6 col-lg-6 col-xl-3">
-                    <div class="text-center bestseller-card-vertical">
-                        <div class="bestseller-img-wrapper-vertical">
-                            {% with product.default_variant as variant %}
-                                {% if variant and variant.images.all %}
-                                    <img src="{{ variant.images.first.image.url }}" 
-                                         class="img-fluid rounded" 
-                                         alt="{{ product.name }}"
-                                         style="height: 200px; width: 100%; object-fit: cover;">
-                                {% else %}
-                                    <img src="{% static 'img/default-product.jpg' %}" 
-                                         class="img-fluid rounded" 
-                                         alt="{{ product.name }}"
-                                         style="height: 200px; width: 100%; object-fit: cover;">
-                                {% endif %}
-                            {% endwith %}
-                            <div class="bestseller-badge-small">Bestseller</div>
-                        </div>
-                        <div class="py-3">
-                            <a href="{% url 'products:product-detail' slug=product.slug %}" 
-                               class="h5 text-dark text-decoration-none"
-                               style="font-weight: 600; font-size: 16px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
-                                {{ product.name|truncatechars:25 }}
-                            </a>
-                            <div class="d-flex my-2 justify-content-center">
-                                <i class="fas fa-star text-warning"></i>
-                                <i class="fas fa-star text-warning"></i>
-                                <i class="fas fa-star text-warning"></i>
-                                <i class="fas fa-star text-warning"></i>
-                                <i class="fas fa-star text-warning"></i>
-                            </div>
-                            <h4 class="mb-2 text-primary fw-bold" style="font-size: 18px;">
-                                {% with product.variants.all|first as variant %}
-                                    {% if variant %}
-                                        Rs. {{ variant.price }}
+<!-- ========================================================== -->
+<!-- BESTSELLER PRODUCTS -->
+<!-- ========================================================== -->
+<div class="container-fluid py-5">
+    <div class="container py-5">
+        <div class="text-center mx-auto mb-5" style="max-width: 700px;">
+            <h4 class="text-primary" style="font-weight: 600; letter-spacing: 2px; text-transform: uppercase; font-size: 14px;">
+                <i class="fas fa-fire me-2"></i> Top Selling
+            </h4>
+            <h1 class="display-4 mb-3" style="font-weight: 700;">Bestseller Products</h1>
+            <p class="text-muted" style="font-size: 16px;">Discover our most popular products loved by thousands of customers worldwide.</p>
+        </div>
+        <div class="row g-4">
+            {% for product in bestseller_products %}
+            <div class="col-lg-6 col-xl-4">
+                <div class="p-4 rounded bg-light bestseller-card">
+                    <div class="row align-items-center g-3">
+                        <div class="col-5">
+                            <div class="bestseller-img-wrapper">
+                                {% with product.default_variant as variant %}
+                                    {% if variant and variant.images.all %}
+                                        <img src="{{ variant.images.first.image.url }}" class="img-fluid rounded-circle w-100" alt="{{ product.name }}" style="height: 120px; width: 120px; object-fit: cover;">
+                                    {% else %}
+                                        <img src="{% static 'img/default-product.jpg' %}" class="img-fluid rounded-circle w-100" alt="{{ product.name }}" style="height: 120px; width: 120px; object-fit: cover;">
                                     {% endif %}
                                 {% endwith %}
-                            </h4>
-                            <a href="{% url 'products:product-detail' slug=product.slug %}" 
-                               class="btn border border-secondary rounded-pill px-4 text-primary"
-                               style="font-size: 13px;">
-                                <i class="fa fa-eye me-2 text-primary"></i> View Details
-                            </a>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                {% endfor %}
-            </div>
-            {% endif %}
-            
-            <!-- View All Button -->
-            <div class="text-center mt-5">
-                <a href="{% url 'products:product-list' %}" class="btn btn-primary rounded-pill px-5 py-3">
-                    View All Products <i class="fas fa-arrow-right ms-2"></i>
-                </a>
-            </div>
-        </div>
-    </div>
-
-    <!-- Fact Start -->
-    <div class="container-fluid py-5">
-        <div class="container">
-            <div class="bg-light p-5 rounded">
-                <div class="row g-4 justify-content-center">
-                    <div class="col-md-6 col-lg-6 col-xl-3">
-                        <div class="counter bg-white rounded p-5">
-                            <i class="fa fa-users text-secondary"></i>
-                            <h4>satisfied customers</h4>
-                            <h1>1963</h1>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-6 col-xl-3">
-                        <div class="counter bg-white rounded p-5">
-                            <i class="fa fa-users text-secondary"></i>
-                            <h4>quality of service</h4>
-                            <h1>99%</h1>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-6 col-xl-3">
-                        <div class="counter bg-white rounded p-5">
-                            <i class="fa fa-users text-secondary"></i>
-                            <h4>quality certificates</h4>
-                            <h1>33</h1>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-6 col-xl-3">
-                        <div class="counter bg-white rounded p-5">
-                            <i class="fa fa-users text-secondary"></i>
-                            <h4>Available Products</h4>
-                            <h1>789</h1>
+                        <div class="col-7">
+                            <div class="bestseller-info">
+                                <a href="{% url 'products:product-detail' slug=product.slug %}" 
+                                   class="h5 text-dark text-decoration-none"
+                                   style="font-weight: 600; font-size: 18px;">
+                                    {{ product.name|truncatechars:25 }}
+                                </a>
+                                <div class="d-flex my-2">
+                                    <i class="fas fa-star text-warning"></i>
+                                    <i class="fas fa-star text-warning"></i>
+                                    <i class="fas fa-star text-warning"></i>
+                                    <i class="fas fa-star text-warning"></i>
+                                    <i class="fas fa-star text-warning"></i>
+                                    <span class="ms-2 text-muted small">(4.9)</span>
+                                </div>
+                                <div class="d-flex align-items-center gap-2 flex-wrap">
+                                    {% with product.variants.all|first as variant %}
+                                        {% if variant %}
+                                            <h4 class="mb-0 text-primary fw-bold" style="font-size: 20px;">
+                                                Rs. {{ variant.price }}
+                                            </h4>
+                                            {% if variant.compare_price %}
+                                                <span class="text-danger text-decoration-line-through" style="font-size: 14px;">
+                                                    Rs. {{ variant.compare_price }}
+                                                </span>
+                                            {% endif %}
+                                        {% endif %}
+                                    {% endwith %}
+                                </div>
+                                <a href="#" class="btn btn-whatsapp-small mt-2"
+                                   onclick="openWhatsApp('{{ product.name|escapejs }}', '{% with product.variants.all|first as variant %}{{ variant.price }}{% endwith %}')">
+                                    <i class="fab fa-whatsapp"></i> Order Now
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+            {% empty %}
+            <div class="col-12 text-center py-5">
+                <p class="text-muted">No bestseller products available.</p>
+            </div>
+            {% endfor %}
+        </div>
+        {% if bestseller_remaining %}
+        <div class="row g-4 mt-3">
+            {% for product in bestseller_remaining %}
+            <div class="col-md-6 col-lg-6 col-xl-3">
+                <div class="text-center bestseller-card-vertical">
+                    <div class="bestseller-img-wrapper-vertical">
+                        {% with product.default_variant as variant %}
+                            {% if variant and variant.images.all %}
+                                <img src="{{ variant.images.first.image.url }}" class="img-fluid rounded" alt="{{ product.name }}" style="height: 200px; width: 100%; object-fit: cover;">
+                            {% else %}
+                                <img src="{% static 'img/default-product.jpg' %}" class="img-fluid rounded" alt="{{ product.name }}" style="height: 200px; width: 100%; object-fit: cover;">
+                            {% endif %}
+                        {% endwith %}
+                        <div class="bestseller-badge-small">Bestseller</div>
+                    </div>
+                    <div class="py-3">
+                        <a href="{% url 'products:product-detail' slug=product.slug %}" 
+                           class="h5 text-dark text-decoration-none"
+                           style="font-weight: 600; font-size: 16px;">
+                            {{ product.name|truncatechars:25 }}
+                        </a>
+                        <div class="d-flex my-2 justify-content-center">
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                        </div>
+                        <h4 class="mb-2 text-primary fw-bold" style="font-size: 18px;">
+                            {% with product.variants.all|first as variant %}
+                                {% if variant %}
+                                    Rs. {{ variant.price }}
+                                {% endif %}
+                            {% endwith %}
+                        </h4>
+                        <a href="{% url 'products:product-detail' slug=product.slug %}" 
+                           class="btn border border-secondary rounded-pill px-4 text-primary"
+                           style="font-size: 13px;">
+                            <i class="fa fa-eye me-2 text-primary"></i> View Details
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+        <div class="text-center mt-5">
+            <a href="{% url 'products:product-list' %}" class="btn btn-primary rounded-pill px-5 py-3">
+                View All Products <i class="fas fa-arrow-right ms-2"></i>
+            </a>
         </div>
     </div>
-    <!-- Fact End -->
+</div>
 
-<!-- Testimonial Start -->
+<!-- ========================================================== -->
+<!-- FACT / COUNTER SECTION -->
+<!-- ========================================================== -->
+<div class="container-fluid py-5">
+    <div class="container">
+        <div class="bg-light p-5 rounded">
+            <div class="row g-4 justify-content-center">
+                <div class="col-md-6 col-lg-6 col-xl-3">
+                    <div class="counter bg-white rounded p-5">
+                        <i class="fa fa-users text-secondary"></i>
+                        <h4>satisfied customers</h4>
+                        <h1>1963</h1>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-6 col-xl-3">
+                    <div class="counter bg-white rounded p-5">
+                        <i class="fa fa-users text-secondary"></i>
+                        <h4>quality of service</h4>
+                        <h1>99%</h1>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-6 col-xl-3">
+                    <div class="counter bg-white rounded p-5">
+                        <i class="fa fa-users text-secondary"></i>
+                        <h4>quality certificates</h4>
+                        <h1>33</h1>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-6 col-xl-3">
+                    <div class="counter bg-white rounded p-5">
+                        <i class="fa fa-users text-secondary"></i>
+                        <h4>Available Products</h4>
+                        <h1>789</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ========================================================== -->
+<!-- TESTIMONIALS -->
+<!-- ========================================================== -->
 <div class="container-fluid testimonial py-5">
     <div class="container py-5">
         <div class="testimonial-header text-center">
@@ -1494,15 +1066,9 @@
                     <div class="d-flex align-items-center flex-nowrap">
                         <div class="bg-secondary rounded" style="width: 80px; height: 80px; overflow: hidden; border-radius: 50%;">
                             {% if testimonial.client_image %}
-                                <img src="{{ testimonial.client_image.url }}" 
-                                     class="img-fluid" 
-                                     style="width: 100%; height: 100%; object-fit: cover;" 
-                                     alt="{{ testimonial.client_name }}">
+                                <img src="{{ testimonial.client_image.url }}" class="img-fluid" style="width: 100%; height: 100%; object-fit: cover;" alt="{{ testimonial.client_name }}">
                             {% else %}
-                                <img src="{% static 'img/testimonial-1.jpg' %}" 
-                                     class="img-fluid" 
-                                     style="width: 100%; height: 100%; object-fit: cover;" 
-                                     alt="{{ testimonial.client_name }}">
+                                <img src="{% static 'img/testimonial-1.jpg' %}" class="img-fluid" style="width: 100%; height: 100%; object-fit: cover;" alt="{{ testimonial.client_name }}">
                             {% endif %}
                         </div>
                         <div class="ms-4 d-block">
@@ -1524,32 +1090,26 @@
             {% empty %}
             <div class="testimonial-item img-border-radius bg-light rounded p-4">
                 <div class="position-relative text-center py-4">
-                    <p class="text-muted">No testimonials available yet. Add some from the admin panel!</p>
+                    <p class="text-muted">No testimonials available yet.</p>
                 </div>
             </div>
             {% endfor %}
         </div>
     </div>
 </div>
-<!-- Testimonial End -->
-
-</body>
 
 <!-- ========================================================== -->
-<!-- JAVASCRIPT - WhatsApp Function -->
+<!-- JAVASCRIPT -->
 <!-- ========================================================== -->
 <script>
 // ========================================
 // WHATSAPP ORDER FUNCTION
 // ========================================
 function openWhatsApp(productName, price) {
-    // Get WhatsApp number from site settings or use default
     var whatsappNumber = "{{ site_settings.whatsapp_number|default:'923001234567' }}";
     var cleanNumber = whatsappNumber.replace(/[^0-9]/g, '');
-    
     var message = "Hello! I'm interested in this product:\n\n📦 *Product:* " + productName + "\n💰 *Price:* Rs. " + price + "\n\nCan you provide more details?";
     var encodedMessage = encodeURIComponent(message);
-    
     window.open('https://wa.me/' + cleanNumber + '?text=' + encodedMessage, '_blank');
 }
 
@@ -1557,7 +1117,6 @@ function openWhatsApp(productName, price) {
 // OWL CAROUSEL INITIALIZATION
 // ========================================
 $(document).ready(function() {
-    // New Arrivals Carousel
     $('.vegetable-carousel').owlCarousel({
         loop: true,
         margin: 25,
@@ -1567,35 +1126,14 @@ $(document).ready(function() {
         autoplayTimeout: 4000,
         autoplayHoverPause: true,
         responsive: {
-            0: {
-                items: 1,
-                nav: false,
-                dots: true
-            },
-            576: {
-                items: 2,
-                nav: false,
-                dots: true
-            },
-            768: {
-                items: 3,
-                nav: true,
-                dots: true
-            },
-            992: {
-                items: 4,
-                nav: true,
-                dots: true
-            },
-            1200: {
-                items: 4,
-                nav: true,
-                dots: true
-            }
+            0: { items: 1, nav: false, dots: true },
+            576: { items: 2, nav: false, dots: true },
+            768: { items: 3, nav: true, dots: true },
+            992: { items: 4, nav: true, dots: true },
+            1200: { items: 4, nav: true, dots: true }
         }
     });
     
-    // Testimonial Carousel
     $('.testimonial-carousel').owlCarousel({
         loop: true,
         margin: 30,
@@ -1605,18 +1143,9 @@ $(document).ready(function() {
         autoplayTimeout: 5000,
         autoplayHoverPause: true,
         responsive: {
-            0: {
-                items: 1,
-                nav: false
-            },
-            768: {
-                items: 2,
-                nav: true
-            },
-            992: {
-                items: 3,
-                nav: true
-            }
+            0: { items: 1, nav: false },
+            768: { items: 2, nav: true },
+            992: { items: 3, nav: true }
         }
     });
 });
@@ -1625,22 +1154,17 @@ $(document).ready(function() {
 // TAB FUNCTIONALITY
 // ========================================
 document.addEventListener('DOMContentLoaded', function() {
-    const tabs = document.querySelectorAll('.nav-pills .nav-link');
-    
-    tabs.forEach(tab => {
+    var tabs = document.querySelectorAll('.nav-pills .nav-link');
+    tabs.forEach(function(tab) {
         tab.addEventListener('click', function(e) {
             e.preventDefault();
-            
-            tabs.forEach(t => t.classList.remove('active'));
+            tabs.forEach(function(t) { t.classList.remove('active'); });
             this.classList.add('active');
-            
-            const target = this.getAttribute('href');
-            
-            document.querySelectorAll('.tab-pane').forEach(pane => {
+            var target = this.getAttribute('href');
+            document.querySelectorAll('.tab-pane').forEach(function(pane) {
                 pane.classList.remove('show', 'active');
             });
-            
-            const targetPane = document.querySelector(target);
+            var targetPane = document.querySelector(target);
             if (targetPane) {
                 targetPane.classList.add('show', 'active');
             }
