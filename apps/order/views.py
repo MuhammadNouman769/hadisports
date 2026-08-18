@@ -12,7 +12,7 @@ from apps.products.models.product_variant import ProductVariant
 from apps.whatsapp.models.whatsapp_setting import SiteSetting
 from .utils import render_to_pdf
 
-
+""" ================== CheckOutView ================= """
 class CheckoutView(View):
     template_name = "orders/checkout.html"
 
@@ -118,6 +118,7 @@ class CheckoutView(View):
 
 
 # PDF Download View (For Receipt)
+""" ============= OrderPDFView ============= """
 class OrderPDFView(View):
     def get(self, request, order_id):
         order = get_object_or_404(Order, order_id=order_id)

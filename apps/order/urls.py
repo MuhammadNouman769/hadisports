@@ -5,5 +5,5 @@ app_name = 'orders'
 
 urlpatterns = [
     path('checkout/', CheckoutView.as_view(), name='checkout'),
-    path('pdf/<str:order_id>/', OrderPDFView.as_view(), name='order_pdf'),  # ✅ PDF URL
+    path('pdf/<str:order_id>/', OrderPDFView.as_view(), name='order_pdf'),  
 ]
