@@ -1,5 +1,5 @@
 import json
-from django.db.models import Prefetch, Q
+from django.db.models import Prefetch, Q, Subquery, OuterRef, DecimalField
 from django.views.generic import TemplateView, ListView, DetailView
 from django.shortcuts import get_object_or_404
 from django.core.paginator import Paginator
@@ -181,9 +181,6 @@ class HomeView(TemplateView):
         context["hero_banners"] = HeroBanner.objects.filter(
             is_active=True
         ).order_by("display_order", "-created_at")
-        
-        return context
-
 
         return context
 
@@ -208,11 +205,22 @@ class ProductListView(ListView):
             .order_by("-is_default", "position", "id")
         )
 
+        default_price_subquery = ProductVariant.objects.filter(
+            product_id=OuterRef("pk"),
+            is_active=True,
+        ).order_by("price").values("price")[:1]
+
         queryset = (
             Product.objects.filter(is_active=True)
             .select_related("category")
             .prefetch_related(
                 Prefetch("variants", queryset=variant_queryset),
+            )
+            .annotate(
+                default_variant_price=Subquery(
+                    default_price_subquery,
+                    output_field=DecimalField(max_digits=12, decimal_places=2),
+                )
             )
         )
 
@@ -242,9 +250,9 @@ class ProductListView(ListView):
         # Sorting
         sort = self.request.GET.get("sort")
         if sort == "price_low":
-            queryset = queryset.order_by("variants__price")
+            queryset = queryset.order_by("default_variant_price", "-created_at")
         elif sort == "price_high":
-            queryset = queryset.order_by("-variants__price")
+            queryset = queryset.order_by("-default_variant_price", "-created_at")
         elif sort == "name_asc":
             queryset = queryset.order_by("name")
         elif sort == "name_desc":
@@ -252,7 +260,7 @@ class ProductListView(ListView):
         else:
             queryset = queryset.order_by("-created_at")
 
-        return queryset
+        return queryset.distinct()
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

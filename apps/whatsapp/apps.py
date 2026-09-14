@@ -1,5 +1,6 @@
 from django.apps import AppConfig
 
 
-class whatsppConfig(AppConfig):
-    name = 'apps.whatsapp'
+class WhatsAppConfig(AppConfig):
+    default_auto_field = "django.db.models.BigAutoField"
+    name = "apps.whatsapp"

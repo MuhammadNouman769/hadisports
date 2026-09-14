@@ -22,21 +22,25 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # ============================================
 # SECURITY WARNING: keep the secret key used in production secret!
 # ============================================
-SECRET_KEY = config("SECRET_KEY")
-DEBUG = config("DEBUG", cast=bool)
-ALLOWED_HOSTS = config("ALLOWED_HOSTS", cast=lambda v: [s.strip() for s in v.split(",")])
+SECRET_KEY = config("SECRET_KEY", default="dev-secret-key-change-me")
+DEBUG = config("DEBUG", default=True, cast=bool)
+ALLOWED_HOSTS = config(
+    "ALLOWED_HOSTS",
+    default="127.0.0.1,localhost",
+    cast=lambda v: [s.strip() for s in v.split(",") if s.strip()],
+)
 
 
 # ============================================
 # EMAIL CONFIGURATION
 # ============================================
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-EMAIL_HOST_USER = config('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
-DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL')
+EMAIL_HOST = config('EMAIL_HOST', default='smtp.gmail.com')
+EMAIL_PORT = config('EMAIL_PORT', default=587, cast=int)
+EMAIL_USE_TLS = config('EMAIL_USE_TLS', default=True, cast=bool)
+EMAIL_HOST_USER = config('EMAIL_HOST_USER', default='noreply@localhost')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD', default='')
+DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL', default='noreply@localhost')
 
 
 # ============================================
@@ -49,20 +53,20 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    
+
     # Third-party apps
     "nested_admin",
     "whitenoise.runserver_nostatic",  # WhiteNoise for static files
-    
+
     # Local apps
     "apps.utils",
-    "apps.main",
-    "apps.products",
-    "apps.cart",
-    "apps.order",
-    "apps.whatsapp",
-    "apps.contact",
-    "apps.testimonials",
+    "apps.main.apps.MainConfig",
+    "apps.products.apps.ProductsConfig",
+    "apps.cart.apps.CartConfig",
+    "apps.order.apps.OrderConfig",
+    "apps.whatsapp.apps.WhatsAppConfig",
+    "apps.contact.apps.ContactConfig",
+    "apps.testimonials.apps.TestimonialsConfig",
 ]
 
 
@@ -116,28 +120,28 @@ WSGI_APPLICATION = 'core.wsgi.application'
 
 
 # ============================================
-# DATABASE - PostgreSQL (PRODUCTION READY)
+# DATABASE
 # ============================================
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': config('DB_NAME', default='hadisports_db'),
-        'USER': config('DB_USER', default='hadisports_user'),
-        'PASSWORD': config('DB_PASSWORD', default='hadisports@gmail.com'),
-        'HOST': config('DB_HOST', default='localhost'),
-        'PORT': config('DB_PORT', default='5432'),
-    }
-}
+USE_SQLITE = config('USE_SQLITE', default='True', cast=bool)
 
-# ============================================
-# DATABASE - SQLite3 (Development - Commented)
-# ============================================
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
+if USE_SQLITE:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': config('DB_NAME', default='hadisports_db'),
+            'USER': config('DB_USER', default='hadisports_user'),
+            'PASSWORD': config('DB_PASSWORD', default='hadisports@gmail.com'),
+            'HOST': config('DB_HOST', default='localhost'),
+            'PORT': config('DB_PORT', default='5432'),
+        }
+    }
 
 
 # ============================================
@@ -184,7 +188,7 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 # ============================================
 # MEDIA FILES (Uploaded by users)
 # ============================================
-MEDIA_URL = "media/"
+MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
 
 
@@ -198,11 +202,19 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # settings.py ke end mein
 if not DEBUG:
+    # Production hardening
+    SECURE_HSTS_SECONDS = 31536000
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+    SECURE_HSTS_PRELOAD = True
+    SECURE_SSL_REDIRECT = True
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
+    SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+
     # Whitenoise media files support (optional)
     WHITENOISE_USE_FINDERS = True
-    
-    # For media files (not recommended, but works)
+
+    # Keep static files collection explicit and safe.
     STATICFILES_DIRS = [
         BASE_DIR / 'static',
-        BASE_DIR / 'media',  # Media files ko bhi serve karega
     ]

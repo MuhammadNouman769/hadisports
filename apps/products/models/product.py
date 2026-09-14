@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 from apps.utils.models import SlugModel
 from apps.products.models.product_category import ProductCategory
@@ -119,6 +120,13 @@ class Product(SlugModel):
             return None
 
         return variant.primary_image
+
+    # ------------------------------------------------------------------
+    # URL / Display
+    # ------------------------------------------------------------------
+
+    def get_absolute_url(self):
+        return reverse("products:product-detail", kwargs={"slug": self.slug})
 
     # ------------------------------------------------------------------
     # String

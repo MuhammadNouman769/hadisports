@@ -49,10 +49,10 @@ class TestimonialView(TemplateView):
     template_name = "testimonials/testimonial.html"
 
 class ErrorView(TemplateView):
-    template_name = "errors/404.html"   
+    template_name = "404.html"
 
 class Error500View(TemplateView):
-    template_name = "errors/500.html"
+    template_name = "500.html"
 
 
 
